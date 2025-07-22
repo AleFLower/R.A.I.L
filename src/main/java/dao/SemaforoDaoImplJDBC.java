@@ -30,15 +30,23 @@ public class SemaforoDaoImplJDBC implements EntitaFerroviariaDao {
         //ora lo invio
         //questa operazione può essere fatta da tutti, sia loggati che non
         //vedo se il Semaforo e' già presente o no nel db, se lo e' comunico che gi esiste nel db, altrimenti lo salvo nel db
-        if(!cercaSemaforo(SemaforoDaSegnalare)){
+        if(!cercaSemaforo(SemaforoDaSegnalare)) {
+            if (UtilityAccesso.getCodiceUtente() != null) {
                 //l'utente è loggato nel sistema, la sua segnalazione deve essere salvata nel db
-                preparedStatement=connection.prepareStatement(QueriesSemaforo.queriesSalvaSemaforoAdUnUtenteDelSistema());
-                preparedStatement.setString(1,SemaforoDaSegnalare.getInfo());
-                preparedStatement.setString(2,SemaforoDaSegnalare.getstazione());
-                preparedStatement.setString(3,SemaforoDaSegnalare.getDescrizioneProblema());
-                preparedStatement.setString(4,UtilityAccesso.getCodiceUtente());
+                preparedStatement = connection.prepareStatement(QueriesSemaforo.queriesSalvaSemaforoAdUnUtenteDelSistema());
+                preparedStatement.setString(1, SemaforoDaSegnalare.getInfo());
+                preparedStatement.setString(2, SemaforoDaSegnalare.getstazione());
+                preparedStatement.setString(3, SemaforoDaSegnalare.getDescrizioneProblema());
+                preparedStatement.setString(4, UtilityAccesso.getCodiceUtente());
                 preparedStatement.executeUpdate();
-                this.esito=0;
+                this.esito = 0;
+            }
+            else{
+                preparedStatement = connection.prepareStatement(QueriesSemaforo.queriesSalvaSemaforo());
+                preparedStatement.setString(1, SemaforoDaSegnalare.getInfo());
+                preparedStatement.setString(2, SemaforoDaSegnalare.getstazione());
+                preparedStatement.setString(3, SemaforoDaSegnalare.getDescrizioneProblema());
+            }
         }else {
             esito=-1;
             throw new SegnalazioneGiaAvvenutaException("il semaforo è stato già segnalato da un altro utente");

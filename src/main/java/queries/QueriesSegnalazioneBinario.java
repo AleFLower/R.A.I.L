@@ -9,8 +9,7 @@ public class QueriesSegnalazioneBinario {
     }
     static final String QUERIES_VEDI_Segnal_SEGNALATE="SELECT * FROM binario";
     //operazione che possono fare gli utenti
-    static final String QUERIES_SALVA_binario = "INSERT INTO binario(numeroBinario,stazione,problematica) VALUES(?,?,?,);";
-    static final String QUERIES_SALVA_binario_AD_UN_UTENTE="INSERT INTO binario(numeroBinario,stazione,problematica,codiceUtente) VALUES(?,?,?,?);";
+    static final String QUERIES_SALVA_binario = "INSERT INTO binario(numeroBinario,stazione,problematica,codiceUtente) VALUES(?,?,?,?);";
     //operazione che puo fare solo l'admin dopo che il problema e' stato risolto
     static final String QUERIES_RIMUOVI_binario="DELETE  FROM binario where (stazione=? AND codice_utente=?);";
     static final String QUERIES_CAMBIA_STATO_binario="UPDATE binario SET stato = ? WHERE (codiceUtente = ? AND stazione=?);";
@@ -26,7 +25,6 @@ public class QueriesSegnalazioneBinario {
         return QUERIES_VEDI_Segnal_SEGNALATE;
     }
     public static String queriesSalvabinario(){return QUERIES_SALVA_binario;}
-    public static String queriesSalvaBinarioUtente(){return QUERIES_SALVA_binario_AD_UN_UTENTE;}
     public static String queriesRimuovibinario(){return QUERIES_RIMUOVI_binario;}
     public static String queriesCambiaStatobinario(){return QUERIES_CAMBIA_STATO_binario;}
    //queries per vedere le buche che gli utenti loggati hanno segnalato

@@ -7,7 +7,8 @@ public class QueriesSemaforo {
     //nota nelle query il termine 'Semaforo' e' il nome della relazione presente nel database "database-app-ispw"
     //quetse sono dei prepare statment, i valori nei ? verranno settati nella classe che vuole svolgete la query
     static final String QUERIES_PRENDI_Semaforo="SELECT * FROM Semaforo where numeroSeriale=?";
-    static final String QUERIES_SALVA_Semaforo="INSERT INTO Semaforo(numeroSeriale,stazione,problematica,codiceUtente) VALUES(?,?,?,?);";
+    static final String QUERIES_SALVA_Semaforo="INSERT INTO Semaforo(numeroSeriale,stazione,problematica) VALUES(?,?,?);";
+    static final String QUERIES_SALVA_Semaforo_Ad_Utente="INSERT INTO Semaforo(numeroSeriale,stazione,problematica,codiceUtente) VALUES(?,?,?,?);";
     static final String QUERIES_RIMUOVI_Semaforo="DELETE  FROM Semaforo where (numeroSeriale=? AND stazione=?);";
     static final String QUERIES_RESTITUISCI_Semaforo="SELECT * FROM Semaforo";
     static final String QUERIES_CAMBIA_STATO_Semaforo="UPDATE Semaforo SET stato = ? WHERE (numeroSeriale=? AND stazione=?);";
@@ -36,7 +37,7 @@ public class QueriesSemaforo {
         return QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE;
     }
     public static String queriesMostraSegnalazioniCompletate(){return QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE;}
-
+   public static String getQUERIES_SALVA_Semaforo_Ad_Utente(){return QUERIES_SALVA_Semaforo_Ad_Utente;}
     public static String getQueriesMostraTutteSegnalazionisemafori(){return QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_semafori;}
 
 }

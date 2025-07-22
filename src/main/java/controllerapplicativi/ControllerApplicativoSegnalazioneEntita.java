@@ -32,10 +32,10 @@ public class ControllerApplicativoSegnalazioneEntita {
         //inizio prendendo il tipo dell'entità segnalata
         this.tipoEntita=beanSegnalaEntita.getTipoEntitaSegnalata();
         //vedo se è una binario e se l'utente è online, cosi in caso contrario lo blocco subito
-        if(tipoEntita==TypeEntita.SEMAFORO && UtilityAccesso.getAccount().getStatoAttuale().equals("OFFLINE")){
+        if(tipoEntita==TypeEntita.BINARIO && UtilityAccesso.getAccount().getStatoAttuale().equals("OFFLINE")){
             //l'utente cerca di segnalare una binario ma non e' registrato quindi viene lanciata un eccezione che gli
             //dice che la segnalazione della binario puo' essere fatta solo se registrato
-            throw new NessunAccessoEffettuatoException("per segnalare un semaforo devi essere registrato");
+            throw new NessunAccessoEffettuatoException("per segnalare un binario devi essere registrato");
         }
         this.stazione=beanSegnalaEntita.getstazione();
         this.infoEntita=beanSegnalaEntita.getInfoEntita();

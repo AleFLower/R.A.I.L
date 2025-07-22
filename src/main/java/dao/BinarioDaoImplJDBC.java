@@ -37,18 +37,13 @@ public class BinarioDaoImplJDBC implements EntitaFerroviariaDao {
         if (!cercabinario(BinarioDaSegnalare)) {
             if (UtilityAccesso.getCodiceUtente() != null) {
                 //la binario non è presente nel db, posso quindi  inviarla
-                preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesSalvaBinarioUtente());
+                preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesSalvabinario());
                 preparedStatement.setString(1, BinarioDaSegnalare.getInfo());
                 preparedStatement.setString(2, BinarioDaSegnalare.getstazione());
                 preparedStatement.setString(3, BinarioDaSegnalare.getDescrizioneProblema());
                 preparedStatement.setString(4, UtilityAccesso.getCodiceUtente());
                 preparedStatement.executeUpdate();
                 esito = 0;
-            } else {
-                preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesSalvabinario());
-                preparedStatement.setString(1, BinarioDaSegnalare.getInfo());
-                preparedStatement.setString(2, BinarioDaSegnalare.getstazione());
-                preparedStatement.setString(3, BinarioDaSegnalare.getDescrizioneProblema());
             }
         } else {
             //la binario è presente nel db devo quindi comunicarlo all'utente

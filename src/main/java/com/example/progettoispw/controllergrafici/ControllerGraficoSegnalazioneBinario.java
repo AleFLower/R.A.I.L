@@ -15,6 +15,7 @@ import utility.UtilityAccesso;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGenerale{
@@ -30,6 +31,8 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
     private JFXButton inviaSegnalazioneButton1;
     @FXML
     private Label labelErrore;
+    private final ControllerVisualizzatoreScene controllerVisualizzatoreScene=ControllerVisualizzatoreScene.getInstance(null);
+
 
     @FXML
     private JFXButton inviaSegnalazioneButtonInLocale;
@@ -88,7 +91,6 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                     labelErrore.setText("segnalazione avvenuta con successo\ntorna alla home =)");
                     disattivaButton();
                 } catch(SQLException | ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException | IOException e){
-                    System.out.println(e.getMessage());
                     settaTestoEccezione(e);
                 }
             }
@@ -109,8 +111,36 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         inviaSegnalazioneButtonInLocale.setDisable(true);
     }
     public void settaTestoEccezione(Exception e){
-        labelErrore.setText(e.getMessage());
+        if (e instanceof NessunAccessoEffettuatoException) {
+            mostraDialogoAccesso();
+        } else {
+            labelErrore.setText(e.getMessage());
+        }
     }
+
+    private void mostraDialogoAccesso() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Accesso richiesto");
+        alert.setHeaderText("Non hai effettuato l'accesso");
+        alert.setContentText("Per continuare devi accedere o registrarti. Cosa vuoi fare?");
+
+        ButtonType buttonLogin = new ButtonType("Sign in");
+        ButtonType buttonRegister = new ButtonType("Sign up");
+        ButtonType buttonCancel = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonLogin, buttonRegister, buttonCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent()) {
+            if (result.get() == buttonLogin) {
+                controllerVisualizzatoreScene.visualizzaScena("login-registrazione-page.fxml");
+            } else if (result.get() == buttonRegister) {
+                controllerVisualizzatoreScene.visualizzaScena("registrazione-page.fxml");
+            }
+        }
+    }
+
     public boolean controllaInput() {
         if (textFieldstazione.getText().isEmpty() || comboBoxNumeroBinario.getValue() == null) {
             labelErrore.setText("Inserire stazione e selezionare la visibilità");
