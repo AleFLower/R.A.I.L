@@ -20,20 +20,28 @@ public class ArchivioSegnalazioniMemory {
 
     private ArchivioSegnalazioniMemory() {}
 
-    public static void salvaLevelCrossing(LevelCrossing levelCrossing, String codiceUtente) throws SegnalazioneGiaAvvenutaException {
-        if (!LevelCrossingSegnalati.add(levelCrossing)) {
-            throw new SegnalazioneGiaAvvenutaException("Level Crossing già segnalato in memoria.");
+    public static void salvaLevelCrossing(LevelCrossing nuovoPL, String codiceUtente) throws SegnalazioneGiaAvvenutaException {
+        for (LevelCrossing pl : LevelCrossingSegnalati) {
+            if (pl.getInfo().equals(nuovoPL.getInfo())) {
+                throw new SegnalazioneGiaAvvenutaException("Level Crossing già segnalato con stesso codice ");
+            }
         }
-        registraSegnalazioneUtente(codiceUtente, levelCrossing);
+        LevelCrossingSegnalati.add(nuovoPL);
+        registraSegnalazioneUtente(codiceUtente, nuovoPL);
     }
 
-    public static void salvabinario(Binario binario, String codiceUtente) throws SegnalazioneGiaAvvenutaException {
-        if (!indirizzibinariSegnalate.add(binario.getlocalizzazione())) {
-            throw new SegnalazioneGiaAvvenutaException("Binario già segnalato in memoria.");
+
+    public static void salvabinario(Binario nuovoBinario, String codiceUtente) throws SegnalazioneGiaAvvenutaException {
+        for (Binario b : BinariSegnalati) {
+            if (b.getInfo().equals(nuovoBinario.getInfo())
+                    && b.getlocalizzazione().equals(nuovoBinario.getlocalizzazione())) {
+                throw new SegnalazioneGiaAvvenutaException("Binario già segnalato con stesso numero e localizzazione.");
+            }
         }
-        BinariSegnalati.add(binario);
-        registraSegnalazioneUtente(codiceUtente, binario);
+        BinariSegnalati.add(nuovoBinario);
+        registraSegnalazioneUtente(codiceUtente, nuovoBinario);
     }
+
 
     private static void registraSegnalazioneUtente(String codiceUtente, EntitaFerroviaria entita) {
         segnalazioniPerUtente.computeIfAbsent(codiceUtente, k -> new ArrayList<>()).add(entita);

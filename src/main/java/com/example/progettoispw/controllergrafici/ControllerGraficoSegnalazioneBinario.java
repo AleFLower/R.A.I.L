@@ -55,7 +55,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                     );
                     //questi dati devono essere mandati al controller applicativo
                     ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita=new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-                    labelErrore.setText("segnalazione avvenuta con successo\ntorna alla home =)");
+                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
                     disattivaButton();
                 } catch(SQLException | ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException |
                         IOException e){
@@ -86,7 +86,8 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                     );
                     //questi dati devono essere mandati al controller applicativo
                     ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita=new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-                    labelErrore.setText("segnalazione avvenuta con successo\ntorna alla home =)");
+                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
+
                     disattivaButton();
                 } catch(SQLException | ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException | IOException e){
                     settaTestoEccezione(e);
@@ -112,7 +113,8 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         if (e instanceof NessunAccessoEffettuatoException) {
             mostraDialogoAccesso();
         } else {
-            labelErrore.setText(e.getMessage());
+            mostraAlertErrore(e.getMessage());
+            disattivaButton();
         }
     }
 
@@ -138,6 +140,24 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
             }
         }
     }
+
+    private void mostraAlertErrore(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("Si è verificato un errore");
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+    }
+
+    private void mostraAlertSuccesso(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Operazione completata");
+        alert.setHeaderText(null);
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+    }
+
+
 
     public boolean controllaInput() {
         if (textFieldlocalizzazione.getText().isEmpty() || comboBoxNumeroBinario.getValue() == null) {

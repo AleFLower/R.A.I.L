@@ -44,12 +44,12 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <JFXButton fx:id="salvaButton" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="233.0" layoutY="316.0" prefHeight="53.0" prefWidth="230.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #1D3461;" styleClass="buttonItem" text="salva" textFill="#e0e1dd">
+      <JFXButton fx:id="salvaButton" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="233.0" layoutY="316.0" prefHeight="53.0" prefWidth="230.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="salva" textFill="#e0e1dd">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <Pane prefHeight="45.0" prefWidth="696.0" style="-fx-background-color: #1D3461;" />
+      <Pane prefHeight="45.0" prefWidth="696.0" style="-fx-background-color: #2E2E2E;" />
       <Label fx:id="labelCognome" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="111.0" layoutY="184.0" prefHeight="59.0" prefWidth="201.0" scaleShape="false" text=" ">
          <font>
             <Font size="16.0" />

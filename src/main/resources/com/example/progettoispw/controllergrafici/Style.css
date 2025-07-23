@@ -1,15 +1,25 @@
-.menuItem:hover{
-    -fx-border-color: #FF7733;
-    -fx-border-width: 0px 0px 3px 0px;
+.menuItem:hover {
+    -fx-border-color: #F39C12;
+    -fx-border-width: 0 0 3px 0;
+    -fx-background-color: transparent;
 }
 
-.sidebarItem:hover{
-    -fx-background-color: #146886;
-    -fx-border-color: #FF7733;
-    -fx-border-width: 0px 0px 0px 4px;
+.sidebarItem:hover {
+    -fx-background-color: #34495E;
+    -fx-border-color: #00ADB5;
+    -fx-border-width: 0 0 0 4px;
 }
-.buttonItem:hover{
-    -fx-background-color: #660099;
-    -fx-border-color: #FF7733;
-    -fx-border-width: 0px 0px 4px 0px;
+
+.buttonItem {
+    -fx-background-color: #2C3E50;
+    -fx-text-fill: #ECF0F1;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.buttonItem:hover {
+    -fx-background-color: #6C5CE7;
+    -fx-border-color: #00ADB5;
+    -fx-border-width: 0 0 4px 0;
 }

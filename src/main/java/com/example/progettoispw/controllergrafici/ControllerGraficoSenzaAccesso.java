@@ -114,19 +114,10 @@ public class ControllerGraficoSenzaAccesso implements Initializable {
                         controllerVisualizzatoreScene.visualizzaScena("login-registrazione-page.fxml");
                     }
             });
-            contattiButton.setOnMouseClicked(event -> {
-                controllerVisualizzatoreScene.visualizzaScena("ContattaciPage.fxml");
 
-            });
-            chiSiamoButton.setOnMouseClicked(event -> {
-                controllerVisualizzatoreScene.visualizzaScena("chiSiamoNoi.fxml");
-            });
-            aiutoButton.setOnMouseClicked(event -> {
-                controllerVisualizzatoreScene.visualizzaScena("aiutoAccess.fxml");
-            });
-            impostazioniButton.setOnMouseClicked(event->{
-                controllerVisualizzatoreScene.visualizzaScena("PaginaImpostazioni.fxml");
-            });
+
+
+
         }catch (Exception e){
             System.exit(-1);
         }

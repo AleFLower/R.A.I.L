@@ -2,7 +2,7 @@ package queries;
 
 public class QueriesSegnalazioneBinario {
 
-    //costruiamo le buche in modo che solo gli utenti registrati al sistema possono segnalarle
+    //costruiamo i binari in modo che solo gli utenti registrati al sistema possono segnalarli
     //operazione che puo fare solo l'admin
     private QueriesSegnalazioneBinario(){
         //non viene chiamato da nessuno, questa classe e' una utity alla fine

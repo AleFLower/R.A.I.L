@@ -7,6 +7,7 @@ import factory.TypeOfPersistence;
 import eccezioni.*;
 import factory.TypeEntita;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import utility.UtilityAccesso;
@@ -57,7 +58,7 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
                     //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
                     //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
                     //in caso dovesse premere per sbaglio di nuovo il pulsante invia
-                    labelErrore.setText("segnalazione avvenuta con successo\ntorna alla home =)");
+                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
                     disattivaButton();
                 } catch (LunghezzaInputException | SQLException | ErroreLetturaPasswordException |
                          SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException |
@@ -86,7 +87,7 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
                     //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
                     //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
                     //in caso dovesse premere per sbaglio di nuovo il pulsante invia
-                    labelErrore.setText("segnalazione avvenuta con successo\ntorna alla home =)");
+                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
                     disattivaButton();
                 } catch (LunghezzaInputException | SQLException | ErroreLetturaPasswordException |
                          SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException | IOException e) {
@@ -111,8 +112,17 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
     public void disattivaButton() {
         textFieldlocalizzazione.setDisable(true);
         textFieldcodicePL.setDisable(true);
+        textFieldProblematica.setDisable(true);
         inviaSegnalazioneButton.setDisable(true);
         inviaSegnalazioneInLocaleButton.setDisable(true);
+    }
+
+    private void mostraAlertSuccesso(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Operazione completata");
+        alert.setHeaderText(null);
+        alert.setContentText(messaggio);
+        alert.showAndWait();
     }
 
     public boolean controllaInput() {
@@ -122,12 +132,21 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
         }
         return true;
     }
+
+    private void mostraAlertErrore(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("Si è verificato un errore");
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+    }
+
     public void verificaEccezione(Exception e){
-        labelErrore.setText(e.getMessage());
+        mostraAlertErrore(e.getMessage());
         if (e.getClass() == SegnalazioneGiaAvvenutaException.class) {
             /*se l'eccezione è di tipo segnalazione già avvenuta l'utente ha portato a termine quello che
              * voleva fare quindi posso disabilitare i pulsanti */
-            labelErrore.setText(e.getMessage());
+           // labelErrore.setText(e.getMessage());
             disattivaButton();
         }
     }
