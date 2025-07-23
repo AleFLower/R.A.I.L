@@ -30,8 +30,8 @@ public class FactoryDaoFS extends FactoryDao  {
             switch (typeEntita) {
                 case BINARIO:
                     return new BinarioDaoImplFileSystem();
-                case SEMAFORO:
-                    return new SemaforoDaoImplFileSystem();
+                case LEVELCROSSING:
+                    return new PassaggioLivelloDaoImplFileSystem();
                 default:
                     throw new IllegalArgumentException("Tipo di entità non supportato: " + typeEntita);
             }

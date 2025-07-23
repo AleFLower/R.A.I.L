@@ -1,12 +1,12 @@
 package controllergraficicommandlineinterface;
 
-import cli.PaginaSegnalazioneSemaforoCli;
+import cli.PaginaSegnalazionePassaggioALivelloCli;
 import java.io.IOException;
 
 
 public class ControllerGraficoPaginaSegnalazioneProblema {
-    public void segnalaSemaforo() throws IOException {
-        PaginaSegnalazioneSemaforoCli paginaSegnalazioneSemaforo=new PaginaSegnalazioneSemaforoCli();
-        paginaSegnalazioneSemaforo.inserisciInput();
+    public void segnalalevelCrossing() throws IOException {
+        PaginaSegnalazionePassaggioALivelloCli paginaSegnalazionelevelCrossing=new PaginaSegnalazionePassaggioALivelloCli();
+        paginaSegnalazionelevelCrossing.inserisciInput();
     }
 }

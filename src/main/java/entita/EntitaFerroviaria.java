@@ -3,18 +3,18 @@ package entita;
 import factory.TypeEntita;
 
 public abstract class EntitaFerroviaria {
-    protected final String stazione;          // Es. "Binario 5", "Stazione Centrale"
+    protected final String localizzazione;          // Es. "Binario 5", "localizzazione Centrale"
     protected final String descrizioneProblema; // Es. "display spento", "ascensore bloccato"
     protected String stato = "in attesa";        // Stato della segnalazione
     protected TypeEntita tipoEntita;  // Enum specifico per entità ferroviarie
 
-    public EntitaFerroviaria(String stazione, String descrizioneProblema) {
-        this.stazione = stazione;
+    public EntitaFerroviaria(String localizzazione, String descrizioneProblema) {
+        this.localizzazione = localizzazione;
         this.descrizioneProblema = descrizioneProblema;
     }
 
-    public String getstazione() {
-        return stazione;
+    public String getlocalizzazione() {
+        return localizzazione;
     }
 
     public String getDescrizioneProblema() {

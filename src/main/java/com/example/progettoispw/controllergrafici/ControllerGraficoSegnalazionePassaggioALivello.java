@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
-public class ControllerGraficoSegnalazioneSemafori extends ControllerGraficoGenerale {
+public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGraficoGenerale {
 
     /*questo controller è associato alla PaginaSegnalaProblemaIlluminazione la quale possiede:
      * i DUE textField in cui l'utente inserisce i campi
@@ -31,16 +31,16 @@ public class ControllerGraficoSegnalazioneSemafori extends ControllerGraficoGene
     @FXML
     private TextField textFieldProblematica;
     @FXML
-    private TextField textFieldNumeroSeriale;
+    private TextField textFieldcodicePL;
     @FXML
-    private TextField textFieldstazione;
+    private TextField textFieldlocalizzazione;
     @FXML
     private JFXButton inviaSegnalazioneButton;
     @FXML
     private Label labelErrore;
-    //se sono in questo controller grafico vuol dire che l'utente sta segnalando un Semaforo dell'illuminazione, quindi la
-    //mia entita stradale sara' di tipo type_Semaforo_illuminazione
-    private TypeEntita typeEntita = TypeEntita.SEMAFORO;
+    //se sono in questo controller grafico vuol dire che l'utente sta segnalando un levelCrossing dell'illuminazione, quindi la
+    //mia entita stradale sara' di tipo type_levelCrossing_illuminazione
+    private TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
     private TypeOfPersistence typeOfPersistence;
 
     @Override
@@ -51,8 +51,8 @@ public class ControllerGraficoSegnalazioneSemafori extends ControllerGraficoGene
                 //sara' proprio qui che avverrà l'invio al bean dei dati che ha inserito l'utente in input
                 try {
                     typeOfPersistence = UtilityAccesso.getPersistence();
-                    beanVerificaDati=beanVerifica(textFieldNumeroSeriale.getText(), textFieldstazione.getText(),textFieldProblematica.getText(), typeEntita, typeOfPersistence);
-                    //la lunghezza seriale del Semaforo inserita dall'utente è corretta, invio il bean al controller applicativo
+                    beanVerificaDati=beanVerifica(textFieldcodicePL.getText(), textFieldlocalizzazione.getText(),textFieldProblematica.getText(), typeEntita, typeOfPersistence);
+                    //la lunghezza seriale del levelCrossing inserita dall'utente è corretta, invio il bean al controller applicativo
                     ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita = new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
                     //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
                     //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
@@ -81,7 +81,7 @@ public class ControllerGraficoSegnalazioneSemafori extends ControllerGraficoGene
                 try {
                     //il tipo di persistenza sarà il file system ora
                     typeOfPersistence = TypeOfPersistence.FILESYSTEM;
-                    beanVerificaDati = beanVerifica(textFieldNumeroSeriale.getText(), textFieldstazione.getText(), textFieldProblematica.getText(),typeEntita, typeOfPersistence);
+                    beanVerificaDati = beanVerifica(textFieldcodicePL.getText(), textFieldlocalizzazione.getText(), textFieldProblematica.getText(),typeEntita, typeOfPersistence);
                     ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita = new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
                     //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
                     //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
@@ -102,21 +102,21 @@ public class ControllerGraficoSegnalazioneSemafori extends ControllerGraficoGene
         super.initialize(url, resourceBundle);
     }
 
-    public BeanSegnalaEntita beanVerifica(String numeroSeriale, String stazione,String problematica ,TypeEntita te, TypeOfPersistence top) throws LunghezzaInputException {
-        BeanSegnalaEntita beanSegnalaEntita = new BeanSegnalaEntita(numeroSeriale, stazione, problematica,te, top);
-        beanSegnalaEntita.controllaInputSemaforo();
+    public BeanSegnalaEntita beanVerifica(String codicePL, String localizzazione,String problematica ,TypeEntita te, TypeOfPersistence top) throws LunghezzaInputException {
+        BeanSegnalaEntita beanSegnalaEntita = new BeanSegnalaEntita(codicePL, localizzazione, problematica,te, top);
+        beanSegnalaEntita.controllaInputLevelCrossing();
         return beanSegnalaEntita;
     }
 
     public void disattivaButton() {
-        textFieldstazione.setDisable(true);
-        textFieldNumeroSeriale.setDisable(true);
+        textFieldlocalizzazione.setDisable(true);
+        textFieldcodicePL.setDisable(true);
         inviaSegnalazioneButton.setDisable(true);
         inviaSegnalazioneInLocaleButton.setDisable(true);
     }
 
     public boolean controllaInput() {
-        if (textFieldstazione.getText().equals("") || textFieldNumeroSeriale.getText().equals("")) {
+        if (textFieldlocalizzazione.getText().equals("") || textFieldcodicePL.getText().equals("")) {
             labelErrore.setText("inserire entrambi i campi");
             return false;
         }

@@ -2,7 +2,7 @@ package com.example.progettoispw.controllergrafici;
 
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import com.jfoenix.controls.JFXButton;
 import controllerapplicativi.ControllerApplicativoTipoSegnalazione;
 import eccezioni.ErroreLetturaPasswordException;
@@ -38,30 +38,30 @@ public class ControllerGraficoSegnalazioniAttive implements Initializable {
             //passo il bean al controller applicativo che riempira le liste in base alle segnalazioni attive dell'utente
             new ControllerApplicativoTipoSegnalazione(beanListeElementi, UtilityAccesso.getPersistence());
             //se non e' stata ricevuta nessuna eccezione vuol dire che non ci sono stati errori e che qualcosa nelle liste
-            //dei bean e' stato inserito, creo 2 contatori uno che tiene conto dei semafori e uno delle buche cosi so' il numero di
+            //dei bean e' stato inserito, creo 2 contatori uno che tiene conto dei levelCrossing e uno delle buche cosi so' il numero di
             //segnalazioni che l'utente ha per quelle 2 entita
-            //contatore che tiene il numero di indirizzi dei semafori ( per come ho costrutito il tutto a n indirizzi corrispondono
-            //n numeri di semafori, quindi contare gli indirizzi equivale a contare il numero di semafori segnalati dall'utente)
-            int contatoresemafori=beanListeElementi.getSegnalazioniSemafori().size();
+            //contatore che tiene il numero di indirizzi dei levelCrossing ( per come ho costrutito il tutto a n indirizzi corrispondono
+            //n numeri di levelCrossing, quindi contare gli indirizzi equivale a contare il numero di levelCrossing segnalati dall'utente)
+            int contatoreLevelCrossing=beanListeElementi.getSegnalazioniLevelCrossing().size();
             //discorso duale per il contatore che conta gli indirizzi delle buche
             int contatorebinari=beanListeElementi.getSegnalazioniBinari().size();
             //per ogni segnalazione devo creare una label, settare il testo dentro la label stessa..
             listViewName.setFixedCellSize(90);
-            //se ci sono dei semafori li mostro
-            if(contatoresemafori!=0) {
+            //se ci sono dei levelCrossing li mostro
+            if(contatoreLevelCrossing!=0) {
                 label1 = new Label();
-                label1.setText("semafori SEGNALATI\n");
+                label1.setText("PASSAGGI A LIVELLO SEGNALATI\n");
                 listViewName.getItems().add(label1);
-                for (int i = 0; i < contatoresemafori; i++) {
-                    BeanSegnalazioneSemaforo semaforo = beanListeElementi.getSegnalazioniSemafori().get(i);
+                for (int i = 0; i < contatoreLevelCrossing; i++) {
+                    BeanSegnalazioneLevelCrossing levelCrossing = beanListeElementi.getSegnalazioniLevelCrossing().get(i);
 
                     label1 = new Label();
                     label1.setText(
-                            (i + 1) + " Semaforo segnalato\n" +
-                                    "numero seriale: " + semaforo.getNumeroSeriale() + "\n" +
-                                    "stazione: " + semaforo.getstazione() + "\n" +
-                                    "problematica: " + semaforo.getDescrizioneProblema() + "\n" +
-                                    "stato: " + semaforo.getStato()
+                            (i + 1) + " Passaggio a livello segnalato\n" +
+                                    "numero del passaggio a livello: " + levelCrossing.getcodicePL() + "\n" +
+                                    "posizione: " + levelCrossing.getlocalizzazione() + "\n" +
+                                    "problematica: " + levelCrossing.getDescrizioneProblema() + "\n" +
+                                    "stato: " + levelCrossing.getStato()
                     );
 
                     listViewName.getItems().add(label1);
@@ -78,7 +78,7 @@ public class ControllerGraficoSegnalazioniAttive implements Initializable {
                     label1.setText(
                             (i + 1) + " binario segnalato\n" +
                                     "numero binario: " + binario.getNumeroBinario() + "\n" +
-                                    "stazione: " + binario.getstazione() + "\n" +
+                                    "localizzazione: " + binario.getlocalizzazione() + "\n" +
                                     "problematica: " + binario.getDescrizioneProblema() + "\n" +
                                     "stato: " + binario.getStato()
                     );

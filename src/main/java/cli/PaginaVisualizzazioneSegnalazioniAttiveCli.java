@@ -2,7 +2,7 @@ package cli;
 
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import utility.Printer;
 
 import java.io.IOException;
@@ -10,20 +10,20 @@ import java.io.IOException;
 public class PaginaVisualizzazioneSegnalazioniAttiveCli {
 
     public void mostraSegnalazioniAttive(BeanListeElementi beanListeElementi) throws IOException {
-        int contatoreSemafori = beanListeElementi.getSegnalazioniSemafori().size();
+        int contatorelevelCrossing = beanListeElementi.getSegnalazioniLevelCrossing().size();
         int contatoreBinari = beanListeElementi.getSegnalazioniBinari().size();
 
         Printer.print("====== SEGNALAZIONI ATTIVE ======");
 
-        if (contatoreSemafori > 0) {
-            Printer.print("\n>> SEMAFORI SEGNALATI:");
-            for (int i = 0; i < contatoreSemafori; i++) {
-                BeanSegnalazioneSemaforo semaforo = beanListeElementi.getSegnalazioniSemafori().get(i);
-                Printer.print("\n" + (i + 1) + ") Semaforo");
-                Printer.print("Numero seriale: " + semaforo.getNumeroSeriale());
-                Printer.print("stazione: " + semaforo.getstazione());
-                Printer.print("Problematica: " + semaforo.getDescrizioneProblema());
-                Printer.print("Stato: " + semaforo.getStato());
+        if (contatorelevelCrossing > 0) {
+            Printer.print("\n>> PASSAGGI A LIVELLI SEGNALATI:");
+            for (int i = 0; i < contatorelevelCrossing; i++) {
+                BeanSegnalazioneLevelCrossing levelCrossing = beanListeElementi.getSegnalazioniLevelCrossing().get(i);
+                Printer.print("\n" + (i + 1) + ") Passaggio a livello");
+                Printer.print("Numero passaggio: " + levelCrossing.getcodicePL());
+                Printer.print("posizione: " + levelCrossing.getlocalizzazione());
+                Printer.print("Problematica: " + levelCrossing.getDescrizioneProblema());
+                Printer.print("Stato: " + levelCrossing.getStato());
             }
         }
 
@@ -33,13 +33,13 @@ public class PaginaVisualizzazioneSegnalazioniAttiveCli {
                 BeanSegnalazioneBinario binario = beanListeElementi.getSegnalazioniBinari().get(i);
                 Printer.print("\n" + (i + 1) + ") Binario");
                 Printer.print("Numero binario: " + binario.getNumeroBinario());
-                Printer.print("stazione: " + binario.getstazione());
+                Printer.print("posizione: " + binario.getlocalizzazione());
                 Printer.print("Problematica: " + binario.getDescrizioneProblema());
                 Printer.print("Stato: " + binario.getStato());
             }
         }
 
-        if (contatoreSemafori == 0 && contatoreBinari == 0) {
+        if (contatorelevelCrossing == 0 && contatoreBinari == 0) {
             Printer.print("Non sono presenti segnalazioni attive.");
         }
 

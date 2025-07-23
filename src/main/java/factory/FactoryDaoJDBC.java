@@ -14,8 +14,8 @@ public class FactoryDaoJDBC extends FactoryDao {
             switch (typeEntita) {
                 case BINARIO:
                     return new BinarioDaoImplJDBC();
-                case SEMAFORO:
-                    return new SemaforoDaoImplJDBC();
+                case LEVELCROSSING:
+                    return new PassaggioLivelloDaoImplJDBC();
                 default:
                     throw new IllegalArgumentException("Tipo di entità non supportato: " + typeEntita);
             }

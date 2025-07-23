@@ -3,15 +3,15 @@ package dao;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.SegnalazioneGiaAvvenutaException;
 import entita.EntitaFerroviaria;
-import entita.SemaforoFerroviario;
-import queries.QueriesSemaforo;
+import entita.LevelCrossing;
+import queries.QueriesSegnalazionePassaggioLivello;
 import utility.UtilityAccesso;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SemaforoDaoImplJDBC implements EntitaFerroviariaDao {
+public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -19,51 +19,51 @@ public class SemaforoDaoImplJDBC implements EntitaFerroviariaDao {
     //variabile che viene impostata a 0 o a 1 in base all'esito del salvataggio del Semaforo illuminazione
     //nel database, utile in fase di test
     private int esito;
-    public SemaforoDaoImplJDBC() throws SQLException, ErroreLetturaPasswordException {
+    public PassaggioLivelloDaoImplJDBC() throws SQLException, ErroreLetturaPasswordException {
         connection=SingletonConnessione.getInstance();
     }
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException {
         //qui so che ho a che fare con un Semaforo alla fine e lo devo mandare al db , allora rendo l'entita stradale un Semaforo
         //e poi lo invio
-        SemaforoFerroviario SemaforoDaSegnalare=new SemaforoFerroviario(instance.getInfo(),instance.getstazione(),instance.getDescrizioneProblema());
+        LevelCrossing levelCrossing=new LevelCrossing(instance.getInfo(),instance.getlocalizzazione(),instance.getDescrizioneProblema());
         //ora lo invio
         //questa operazione può essere fatta da tutti, sia loggati che non
         //vedo se il Semaforo e' già presente o no nel db, se lo e' comunico che gi esiste nel db, altrimenti lo salvo nel db
-        if(!cercaSemaforo(SemaforoDaSegnalare)) {
+        if(!cercaLevelCrossing(levelCrossing)) {
             if (UtilityAccesso.getCodiceUtente() != null) {
                 //l'utente è loggato nel sistema, la sua segnalazione deve essere salvata nel db
-                preparedStatement = connection.prepareStatement(QueriesSemaforo.queriesSalvaSemaforoAdUnUtenteDelSistema());
-                preparedStatement.setString(1, SemaforoDaSegnalare.getInfo());
-                preparedStatement.setString(2, SemaforoDaSegnalare.getstazione());
-                preparedStatement.setString(3, SemaforoDaSegnalare.getDescrizioneProblema());
+                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.queriesSalvalevelCrossingAdUnUtenteDelSistema());
+                preparedStatement.setString(1, levelCrossing.getInfo());
+                preparedStatement.setString(2, levelCrossing.getlocalizzazione());
+                preparedStatement.setString(3, levelCrossing.getDescrizioneProblema());
                 preparedStatement.setString(4, UtilityAccesso.getCodiceUtente());
                 preparedStatement.executeUpdate();
                 this.esito = 0;
             }
             else{
-                preparedStatement = connection.prepareStatement(QueriesSemaforo.queriesSalvaSemaforo());
-                preparedStatement.setString(1, SemaforoDaSegnalare.getInfo());
-                preparedStatement.setString(2, SemaforoDaSegnalare.getstazione());
-                preparedStatement.setString(3, SemaforoDaSegnalare.getDescrizioneProblema());
+                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.queriesSalvalevelCrossing());
+                preparedStatement.setString(1, levelCrossing.getInfo());
+                preparedStatement.setString(2, levelCrossing.getlocalizzazione());
+                preparedStatement.setString(3, levelCrossing.getDescrizioneProblema());
             }
         }else {
             esito=-1;
-            throw new SegnalazioneGiaAvvenutaException("il semaforo è stato già segnalato da un altro utente");
+            throw new SegnalazioneGiaAvvenutaException("il passaggio a livello è stato già segnalato da un altro utente");
         }
     }
-    private boolean cercaSemaforo(SemaforoFerroviario SemaforoDaCercare) throws SQLException, ErroreLetturaPasswordException {
+    private boolean cercaLevelCrossing(LevelCrossing levelCrossing) throws SQLException, ErroreLetturaPasswordException {
         //verifichiamo che la connessione sia aperta prima
         verificaConnessione();
-        preparedStatement=connection.prepareStatement(QueriesSemaforo.cercaSemaforo());
-        preparedStatement.setString(1,SemaforoDaCercare.getInfo());
-        preparedStatement.setString(2,SemaforoDaCercare.getstazione());
+        preparedStatement=connection.prepareStatement(QueriesSegnalazionePassaggioLivello.cercalevelCrossing());
+        preparedStatement.setString(1,levelCrossing.getInfo());
+        preparedStatement.setString(2,levelCrossing.getlocalizzazione());
         resultSet=preparedStatement.executeQuery();
         return resultSet.isBeforeFirst();
     }
     private void verificaConnessione() throws SQLException, ErroreLetturaPasswordException {
         if(connection==null){
-            new SemaforoDaoImplJDBC();
+            new PassaggioLivelloDaoImplJDBC();
         }
     }
     public int getEsito(){

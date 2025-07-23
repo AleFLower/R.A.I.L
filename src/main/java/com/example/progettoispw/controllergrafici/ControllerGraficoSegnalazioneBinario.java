@@ -2,8 +2,6 @@ package com.example.progettoispw.controllergrafici;
 
 import bean.BeanSegnalaEntita;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import controllerapplicativi.ControllerApplicativoSegnalazioneEntita;
 import factory.TypeOfPersistence;
 import eccezioni.*;
@@ -23,7 +21,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
     @FXML
     private TextField textFieldProblematica;
     @FXML
-    private TextField textFieldstazione;
+    private TextField textFieldlocalizzazione;
 
     @FXML
     private ComboBox<Integer> comboBoxNumeroBinario;
@@ -50,7 +48,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                     typeOfPersistence= UtilityAccesso.getPersistence();
                     beanVerificaDati = beanVerifica(
                             String.valueOf(comboBoxNumeroBinario.getValue()),
-                            textFieldstazione.getText(),
+                            textFieldlocalizzazione.getText(),
                             textFieldProblematica.getText(),
                             typeEntita,
                             typeOfPersistence
@@ -81,7 +79,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                     typeOfPersistence= UtilityAccesso.getPersistence();
                     beanVerificaDati = beanVerifica(
                             String.valueOf(comboBoxNumeroBinario.getValue()),
-                            textFieldstazione.getText(),
+                            textFieldlocalizzazione.getText(),
                             textFieldProblematica.getText(),
                             typeEntita,
                             typeOfPersistence
@@ -101,11 +99,11 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         }
         super.initialize(url,resourceBundle);
     }
-    public BeanSegnalaEntita beanVerifica(String numeroBinario,String stazione,String problematica,TypeEntita te,TypeOfPersistence top){
-        return new BeanSegnalaEntita(numeroBinario,stazione,problematica,te,top);  //dummy, da aggiustare
+    public BeanSegnalaEntita beanVerifica(String numeroBinario,String localizzazione,String problematica,TypeEntita te,TypeOfPersistence top){
+        return new BeanSegnalaEntita(numeroBinario,localizzazione,problematica,te,top);  //dummy, da aggiustare
     }
     public void disattivaButton(){
-        textFieldstazione.setDisable(true);
+        textFieldlocalizzazione.setDisable(true);
         comboBoxNumeroBinario.setDisable(true);
         inviaSegnalazioneButton1.setDisable(true);
         inviaSegnalazioneButtonInLocale.setDisable(true);
@@ -142,8 +140,8 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
     }
 
     public boolean controllaInput() {
-        if (textFieldstazione.getText().isEmpty() || comboBoxNumeroBinario.getValue() == null) {
-            labelErrore.setText("Inserire stazione e selezionare la visibilità");
+        if (textFieldlocalizzazione.getText().isEmpty() || comboBoxNumeroBinario.getValue() == null) {
+            labelErrore.setText("Inserire localizzazione e selezionare la visibilità");
             return false;
         }
         return true;

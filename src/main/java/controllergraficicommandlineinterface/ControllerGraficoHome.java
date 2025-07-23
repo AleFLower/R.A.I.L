@@ -46,7 +46,6 @@ public class ControllerGraficoHome {
 
     }
 
-
     private void tornaAllaHome() throws IOException {
         PaginaHome paginaHome=new PaginaHome();
         paginaHome.displayHomepage();

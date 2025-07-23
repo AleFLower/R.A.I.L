@@ -13,8 +13,8 @@ public class FactoryDaoMemory extends FactoryDao {
             switch (typeEntita) {
                 case BINARIO:
                     return new BinarioDaoImplMemory();
-                case SEMAFORO:
-                    return new SemaforoDaoImplMemory();
+                case LEVELCROSSING:
+                    return new PassaggioLivelloDaoImplMemory();
                 default:
                     throw new IllegalArgumentException("Tipo di entità non supportato: " + typeEntita);
             }

@@ -1,12 +1,12 @@
 package dao;
 
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import eccezioni.NonEsistonoSegnalazioniException;
 import entita.Binario;
 import entita.EntitaFerroviaria;
-import entita.SemaforoFerroviario;
+import entita.LevelCrossing;
 import utility.UtilityAccesso;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisolteAttiveDao {
     @Override
-    public List<BeanSegnalazioneSemaforo> getSegnalazioniSemafori(TypeOfSegnalazione tipo)
+    public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
             throws NonEsistonoSegnalazioniException {
-        List<BeanSegnalazioneSemaforo> lista = new ArrayList<>();
+        List<BeanSegnalazioneLevelCrossing> lista = new ArrayList<>();
 
         String codiceUtente = UtilityAccesso.getCodiceUtente();
         List<EntitaFerroviaria> segnalazioniUtente = ArchivioSegnalazioniMemory.getSegnalazioniPerUtente(codiceUtente);
@@ -25,18 +25,20 @@ public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisol
             throw new NonEsistonoSegnalazioniException("Non hai effettuato nessuna segnalazione.");
         }
 
+        //WARNING: CERCA DI NON USARE instanceof
+
         for (EntitaFerroviaria entita : segnalazioniUtente) {
-            if (entita instanceof SemaforoFerroviario semaforo) {
-                String stato = semaforo.getStato().toLowerCase();
+            if (entita instanceof LevelCrossing levelCrossing) {
+                String stato = levelCrossing.getStato().toLowerCase();
                 boolean isRisolta = stato.equals("risolta");
 
                 if ((tipo == TypeOfSegnalazione.RISOLTE && isRisolta) ||
                         (tipo == TypeOfSegnalazione.ATTIVE && !isRisolta)) {
 
-                    lista.add(new BeanSegnalazioneSemaforo(
-                            semaforo.getInfo(),
-                            semaforo.getstazione(),
-                            semaforo.getDescrizioneProblema(),
+                    lista.add(new BeanSegnalazioneLevelCrossing(
+                            levelCrossing.getInfo(),
+                            levelCrossing.getlocalizzazione(),
+                            levelCrossing.getDescrizioneProblema(),
                             stato
                     ));
                 }
@@ -68,7 +70,7 @@ public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisol
 
                     lista.add(new BeanSegnalazioneBinario(
                             binario.getInfo(),
-                            binario.getstazione(),
+                            binario.getlocalizzazione(),
                             binario.getDescrizioneProblema(),
                             stato
                     ));

@@ -14,30 +14,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-public class ControllerGraficoPaginaSegnalazioneSemaforoCli {
+public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
     private PaginaHome paginaHome=new PaginaHome();
-    private String numeroSeriale;
+    private String codicePL;
     private String problematica;
-    private String stazione;
+    private String localizzazione;
 
     private BeanSegnalaEntita beanVerificaDati;
 
-    private TypeEntita typeEntita = TypeEntita.SEMAFORO;
+    private TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
 
     private TypeOfPersistence typeOfPersistence;
 
-    public ControllerGraficoPaginaSegnalazioneSemaforoCli(String numeroSeriale,String stazione,String problematica,TypeOfPersistence tipoPersistenza){
-        this.numeroSeriale=numeroSeriale;
-        this.stazione=stazione;
+    public ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(String codicePL, String localizzazione, String problematica, TypeOfPersistence tipoPersistenza){
+        this.codicePL=codicePL;
+        this.localizzazione=localizzazione;
         this.problematica = problematica;
 
         this.typeOfPersistence = tipoPersistenza;
     }
     public void inviaDatiAlBean() throws IOException {
         //qui invio i dati al bean
-        beanVerificaDati =  new BeanSegnalaEntita(numeroSeriale,stazione, problematica,typeEntita, typeOfPersistence);
+        beanVerificaDati =  new BeanSegnalaEntita(codicePL,localizzazione, problematica,typeEntita, typeOfPersistence);
         try {
-            beanVerificaDati.controllaInputSemaforo();
+            beanVerificaDati.controllaInputLevelCrossing();
             new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
             //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
             //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione

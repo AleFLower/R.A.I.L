@@ -7,34 +7,34 @@ import factory.TypeEntita;
 public class BeanSegnalaEntita {
     //questo e' il bean che passerà i dati inseriti dall'utente al controller applicativo che invia la registrazioni
 
-    private String stazione;
+    private String localizzazione;
     private String problematica;
    // private String tipologia;
     private String infoEntita;
     private TypeEntita tipo;
-    private static final int LUNGHEZZANUMEROSERIALE=12;
+    private static final int LUNGHEZZAcodicePL=5;
     private TypeOfPersistence typeOfPersistence;
 
-    public BeanSegnalaEntita(String infoEntita, String stazione, String problematica,TypeEntita tipoEntitaSegnalata,TypeOfPersistence typeOfPersistence){
-        this.stazione=stazione;
+    public BeanSegnalaEntita(String infoEntita, String localizzazione, String problematica,TypeEntita tipoEntitaSegnalata,TypeOfPersistence typeOfPersistence){
+        this.localizzazione=localizzazione;
         this.infoEntita=infoEntita;
         this.problematica = problematica;
         this.tipo=tipoEntitaSegnalata;
       //  this.tipologia = tipologia;
         this.typeOfPersistence=typeOfPersistence;
     }
-    public void controllaInputSemaforo()throws LunghezzaInputException {
-        if (infoEntita.length() != LUNGHEZZANUMEROSERIALE) {
+    public void controllaInputLevelCrossing()throws LunghezzaInputException {
+        if (infoEntita.length() != LUNGHEZZAcodicePL) {
             throw new LunghezzaInputException("\nLa lunghezza del numero seriale non e' corretta");
         }
     }
 
-    public String getstazione() {
-        return stazione;
+    public String getlocalizzazione() {
+        return localizzazione;
     }
 
-    public void setstazione(String stazione) {
-        this.stazione = stazione;
+    public void setlocalizzazione(String localizzazione) {
+        this.localizzazione = localizzazione;
     }
 
     public String getInfoEntita() {

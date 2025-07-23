@@ -1,11 +1,11 @@
 package dao;
 
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsistonoSegnalazioniException;
-import queries.QueriesSemaforo;
+import queries.QueriesSegnalazionePassaggioLivello;
 import queries.QueriesSegnalazioneBinario;
 import utility.UtilityAccesso;
 import java.sql.Connection;
@@ -31,23 +31,23 @@ public class SegnalazioniAttiveRisolteDaoImpl implements SegnalazioniRisolteAtti
         connection=SingletonConnessione.getInstance();
     }
     @Override
-    public List<BeanSegnalazioneSemaforo> getSegnalazioniSemafori(TypeOfSegnalazione tipo)
+    public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
             throws SQLException, NonEsistonoSegnalazioniException, ErroreLetturaPasswordException {
 
         verificaConnessione();
         String query = tipo == TypeOfSegnalazione.ATTIVE ?
-                QueriesSemaforo.queriesMostraSegnalazioniEffettuate() :
-                QueriesSemaforo.queriesMostraSegnalazioniCompletate();
+                QueriesSegnalazionePassaggioLivello.queriesMostraSegnalazioniEffettuate() :
+                QueriesSegnalazionePassaggioLivello.queriesMostraSegnalazioniCompletate();
 
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, UtilityAccesso.getCodiceUtente());
         rs = preparedStatement.executeQuery();
 
-        List<BeanSegnalazioneSemaforo> lista = new ArrayList<>();
+        List<BeanSegnalazioneLevelCrossing> lista = new ArrayList<>();
         while (rs.next()) {
-            lista.add(new BeanSegnalazioneSemaforo(
-                    rs.getString("numeroSeriale"),
-                    rs.getString("stazione"),
+            lista.add(new BeanSegnalazioneLevelCrossing(
+                    rs.getString("codicePL"),
+                    rs.getString("localizzazione"),
                     rs.getString("problematica"),
                     rs.getString("stato")
             ));
@@ -73,7 +73,7 @@ public class SegnalazioniAttiveRisolteDaoImpl implements SegnalazioniRisolteAtti
         while (rs2.next()) {
             lista.add(new BeanSegnalazioneBinario(
                     rs2.getString("numeroBinario"),
-                    rs2.getString("stazione"),
+                    rs2.getString("localizzazione"),
                     rs2.getString("problematica"),
                     rs2.getString("stato")
             ));

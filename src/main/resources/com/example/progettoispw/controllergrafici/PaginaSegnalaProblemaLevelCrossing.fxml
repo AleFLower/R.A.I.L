@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.controllergrafici.ControllerGraficoSegnalazioneSemafori">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.controllergrafici.ControllerGraficoSegnalazionePassaggioALivello">
     <children>
         <BorderPane layoutX="7.0" layoutY="8.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -148,17 +148,17 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <ImageView layoutX="200.0" layoutY="-10.0" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView layoutX="200.0" layoutY="5.0" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../ImmaginiHome/road.png" />
+                                <Image url="@../../../../ImmaginiHome/level-crossing.png" />
                             </image>
                         </ImageView>
-                        <TextField fx:id="textFieldNumeroSeriale" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="81.0" layoutY="90.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci numero seriale palo illuminazione" scaleShape="false">
+                        <TextField fx:id="textFieldcodicePL" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="81.0" layoutY="90.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci codice del passaggio a livello" scaleShape="false">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </TextField>
-                        <TextField fx:id="textFieldstazione" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="81.0" layoutY="148.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci stazione" scaleShape="false">
+                        <TextField fx:id="textFieldlocalizzazione" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="81.0" layoutY="148.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci localizzazione" scaleShape="false">
                             <font>
                                 <Font size="18.0" />
                             </font>

@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeanListeElementi {
-    public final List<BeanSegnalazioneSemaforo> listaSegnalazioniSemafori;
+    public final List<BeanSegnalazioneLevelCrossing> listaSegnalazioniLevelCrossing;
     public final List<BeanSegnalazioneBinario> listaSegnalazioniBinari;
 
     private TypeOfSegnalazione typeOfSegnalazione;
 
     public BeanListeElementi(TypeOfSegnalazione typeOfSegnalazione) {
-        listaSegnalazioniSemafori = new ArrayList<>();
+        listaSegnalazioniLevelCrossing = new ArrayList<>();
         listaSegnalazioniBinari = new ArrayList<>();
         this.typeOfSegnalazione = typeOfSegnalazione;
     }
 
-    // Gestisci segnalazioni semaforo
-    public void aggiungiSegnalazioneSemaforo(BeanSegnalazioneSemaforo bean) {
-        listaSegnalazioniSemafori.add(bean);
+    // Gestisci segnalazioni levelCrossing
+    public void aggiungiSegnalazioneLevelCrossing(BeanSegnalazioneLevelCrossing bean) {
+        listaSegnalazioniLevelCrossing.add(bean);
     }
 
     // Gestisci segnalazioni binario stradale
@@ -28,8 +28,8 @@ public class BeanListeElementi {
     }
 
     // Getter per le segnalazioni
-    public List<BeanSegnalazioneSemaforo> getSegnalazioniSemafori() {
-        return listaSegnalazioniSemafori;
+    public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing() {
+        return listaSegnalazioniLevelCrossing;
     }
 
     public List<BeanSegnalazioneBinario> getSegnalazioniBinari() {

@@ -12,7 +12,7 @@ public class BinarioDaoImplMemory implements EntitaFerroviariaDao {
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SegnalazioneGiaAvvenutaException {
 
-        Binario binario = new Binario(instance.getInfo(),instance.getstazione(), instance.getDescrizioneProblema());
+        Binario binario = new Binario(instance.getInfo(),instance.getlocalizzazione(), instance.getDescrizioneProblema());
         ArchivioSegnalazioniMemory.salvabinario(binario, UtilityAccesso.getCodiceUtente());
         esito = 0;
     }

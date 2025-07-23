@@ -2,12 +2,11 @@ package com.example.progettoispw.controllergrafici;
 
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import com.jfoenix.controls.JFXButton;
 import controllerapplicativi.ControllerApplicativoTipoSegnalazione;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsistonoSegnalazioniException;
-import entita.Binario;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
@@ -39,37 +38,37 @@ public class ControllerGraficoSegnalazioniRisolte implements Initializable{
             BeanListeElementi beanListeElementi=new BeanListeElementi(type_of_segnalazione);
             new ControllerApplicativoTipoSegnalazione(beanListeElementi, UtilityAccesso.getPersistence());
             //in questo punto tutte le segnalazioni risolte sono state aggiunte nella lista dentro il bean, le riprendo allora e le mostro in output
-            int contatoresemafori=beanListeElementi.getSegnalazioniSemafori().size();
+            int contatorelevelCrossing=beanListeElementi.getSegnalazioniLevelCrossing().size();
             int contatorebinari=beanListeElementi.getSegnalazioniBinari().size();
             listViewRisolteName.setFixedCellSize(90);
-            //se ci sono dei semafori li mostro
-            if(contatoresemafori!=0) {
+            //se ci sono dei levelCrossing li mostro
+            if(contatorelevelCrossing!=0) {
                 Label label1 = new Label();
-                label1.setText("semafori SEGNALATI\n");
+                label1.setText("PASSAGGI A LIVELLO SEGNALATI\n");
                 listViewRisolteName.getItems().add(label1);
-                for (int i = 0; i < contatoresemafori; i++) {
-                    BeanSegnalazioneSemaforo semaforo = beanListeElementi.getSegnalazioniSemafori().get(i);
+                for (int i = 0; i < contatorelevelCrossing; i++) {
+                    BeanSegnalazioneLevelCrossing levelCrossing = beanListeElementi.getSegnalazioniLevelCrossing().get(i);
                     label1 = new Label();
                     label1.setText(
-                            (i + 1) + " Semaforo segnalato\n" +
-                                    "numero seriale: " + semaforo.getNumeroSeriale() + "\n" +
-                                    "stazione: " + semaforo.getstazione() + "\n" +
-                                    "stato: " + semaforo.getStato()
+                            (i + 1) + " Passaggio a livello segnalato\n" +
+                                    "numero del passaggio a livello: " + levelCrossing.getcodicePL() + "\n" +
+                                    "posizione: " + levelCrossing.getlocalizzazione() + "\n" +
+                                    "stato: " + levelCrossing.getStato()
                     );
                     listViewRisolteName.getItems().add(label1);
                 }
             }
             if(contatorebinari!=0) {
                 Label label1 = new Label();
-                label1.setText("binari SEGNALATE\n");
+                label1.setText("BINARI SEGNALATI\n");
                 listViewRisolteName.getItems().add(label1);
                 for (int i = 0; i < contatorebinari; i++) {
                     BeanSegnalazioneBinario binario = beanListeElementi.getSegnalazioniBinari().get(i);
                     label1 = new Label();
                     label1.setText(
                             (i + 1) + " binario segnalato\n" +
-                                    "larghezza: " + binario.getNumeroBinario() + "\n" +
-                                    "stazione: " + binario.getstazione() + "\n" +
+                                    "Numero binario: " + binario.getNumeroBinario() + "\n" +
+                                    "posizione: " + binario.getlocalizzazione() + "\n" +
                                     "stato: " + binario.getStato()
                     );
                     listViewRisolteName.getItems().add(label1);

@@ -2,7 +2,7 @@ package controllerapplicativi;
 
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
-import bean.BeanSegnalazioneSemaforo;
+import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import dao.*;
 
@@ -31,13 +31,13 @@ public class ControllerApplicativoTipoSegnalazione {
         FactoryDao dao = FactoryDao.getFactory(persistence);
         segnalazioniRisolteAttiveDao = dao.getSegnalazioniRisolteAttiveDao();
 
-        List<BeanSegnalazioneSemaforo> semafori = segnalazioniRisolteAttiveDao.getSegnalazioniSemafori(typeOfSegnalazione);
+        List<BeanSegnalazioneLevelCrossing> levelCrossing = segnalazioniRisolteAttiveDao.getSegnalazioniLevelCrossing(typeOfSegnalazione);
         List<BeanSegnalazioneBinario> binari = segnalazioniRisolteAttiveDao.getSegnalazioniBinari(typeOfSegnalazione);
 
-        if(semafori.isEmpty() && binari.isEmpty())  throw new NonEsistonoSegnalazioniException("Nessuna segnalazione trovata.");
+        if(levelCrossing.isEmpty() && binari.isEmpty())  throw new NonEsistonoSegnalazioniException("Nessuna segnalazione trovata.");
 
-        for (BeanSegnalazioneSemaforo s : semafori) {
-            bean.aggiungiSegnalazioneSemaforo(s);
+        for (BeanSegnalazioneLevelCrossing s : levelCrossing) {
+            bean.aggiungiSegnalazioneLevelCrossing(s);
         }
 
         for (BeanSegnalazioneBinario ss : binari) {

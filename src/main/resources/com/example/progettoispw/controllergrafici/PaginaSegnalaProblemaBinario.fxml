@@ -163,7 +163,7 @@
                             </graphic>
                         </JFXButton>
 
-                        <TextField fx:id="textFieldstazione" layoutX="81.0" layoutY="90.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci stazione">
+                        <TextField fx:id="textFieldlocalizzazione" layoutX="81.0" layoutY="90.0" prefHeight="43.0" prefWidth="363.0" promptText="inserisci localizzazione">
                             <font>
                                 <Font size="18.0" />
                             </font>

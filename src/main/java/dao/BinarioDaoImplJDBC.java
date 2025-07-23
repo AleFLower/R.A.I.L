@@ -30,8 +30,8 @@ public class BinarioDaoImplJDBC implements EntitaFerroviariaDao {
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException {
         //sono qui sto segnalando una binario quindi faccio il cast da entità stradale a binario
-        Binario BinarioDaSegnalare = new Binario(instance.getInfo(), instance.getstazione(), instance.getDescrizioneProblema());
-        //verifico se la binario che sto segnalando e' gia presente nel db( cioe' se c'e' già un stazione che ha
+        Binario BinarioDaSegnalare = new Binario(instance.getInfo(), instance.getlocalizzazione(), instance.getDescrizioneProblema());
+        //verifico se la binario che sto segnalando e' gia presente nel db( cioe' se c'e' già un localizzazione che ha
         //ricevuto quella segnalazione
         //cerca binario torna true se la binario è gia presente, false se non lo è
         if (!cercabinario(BinarioDaSegnalare)) {
@@ -39,7 +39,7 @@ public class BinarioDaoImplJDBC implements EntitaFerroviariaDao {
                 //la binario non è presente nel db, posso quindi  inviarla
                 preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesSalvabinario());
                 preparedStatement.setString(1, BinarioDaSegnalare.getInfo());
-                preparedStatement.setString(2, BinarioDaSegnalare.getstazione());
+                preparedStatement.setString(2, BinarioDaSegnalare.getlocalizzazione());
                 preparedStatement.setString(3, BinarioDaSegnalare.getDescrizioneProblema());
                 preparedStatement.setString(4, UtilityAccesso.getCodiceUtente());
                 preparedStatement.executeUpdate();
@@ -52,10 +52,10 @@ public class BinarioDaoImplJDBC implements EntitaFerroviariaDao {
         }
     }
     private boolean cercabinario(Binario binario) throws SQLException, ErroreLetturaPasswordException {
-        //ritorna true se c'e 'una segnalazione già effettuata a quell'stazione, false altrimenti
+        //ritorna true se c'e 'una segnalazione già effettuata a quell'localizzazione, false altrimenti
         verificaConnessione();
-        preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesVediSeLeSegnalAQuellstazioneSonoStateGiaSegnalate());
-        preparedStatement.setString(1, binario.getstazione());
+        preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesVediSeLeSegnalAQuelllocalizzazioneSonoStateGiaSegnalate());
+        preparedStatement.setString(1, binario.getlocalizzazione());
         resultSet = preparedStatement.executeQuery();
         //isBeforeFirst ritorna true se il result set contiene qualcosa, false altrimenti
         return resultSet.isBeforeFirst();

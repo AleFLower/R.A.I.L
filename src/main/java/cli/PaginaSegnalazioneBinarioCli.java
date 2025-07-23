@@ -10,21 +10,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PaginaSegnalazioneBinarioCli {
-    private String stazione;
+    private String localizzazione;
     private String numeroBinario;
     private String problematica;
     public void inserisciInput() throws IOException {
         try{
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("-----------------Pagina Segnalazione binario stradale-----------------\n" +
-                "inserisci stazione(digitare esc per uscire): ");
-        this.stazione =bufferedReader.readLine();
+                "inserisci localizzazione(digitare esc per uscire): ");
+        this.localizzazione =bufferedReader.readLine();
         Printer.print("inserisci il numero del binario: ");
         this.numeroBinario =bufferedReader.readLine();
         Printer.print("inserisci la problematica da segnalare: ");
         this.problematica=bufferedReader.readLine();
         
-        if(verificaInputUscita(stazione, numeroBinario,problematica)){
+        if(verificaInputUscita(localizzazione, numeroBinario,problematica)){
             //l'utente vuole tornare alla home
             tornaAllaHomePage();
         }
@@ -51,15 +51,15 @@ public class PaginaSegnalazioneBinarioCli {
             } else {
                 tipoPersistenza = UtilityAccesso.getPersistence(); // MEMORY o JDBC
             }
-        ControllerGraficoPagineSegnalazioneBinarioCli controllerGraficoPagineSegnalazioneBinarioCli=new ControllerGraficoPagineSegnalazioneBinarioCli(stazione,problematica, numeroBinario,tipoPersistenza);
+        ControllerGraficoPagineSegnalazioneBinarioCli controllerGraficoPagineSegnalazioneBinarioCli=new ControllerGraficoPagineSegnalazioneBinarioCli(localizzazione,problematica, numeroBinario,tipoPersistenza);
         controllerGraficoPagineSegnalazioneBinarioCli.inviaDatiAlBean();
     }catch (NumberFormatException e){
             Printer.error("inserire numeri dove e' richiesto");
             inserisciInput();
         }
     }
-    private boolean verificaInputUscita(String stazione, String numeroBinario, String problematica){
-        return (stazione.equalsIgnoreCase("esc") || numeroBinario.equalsIgnoreCase("esc") || problematica.equalsIgnoreCase("esc"));
+    private boolean verificaInputUscita(String localizzazione, String numeroBinario, String problematica){
+        return (localizzazione.equalsIgnoreCase("esc") || numeroBinario.equalsIgnoreCase("esc") || problematica.equalsIgnoreCase("esc"));
 
     }
     private void tornaAllaHomePage() throws IOException {

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ControllerGraficoPagineSegnalazioneBinarioCli {
 
     private PaginaHome paginaHome=new PaginaHome();
-    private String stazione;
+    private String localizzazione;
     private String problematica;
     private String visibilità;
 
@@ -25,15 +25,15 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
     private TypeOfPersistence typeOfPersistence;
 
 
-    public ControllerGraficoPagineSegnalazioneBinarioCli(String stazione, String problematica, String visibilità, TypeOfPersistence typeOfPersistence){
-        this.stazione=stazione;
+    public ControllerGraficoPagineSegnalazioneBinarioCli(String localizzazione, String problematica, String visibilità, TypeOfPersistence typeOfPersistence){
+        this.localizzazione=localizzazione;
         this.problematica = problematica;
         this.visibilità = visibilità;
         this.typeOfPersistence = typeOfPersistence;
     }
     public void inviaDatiAlBean() throws IOException {
         try {
-            beanVerificaDati=new BeanSegnalaEntita(visibilità,stazione, problematica,typeEntita,typeOfPersistence);
+            beanVerificaDati=new BeanSegnalaEntita(visibilità,localizzazione, problematica,typeEntita,typeOfPersistence);
             //questi dati devono essere mandati al controller applicativo
             new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
             Printer.print("segnalazione avvenuta con successo\ntorna alla home =)\npremere qualsiasi tasto per tornare alla home: ");

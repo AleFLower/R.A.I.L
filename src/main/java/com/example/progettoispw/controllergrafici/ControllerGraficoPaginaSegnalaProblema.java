@@ -16,8 +16,8 @@ public class ControllerGraficoPaginaSegnalaProblema extends ControllerGraficoGen
     //classi e che mi fanno duplicare il codice, tanto vale allora non mettere proprio intialize e far gestire il click c
     //come ho fatto per quello sotto
     @FXML
-    public void segnalaSemaforoAccess() throws Exception{
-        controllerVisualizzatoreScene.visualizzaScena("PaginaSegnalaProblemaSemaforo.fxml");
+    public void segnalaLevelCrossingAccess() throws Exception{
+        controllerVisualizzatoreScene.visualizzaScena("PaginaSegnalaProblemalevelCrossing.fxml");
     }
     @FXML
     public void segnalabinarioAccess() throws Exception{
