@@ -33,7 +33,7 @@ public class PaginaAccessoAlSistema {
     public boolean confermaRegistrazione() throws IOException {
         Printer.print("Vuoi registrarti con queste credenziali? (s/n): ");
         String risposta = bufferedReader.readLine();
-        return risposta.equalsIgnoreCase("s");
+        return risposta != null && risposta.equalsIgnoreCase("s");
     }
 
     public String chiediUsername() throws IOException {
@@ -43,7 +43,7 @@ public class PaginaAccessoAlSistema {
 
     public void attendiTastoPerContinuare(String messaggio) throws IOException {
         Printer.print(messaggio);
-        bufferedReader.readLine();
+        String ignored = bufferedReader.readLine(); // ← il valore è letto ma ignorato
     }
 }
 

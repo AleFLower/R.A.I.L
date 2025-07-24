@@ -14,7 +14,6 @@ import java.sql.SQLException;
 public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
     private final PaginaSegnalazionePassaggioALivelloCli view;
     private final TypeOfPersistence typeOfPersistence;
-    private final TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
 
     public ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(TypeOfPersistence tipoPersistenza) {
         this.typeOfPersistence = tipoPersistenza;
@@ -48,7 +47,7 @@ public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
 
     private void inviaDatiAlBean(String codicePL, String localizzazione, String problematica) throws IOException {
         BeanSegnalaEntita bean = new BeanSegnalaEntita(
-                codicePL, localizzazione, problematica, typeEntita, typeOfPersistence);
+                codicePL, localizzazione, problematica, TypeEntita.LEVELCROSSING, typeOfPersistence);
         try {
             bean.controllaInputLevelCrossing();
             new ControllerApplicativoSegnalazioneEntita(bean);

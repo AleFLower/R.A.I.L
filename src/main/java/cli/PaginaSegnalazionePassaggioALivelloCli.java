@@ -31,16 +31,25 @@ public class PaginaSegnalazionePassaggioALivelloCli {
 
     public boolean confermaSalvataggio() throws IOException, SceltaNonValidaException {
         Printer.print("Salvare la segnalazione? (y/n)");
-        String scelta = reader.readLine().trim().toLowerCase();
+
+        String scelta = reader.readLine();
+
+        if (scelta == null) {
+            throw new SceltaNonValidaException("Input interrotto o nullo.");
+        }
+
+        scelta = scelta.trim().toLowerCase();
+
         if (!scelta.equals("y") && !scelta.equals("n")) {
             throw new SceltaNonValidaException("Scelta non valida. Devi digitare solo 'y' oppure 'n'.");
         }
+
         return scelta.equals("y");
     }
 
     public void mostraMessaggioSuccesso() throws IOException {
         Printer.print("Segnalazione avvenuta con successo! Premi INVIO per tornare alla home.");
-        reader.readLine();
+        String ignore = reader.readLine();
     }
 
     public void mostraErrore(String messaggio) {

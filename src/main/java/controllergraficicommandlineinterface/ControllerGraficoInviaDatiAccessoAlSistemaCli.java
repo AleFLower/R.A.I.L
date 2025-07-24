@@ -54,7 +54,6 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
             if (view.confermaRegistrazione()) {
                 String username = view.chiediUsername();
                 avviaRegistrazione(email, password, username);
-                return;
             }
         } catch (SQLException | ErroreLetturaPasswordException e) {
             view.mostraMessaggioErrore("Errore durante l'accesso: " + e.getMessage());

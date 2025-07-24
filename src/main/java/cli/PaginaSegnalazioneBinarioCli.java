@@ -29,6 +29,11 @@ public class PaginaSegnalazioneBinarioCli {
     public boolean confermaSalvataggio() throws IOException {
         Printer.print("Salvare la segnalazione? (y/n)");
         String risposta = reader.readLine().trim().toLowerCase();
+        if (risposta == null) {
+            return false; // oppure puoi decidere un comportamento diverso
+        }
+
+        risposta = risposta.trim().toLowerCase();
         return risposta.equals("y");
     }
 
@@ -38,6 +43,6 @@ public class PaginaSegnalazioneBinarioCli {
 
     public void mostraSuccesso() throws IOException {
         Printer.print("Segnalazione avvenuta con successo. Premi INVIO per tornare alla home.");
-        reader.readLine();
+        String ignorato = reader.readLine(); // valore ignorato volontariamente
     }
 }

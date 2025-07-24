@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class PaginaVisualizzazioneSegnalazioniAttiveCli {
 
-    public void mostraSegnalazioniAttive(BeanListeElementi beanListeElementi) throws IOException {
+    public void mostraSegnalazioniAttive(BeanListeElementi beanListeElementi) {
         int contatorelevelCrossing = beanListeElementi.getSegnalazioniLevelCrossing().size();
         int contatoreBinari = beanListeElementi.getSegnalazioniBinari().size();
 
