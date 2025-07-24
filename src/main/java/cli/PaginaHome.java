@@ -11,14 +11,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 public class PaginaHome {
-    private final ControllerGraficoLoginCli controllerGraficoLoginCli = new ControllerGraficoLoginCli();
-    private final ControllerGraficoHome controller = new ControllerGraficoHome();
 
-    public void displayHomepage() throws IOException {
+    public int mostraMenuHome() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Clear.clear();
-
         String statoAccesso = (UtilityAccesso.getCodiceUtente() == null) ? "Login" : "Logout";
+
         Printer.print("""
                 ------------------------------------------HOME------------------------------------------
                 digita:
@@ -27,54 +25,27 @@ public class PaginaHome {
                 3 per suggerire nuove funzioni
                 4 per %s
                 5 per visualizzare le segnalazioni attive
-                6 per uscire dall'applicazione
+                6 per visualizzare le segnalazioni risolte
+                7 per uscire dall'applicazione
                 """.formatted(statoAccesso));
 
-        while (true) {
-            String scelta = bufferedReader.readLine();
-            int numeroScelta = parseInputOrExit(scelta);
-
-            switch (numeroScelta) {
-                case 1 -> controller.segnalaProblema();
-                case 2 -> mostraMessaggioNonDisponibile("recensione");
-                case 3 -> mostraMessaggioNonDisponibile("suggerimento funzionalità");
-                case 4 -> gestisciAccesso();
-                case 5 -> controller.visualizzaSegnalazioni();
-                case 6 -> chiudiApplicazione();
-                default -> Printer.error("Selezione non valida. Riprova.");
-            }
-
-            if (numeroScelta == 1 || numeroScelta == 4 || numeroScelta == 5) break;
-        }
-    }
-
-    private int parseInputOrExit(String scelta) {
         try {
-            return Integer.parseInt(scelta);
+            return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException e) {
-            Printer.error("La prossima volta accertati di digitare un numero.");
-            System.exit(-1);
-            return -1; // inutile, ma richiesto dal compilatore
+            return -1;
         }
     }
 
-    private void mostraMessaggioNonDisponibile(String funzione) {
-        Printer.print("La funzione per %s ancora non è stata implementata, presto sarà disponibile.".formatted(funzione));
-        Printer.print("Seleziona un'altra funzione.");
+    public void mostraFunzioneNonDisponibile(String funzione) {
+        Printer.print("La funzione per %s non è ancora disponibile.".formatted(funzione));
     }
 
-    private void gestisciAccesso() throws IOException {
-        if (UtilityAccesso.getCodiceUtente() == null) {
-            controllerGraficoLoginCli.accediAlSistema();
-        } else {
-            ControllerGraficoLogoutCli logoutCli = new ControllerGraficoLogoutCli();
-            logoutCli.logout();
-        }
+    public void mostraErroreInput() {
+        Printer.error("Input non valido. Riprova.");
     }
 
-    private void chiudiApplicazione() {
-        SingletonConnessione.closeConnection();
-        Printer.print("Grazie per aver usato l'applicazione, arrivederci =)");
-        System.exit(0);
+    public void mostraMessaggioUscita() {
+        Printer.print("Grazie per aver usato l'applicazione. Arrivederci!");
     }
 }
+

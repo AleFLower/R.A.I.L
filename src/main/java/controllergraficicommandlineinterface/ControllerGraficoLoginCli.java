@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ControllerGraficoLoginCli {
     public void accediAlSistema() throws IOException {
-        PaginaAccessoAlSistema paginaAccessoAlSistema=new PaginaAccessoAlSistema();
-        paginaAccessoAlSistema.mostraPaginaAccesso();
+        ControllerGraficoInviaDatiAccessoAlSistemaCli controllerGraficoInviaDatiAccessoAlSistemaCli = new ControllerGraficoInviaDatiAccessoAlSistemaCli();
+        controllerGraficoInviaDatiAccessoAlSistemaCli.mostraPaginaAccesso();
     }
 }

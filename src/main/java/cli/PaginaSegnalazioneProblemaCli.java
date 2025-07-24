@@ -8,43 +8,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PaginaSegnalazioneProblemaCli {
-    private int numeroScelta;
-    private PaginaHome paginaHome;
-    private PaginaSegnalazionePassaggioALivelloCli paginaSegnalazionelevelCrossingCli;
-    private PaginaSegnalazioneBinarioCli paginaSegnalazioneBinarioCli;
+    private final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public void mostraProblemiChePossonoEssereSegnalati() throws IOException {
+    public int mostraProblemiChePossonoEssereSegnalati() throws IOException {
         Clear.clear();
-        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("""
         ------------------------------------------Pagina Segnalazione Problema------------------------------------------
         digita:
         1 per segnalare un passaggio a livello
-        2 per segnalare un Binario
-        qualsiasi altro input se vuoi tornare alla home
+        2 per segnalare un binario
+        qualsiasi altro input per tornare alla home
         """);
 
-        String scelta=bufferedReader.readLine();
+        String scelta = bufferedReader.readLine();
         try {
-            numeroScelta = Integer.parseInt(scelta);
+            return Integer.parseInt(scelta);
         } catch (NumberFormatException e) {
-            Printer.error("Input non valido. Inserisci solo numeri.");
-        }
-        if (numeroScelta == 1) {
-
-            this.paginaSegnalazionelevelCrossingCli=new PaginaSegnalazionePassaggioALivelloCli();
-            paginaSegnalazionelevelCrossingCli.inserisciInput();
-        }else if(numeroScelta == 2) {
-
-            this.paginaSegnalazioneBinarioCli=new PaginaSegnalazioneBinarioCli();
-            paginaSegnalazioneBinarioCli.inserisciInput();
-        }else{
-            tornaAllaHome();
+            return -1;  // valore di fallback per tornare alla home
         }
     }
-    private void tornaAllaHome() throws IOException {
-        paginaHome=new PaginaHome();
-        paginaHome.displayHomepage();
-    }
-
 }
+

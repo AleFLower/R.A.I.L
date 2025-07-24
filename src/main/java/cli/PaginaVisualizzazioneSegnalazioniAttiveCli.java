@@ -3,6 +3,7 @@ package cli;
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
+import controllergraficicommandlineinterface.ControllerGraficoHome;
 import utility.Printer;
 
 import java.io.IOException;
@@ -43,11 +44,6 @@ public class PaginaVisualizzazioneSegnalazioniAttiveCli {
             Printer.print("Non sono presenti segnalazioni attive.");
         }
 
-        tornaAllaHomePage();
     }
 
-    private void tornaAllaHomePage() throws IOException {
-        PaginaHome paginaHome = new PaginaHome();
-        paginaHome.displayHomepage();
-    }
 }

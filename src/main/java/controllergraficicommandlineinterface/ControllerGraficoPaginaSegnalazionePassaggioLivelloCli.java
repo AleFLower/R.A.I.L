@@ -2,6 +2,7 @@ package controllergraficicommandlineinterface;
 
 import bean.BeanSegnalaEntita;
 import cli.PaginaHome;
+import cli.PaginaSegnalazionePassaggioALivelloCli;
 import controllerapplicativi.ControllerApplicativoSegnalazioneEntita;
 import eccezioni.*;
 
@@ -15,47 +16,59 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
-    private PaginaHome paginaHome=new PaginaHome();
-    private String codicePL;
-    private String problematica;
-    private String localizzazione;
+    private final PaginaSegnalazionePassaggioALivelloCli view;
+    private final TypeOfPersistence typeOfPersistence;
+    private final TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
 
-    private BeanSegnalaEntita beanVerificaDati;
-
-    private TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
-
-    private TypeOfPersistence typeOfPersistence;
-
-    public ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(String codicePL, String localizzazione, String problematica, TypeOfPersistence tipoPersistenza){
-        this.codicePL=codicePL;
-        this.localizzazione=localizzazione;
-        this.problematica = problematica;
-
+    public ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(TypeOfPersistence tipoPersistenza) {
         this.typeOfPersistence = tipoPersistenza;
+        this.view = new PaginaSegnalazionePassaggioALivelloCli();
     }
-    public void inviaDatiAlBean() throws IOException {
-        //qui invio i dati al bean
-        beanVerificaDati =  new BeanSegnalaEntita(codicePL,localizzazione, problematica,typeEntita, typeOfPersistence);
+
+    public void mostraPaginaSegnalazione() throws IOException {
+        String codicePL = view.chiediCodicePL();
+        if (vuoleUscire(codicePL)) return;
+
+        String localizzazione = view.chiediLocalizzazione();
+        if (vuoleUscire(localizzazione)) return;
+
+        String problematica = view.chiediProblematica();
+        if (vuoleUscire(problematica)) return;
+
+        if (codicePL.isEmpty() || localizzazione.isEmpty() || problematica.isEmpty()) {
+            view.mostraErrore("La prossima volta inserisci qualcosa.");
+            return;
+        }
+
         try {
-            beanVerificaDati.controllaInputLevelCrossing();
-            new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-            //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
-            //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
-            //in caso dovesse premere per sbaglio di nuovo il pulsante invia
-            Printer.print("segnalazione avvenuta con successo\ntorna alla home =)\npremere qualsiasi tasto per tornare alla home: ");
-            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-            if(!bufferedReader.readLine().isEmpty()){
-                tornaAllaHome();
+            if (view.confermaSalvataggio()) {
+                inviaDatiAlBean(codicePL, localizzazione, problematica);
             }
-        }catch(LunghezzaInputException | TipoEntitaException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | SQLException | ErroreLetturaPasswordException |IOException e){
-            if(e instanceof SegnalazioneGiaAvvenutaException){
-                Printer.error("Segnalazione gia avvenuta per quel passaggio a livello");
-            }
-            else Printer.error(e.getMessage());
-            tornaAllaHome();
+        } catch (SceltaNonValidaException e) {
+            view.mostraErrore(e.getMessage());
+            mostraPaginaSegnalazione(); // retry
         }
     }
-    private void tornaAllaHome() throws IOException {
-        paginaHome.displayHomepage();
+
+    private void inviaDatiAlBean(String codicePL, String localizzazione, String problematica) throws IOException {
+        BeanSegnalaEntita bean = new BeanSegnalaEntita(
+                codicePL, localizzazione, problematica, typeEntita, typeOfPersistence);
+        try {
+            bean.controllaInputLevelCrossing();
+            new ControllerApplicativoSegnalazioneEntita(bean);
+
+            view.mostraMessaggioSuccesso();
+        } catch (SegnalazioneGiaAvvenutaException e) {
+            view.mostraErrore("Segnalazione già avvenuta per quel passaggio a livello.");
+        } catch (LunghezzaInputException | TipoEntitaException | NessunAccessoEffettuatoException |
+                 SQLException | ErroreLetturaPasswordException e) {
+            view.mostraErrore(e.getMessage());
+        }
     }
+
+    private boolean vuoleUscire(String input) {
+        return input != null && input.equalsIgnoreCase("esc");
+    }
+
 }
+

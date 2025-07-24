@@ -2,11 +2,13 @@ package controllergraficicommandlineinterface;
 
 import bean.BeanSegnalaEntita;
 import cli.PaginaHome;
+import cli.PaginaSegnalazioneBinarioCli;
 import controllerapplicativi.ControllerApplicativoSegnalazioneEntita;
 import eccezioni.*;
 import factory.TypeEntita;
 import factory.TypeOfPersistence;
 import utility.Printer;
+import utility.UtilityAccesso;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,43 +16,39 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 public class ControllerGraficoPagineSegnalazioneBinarioCli {
+    private final PaginaSegnalazioneBinarioCli view;
 
-    private PaginaHome paginaHome=new PaginaHome();
-    private String localizzazione;
-    private String problematica;
-    private String numeroBinario;
-
-    private BeanSegnalaEntita beanVerificaDati;
-    private TypeEntita typeEntita=TypeEntita.BINARIO;
-    private TypeOfPersistence typeOfPersistence;
-
-
-    public ControllerGraficoPagineSegnalazioneBinarioCli(String localizzazione, String problematica, String numeroBinario, TypeOfPersistence typeOfPersistence){
-        this.localizzazione=localizzazione;
-        this.problematica = problematica;
-        this.numeroBinario = numeroBinario;
-        this.typeOfPersistence = typeOfPersistence;
+    public ControllerGraficoPagineSegnalazioneBinarioCli() {
+        this.view = new PaginaSegnalazioneBinarioCli();
     }
-    public void inviaDatiAlBean() throws IOException {
-        try {
-            beanVerificaDati=new BeanSegnalaEntita(numeroBinario,localizzazione, problematica,typeEntita,typeOfPersistence);
-            //questi dati devono essere mandati al controller applicativo
-            new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-            Printer.print("segnalazione avvenuta con successo\ntorna alla home =)\npremere qualsiasi tasto per tornare alla home: ");
-            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-            if(!bufferedReader.readLine().isEmpty()){
-                tornaAllaHome();
-            }
-        }catch(SQLException| ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException e) {
-            if(e instanceof SegnalazioneGiaAvvenutaException){
-                Printer.error("Segnalazione gia avvenuta per quel binario");
-            }
-            else Printer.error(e.getMessage());
-            tornaAllaHome();
+
+    public void mostraPaginaSegnalazione() throws IOException {
+        String localizzazione = view.chiediLocalizzazione();
+        if (localizzazione.equalsIgnoreCase("esc")) return;
+
+        String numeroBinario = view.chiediNumeroBinario();
+        if (numeroBinario.equalsIgnoreCase("esc")) return;
+
+        String problematica = view.chiediProblematica();
+        if (problematica.equalsIgnoreCase("esc")) return;
+
+        if (view.confermaSalvataggio()) {
+            salvaSegnalazione(localizzazione, numeroBinario, problematica);
         }
-
     }
-    private void tornaAllaHome() throws IOException {
-        paginaHome.displayHomepage();
+
+    private void salvaSegnalazione(String localizzazione, String numeroBinario, String problematica) throws IOException {
+        try {
+            BeanSegnalaEntita bean = new BeanSegnalaEntita(
+                    numeroBinario, localizzazione, problematica, TypeEntita.BINARIO, UtilityAccesso.getPersistence());
+
+            new ControllerApplicativoSegnalazioneEntita(bean);
+            view.mostraSuccesso();
+        } catch (SegnalazioneGiaAvvenutaException e) {
+            view.mostraErrore("Segnalazione già presente.");
+        } catch (Exception e) {
+            view.mostraErrore("Errore: " + e.getMessage());
+        }
     }
 }
+

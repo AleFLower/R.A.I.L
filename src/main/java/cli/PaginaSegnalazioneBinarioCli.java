@@ -10,67 +10,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PaginaSegnalazioneBinarioCli {
-    private String localizzazione;
-    private String numeroBinario;
-    private String problematica;
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public void inserisciInput() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            Printer.print("""
-                -----------------Pagina Segnalazione binario stradale-----------------
-                inserisci localizzazione (digitare esc per uscire): 
-                """);
-            this.localizzazione = bufferedReader.readLine();
-
-            Printer.print("inserisci il numero del binario: ");
-            this.numeroBinario = bufferedReader.readLine();
-
-            Printer.print("inserisci la problematica da segnalare: ");
-            this.problematica = bufferedReader.readLine();
-
-            if (verificaInputUscita(localizzazione, numeroBinario, problematica)) {
-                tornaAllaHomePage();
-                return;
-            }
-
-            gestisciConfermaSalvataggio(bufferedReader);  //for sonar , lo suggerisce lui di non usare try annidati
-            //magari cambia nome al metodo
-
-        } catch (IOException e) {
-            Printer.error("Errore durante la lettura dell'input.");
-        }
+    public String chiediLocalizzazione() throws IOException {
+        Printer.print("Inserisci localizzazione (esc per uscire):");
+        return reader.readLine();
     }
 
-    private void gestisciConfermaSalvataggio(BufferedReader reader) throws IOException {
-        Printer.print("salvare la segnalazione? (y/n)");
-        try {
-            String scelta = reader.readLine().trim().toLowerCase();
-            if (!scelta.equals("y") && !scelta.equals("n")) {
-                throw new SceltaNonValidaException("Scelta non valida. Devi digitare solo 'y' oppure 'n'.");
-            }
-            if (scelta.equals("n")) {
-                return;
-            }
-
-            ControllerGraficoPagineSegnalazioneBinarioCli controllerGrafico =
-                    new ControllerGraficoPagineSegnalazioneBinarioCli(localizzazione, problematica, numeroBinario, UtilityAccesso.getPersistence());
-            controllerGrafico.inviaDatiAlBean();
-
-        } catch (SceltaNonValidaException e) {
-            Printer.error(e.getMessage());
-            gestisciConfermaSalvataggio(reader); // retry
-        }
+    public String chiediNumeroBinario() throws IOException {
+        Printer.print("Inserisci numero binario:");
+        return reader.readLine();
     }
 
-    private boolean verificaInputUscita(String localizzazione, String numeroBinario, String problematica) {
-        return localizzazione.equalsIgnoreCase("esc")
-                || numeroBinario.equalsIgnoreCase("esc")
-                || problematica.equalsIgnoreCase("esc");
+    public String chiediProblematica() throws IOException {
+        Printer.print("Inserisci problematica:");
+        return reader.readLine();
     }
 
-    private void tornaAllaHomePage() throws IOException {
-        PaginaHome paginaHome = new PaginaHome();
-        paginaHome.displayHomepage();
+    public boolean confermaSalvataggio() throws IOException {
+        Printer.print("Salvare la segnalazione? (y/n)");
+        String risposta = reader.readLine().trim().toLowerCase();
+        return risposta.equals("y");
+    }
+
+    public void mostraErrore(String msg) {
+        Printer.error(msg);
+    }
+
+    public void mostraSuccesso() throws IOException {
+        Printer.print("Segnalazione avvenuta con successo. Premi INVIO per tornare alla home.");
+        reader.readLine();
     }
 }

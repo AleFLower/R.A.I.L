@@ -1,5 +1,6 @@
 package com.example.progettoispw.controllergrafici;
 import cli.PaginaHome;
+import controllergraficicommandlineinterface.ControllerGraficoHome;
 import dao.SingletonConnessione;
 import entita.Account;
 import factory.TypeOfPersistence;
@@ -72,8 +73,8 @@ public class StartApplication extends Application {
             //CLI
             else if(numeroScelta==2) {
                 //è stata scelta la linea di comando
-                PaginaHome paginaHome=new PaginaHome();
-                paginaHome.displayHomepage();
+                ControllerGraficoHome controllerGraficoHome = new ControllerGraficoHome();
+                controllerGraficoHome.mostraHome();
                 System.exit(0);
             }
             Printer.print("mi spiace, prova a digitare 1 oppure 2");

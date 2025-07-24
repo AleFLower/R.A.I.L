@@ -1,6 +1,7 @@
 package controllergraficicommandlineinterface;
 
 import bean.BeanLogin;
+import cli.PaginaAccessoAlSistema;
 import cli.PaginaHome;
 import controllerapplicativi.ControllerApplicativoLoginAlSistema;
 import eccezioni.ErroreLetturaPasswordException;
@@ -14,62 +15,62 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
-    private PaginaHome paginaHome=new PaginaHome();
-    private String email;
-    private String password;
-    private BeanLogin beanAccessoUtente;
-    public ControllerGraficoInviaDatiAccessoAlSistemaCli(String email, String password){
-        this.email=email;
-        this.password=password;
-    }
-    public void inviaDatiAlBean() throws IOException {
-        beanAccessoUtente = new BeanLogin(email, password);
-        //svolgo prima i controlli sulla email inserita dall'utente, verifico cioè se è sintatticamente corretta
-        String controlliSintatticiEmail = beanAccessoUtente.svolgiControlli();
-        //se l'email è sintatticamente corretta vado avanti altrimenti counico l'errore all'utente
-        if (controlliSintatticiEmail == null) {
-            //mando il bean al controller applicativo
-            try {
-                new ControllerApplicativoLoginAlSistema(beanAccessoUtente, UtilityAccesso.getPersistence());
-                // se non si e' verificata nessuna eccezione vuol dire che l'accesso e' stato effettuato con successo
-                Printer.print("accesso effettuato, premi qualsiasi tasto per tornare alla home");
+    private final PaginaAccessoAlSistema view = new PaginaAccessoAlSistema();
+    private final PaginaHome paginaHome = new PaginaHome();
 
-                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-                if(!bufferedReader.readLine().isEmpty()){
-                    tornaAllaHome();
-                }
-            }catch(SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException| IOException e){
-                if (e instanceof NonEsisteUtenteNelSistemaException) {
-                    Printer.error("Credenziali non valide. L'utente con queste credenziali non esiste.");
-                    Printer.print("Vuoi registrarti con queste credenziali? (s/n): ");
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-                    String risposta = bufferedReader.readLine();
-                    if (risposta.equalsIgnoreCase("s")) {
-                        // Avvia il processo di registrazione se l'utente risponde "s"
-                        Printer.print("Inserisci username: ");
-                        String username = bufferedReader.readLine();
-                        avviaRegistrazione(email, password,username);
-                    } else {
-                        // Altrimenti torna alla home
-                        tornaAllaHome();
-                    }
-                }
-                tornaAllaHome();
-            }
-        }else{
-            Printer.error(controlliSintatticiEmail);
-            tornaAllaHome();  //comunque sia torna alla home
+    public void mostraPaginaAccesso() throws IOException {
+        String email = view.chiediEmail();
+        if (vuoleUscire(email)) {
+            return;
         }
 
-    }
-    private void tornaAllaHome() throws IOException {
-        paginaHome.displayHomepage();
+        String password = view.chiediPassword();
+        if (vuoleUscire(password)) {
+            return;
+        }
+
+        if (email.isBlank() || password.isBlank()) {
+            view.mostraMessaggioErrore("La prossima volta inserisci una email e una password.");
+            return;
+        }
+
+        inviaDatiAlBean(email, password);
     }
 
+    private void inviaDatiAlBean(String email, String password) throws IOException {
+        BeanLogin bean = new BeanLogin(email, password);
+        String erroreValidazione = bean.svolgiControlli();
 
-    private void avviaRegistrazione(String email,String password, String username)  {
-        // Qui non creo il bean di registrazione, lo faccio nel controller grafico
-        ControllerGraficoRegistrazioneCli controllerRegistrazione = new ControllerGraficoRegistrazioneCli(email,password,username);
+        if (erroreValidazione != null) {
+            view.mostraMessaggioErrore(erroreValidazione);
+            return;
+        }
+
+        try {
+            new ControllerApplicativoLoginAlSistema(bean, UtilityAccesso.getPersistence());
+            view.attendiTastoPerContinuare("Accesso effettuato! Premi INVIO per tornare alla home.");
+        } catch (NonEsisteUtenteNelSistemaException e) {
+            view.mostraMessaggioErrore("Credenziali non valide. L'utente non esiste.");
+            if (view.confermaRegistrazione()) {
+                String username = view.chiediUsername();
+                avviaRegistrazione(email, password, username);
+                return;
+            }
+        } catch (SQLException | ErroreLetturaPasswordException e) {
+            view.mostraMessaggioErrore("Errore durante l'accesso: " + e.getMessage());
+        }
+
+
+    }
+
+    private void avviaRegistrazione(String email, String password, String username) {
+        ControllerGraficoRegistrazioneCli controllerRegistrazione =
+                new ControllerGraficoRegistrazioneCli(email, password, username);
         controllerRegistrazione.registraUtente();
     }
+
+    private boolean vuoleUscire(String input) {
+        return input != null && input.equalsIgnoreCase("esc");
+    }
+
 }

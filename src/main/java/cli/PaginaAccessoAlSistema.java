@@ -9,41 +9,42 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PaginaAccessoAlSistema {
-    private BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-    private String email;
-    private String password;
+    private final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public void mostraPaginaAccesso() throws IOException {   //3
-        Printer.print("--------------------------Pagina log in----------------------------\n" +
-                "digita la tua email ( digita esc per tornare indietro):");
-        this.email=bufferedReader.readLine();
-        Printer.print("inserisci la tua password ( se hai digitato esc per tornare indietro, digita qualsiasi lettera ora): ");
-        this.password=bufferedReader.readLine();
-        //controlla se l'utente e' voluto tornare indietro
-        if(verificaInputUscita(email)){
-            //l'utente vuole tornare alla home
-            tornaAllaHomePage();
-        }
-        if (email == null || verificaInputUscita(email)) {
-            tornaAllaHomePage();
-        }
-
-        if (email == null || email.isBlank() || password == null || password.isBlank()) {
-            Printer.error("La prossima volta inserisci una email e una password");
-            tornaAllaHomePage();
-        }
-        //mando questi dati al controller grafico il quale li manda al bean
-        ControllerGraficoInviaDatiAccessoAlSistemaCli controllerGraficoInviaDatiAccessoAlSistemaCli=new ControllerGraficoInviaDatiAccessoAlSistemaCli(this.email,this.password);
-        controllerGraficoInviaDatiAccessoAlSistemaCli.inviaDatiAlBean();
-
-
+    public String chiediEmail() throws IOException {
+        Printer.print("""
+                --------------------------Pagina log in----------------------------
+                Digita la tua email (digita 'esc' per tornare indietro):""");
+        return bufferedReader.readLine();
     }
-    private boolean verificaInputUscita(String email){
-        return email != null && email.equalsIgnoreCase("esc");
 
+    public String chiediPassword() throws IOException {
+        Printer.print("Inserisci la tua password:");
+        return bufferedReader.readLine();
     }
-    private void tornaAllaHomePage() throws IOException {
-        PaginaHome paginaHome=new PaginaHome();
-        paginaHome.displayHomepage();
+
+    public void mostraMessaggioErrore(String messaggio) {
+        Printer.error(messaggio);
+    }
+
+    public void mostraMessaggio(String messaggio) {
+        Printer.print(messaggio);
+    }
+
+    public boolean confermaRegistrazione() throws IOException {
+        Printer.print("Vuoi registrarti con queste credenziali? (s/n): ");
+        String risposta = bufferedReader.readLine();
+        return risposta.equalsIgnoreCase("s");
+    }
+
+    public String chiediUsername() throws IOException {
+        Printer.print("Inserisci username: ");
+        return bufferedReader.readLine();
+    }
+
+    public void attendiTastoPerContinuare(String messaggio) throws IOException {
+        Printer.print(messaggio);
+        bufferedReader.readLine();
     }
 }
+
