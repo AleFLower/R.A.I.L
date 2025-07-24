@@ -1,9 +1,6 @@
 package cli;
 
-import controllergraficicommandlineinterface.ControllerGraficoHome;
-import controllergraficicommandlineinterface.ControllerGraficoLoginCli;
-import controllergraficicommandlineinterface.ControllerGraficoLogoutCli;
-import dao.SingletonConnessione;
+
 import utility.Printer;
 import utility.UtilityAccesso;
 

@@ -1,19 +1,16 @@
 package controllergraficicommandlineinterface;
 
 import bean.BeanSegnalaEntita;
-import cli.PaginaHome;
+
 import cli.PaginaSegnalazioneBinarioCli;
 import controllerapplicativi.ControllerApplicativoSegnalazioneEntita;
 import eccezioni.*;
 import factory.TypeEntita;
-import factory.TypeOfPersistence;
-import utility.Printer;
+
 import utility.UtilityAccesso;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.SQLException;
+
 
 public class ControllerGraficoPagineSegnalazioneBinarioCli {
     private final PaginaSegnalazioneBinarioCli view;

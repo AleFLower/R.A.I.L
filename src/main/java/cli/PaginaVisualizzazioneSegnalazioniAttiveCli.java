@@ -3,7 +3,6 @@ package cli;
 import bean.BeanListeElementi;
 import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
-import controllergraficicommandlineinterface.ControllerGraficoHome;
 import utility.Printer;
 
 import java.io.IOException;

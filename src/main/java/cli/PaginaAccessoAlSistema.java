@@ -1,6 +1,5 @@
 package cli;
 
-import controllergraficicommandlineinterface.ControllerGraficoInviaDatiAccessoAlSistemaCli;
 import utility.Printer;
 
 import java.io.BufferedReader;
