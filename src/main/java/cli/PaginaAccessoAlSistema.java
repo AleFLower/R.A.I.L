@@ -43,7 +43,6 @@ public class PaginaAccessoAlSistema {
 
     public void attendiTastoPerContinuare(String messaggio) throws IOException {
         Printer.print(messaggio);
-        String ignored = bufferedReader.readLine(); // ← il valore è letto ma ignorato
     }
 }
 

@@ -48,8 +48,7 @@ public class PaginaSegnalazionePassaggioALivelloCli {
     }
 
     public void mostraMessaggioSuccesso() throws IOException {
-        Printer.print("Segnalazione avvenuta con successo! Premi INVIO per tornare alla home.");
-        String ignore = reader.readLine();
+        Printer.print("Segnalazione avvenuta con successo! Back to home page...");
     }
 
     public void mostraErrore(String messaggio) {

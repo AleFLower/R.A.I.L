@@ -48,7 +48,7 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
 
         try {
             new ControllerApplicativoLoginAlSistema(bean, UtilityAccesso.getPersistence());
-            view.attendiTastoPerContinuare("Accesso effettuato! Premi INVIO per tornare alla home.");
+            view.mostraMessaggio("Accesso effettuato! Back to home...");
         } catch (NonEsisteUtenteNelSistemaException e) {
             view.mostraMessaggioErrore("Credenziali non valide. L'utente non esiste.");
             if (view.confermaRegistrazione()) {

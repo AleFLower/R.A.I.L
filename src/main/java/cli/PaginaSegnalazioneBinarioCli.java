@@ -42,7 +42,6 @@ public class PaginaSegnalazioneBinarioCli {
     }
 
     public void mostraSuccesso() throws IOException {
-        Printer.print("Segnalazione avvenuta con successo. Premi INVIO per tornare alla home.");
-        String ignorato = reader.readLine(); // valore ignorato volontariamente
+        Printer.print("Segnalazione avvenuta con successo. Back to home page...");
     }
 }
