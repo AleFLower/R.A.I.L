@@ -5,7 +5,6 @@ import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
 import utility.Printer;
 
-import java.io.IOException;
 
 public class PaginaVisualizzazioneSegnalazioniAttiveCli {
 
