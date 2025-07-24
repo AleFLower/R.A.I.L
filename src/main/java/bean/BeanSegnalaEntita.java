@@ -35,12 +35,8 @@ public class BeanSegnalaEntita {
         return infoEntita;
     }
 
-    public void setInfoEntita(String infoEntita) {
-        this.infoEntita = infoEntita;
-    }
 
     public String getDescrizioneProblema(){return problematica;}
-    public void setproblematica(){this.problematica = problematica;}
 
     public TypeEntita getTipoEntitaSegnalata(){
         return tipo;

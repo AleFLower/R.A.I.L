@@ -5,9 +5,8 @@ import cli.PaginaAccessoAlSistema;
 import java.io.IOException;
 
 public class ControllerGraficoLoginCli {
-    private PaginaAccessoAlSistema paginaAccessoAlSistema;
     public void accediAlSistema() throws IOException {
-        this.paginaAccessoAlSistema=new PaginaAccessoAlSistema();
+        PaginaAccessoAlSistema paginaAccessoAlSistema=new PaginaAccessoAlSistema();
         paginaAccessoAlSistema.mostraPaginaAccesso();  //2
     }
 }

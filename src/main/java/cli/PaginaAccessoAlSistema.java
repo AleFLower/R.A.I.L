@@ -24,8 +24,12 @@ public class PaginaAccessoAlSistema {
             //l'utente vuole tornare alla home
             tornaAllaHomePage();
         }
-        if (email.equals("") || password.equals("")) {
-            Printer.error("la prossima volta inserisci una email e una password");
+        if (email == null || verificaInputUscita(email)) {
+            tornaAllaHomePage();
+        }
+
+        if (email == null || email.isBlank() || password == null || password.isBlank()) {
+            Printer.error("La prossima volta inserisci una email e una password");
             tornaAllaHomePage();
         }
         //mando questi dati al controller grafico il quale li manda al bean
@@ -35,7 +39,7 @@ public class PaginaAccessoAlSistema {
 
     }
     private boolean verificaInputUscita(String email){
-        return email.equalsIgnoreCase("esc");
+        return email != null && email.equalsIgnoreCase("esc");
 
     }
     private void tornaAllaHomePage() throws IOException {
