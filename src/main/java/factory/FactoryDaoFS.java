@@ -7,24 +7,24 @@ import java.sql.SQLException;
 
 public class FactoryDaoFS extends FactoryDao  {
 
-    //just for now , unuseful method, maybe i will implementate later
+    //for future implementations
     @Override
     public LoginDao getLoginDao() throws SQLException, ErroreLetturaPasswordException {
-        return null;
+        return new LoginDaoFileSystem();
     }
 
     @Override
     public RegistrazioneDao getRegistrazioneDao() throws SQLException, ErroreLetturaPasswordException {
-        return null;
+        return new RegistrazioneDaoFileSystem();
     }
 
     @Override
     public SegnalazioniRisolteAttiveDao getSegnalazioniRisolteAttiveDao() throws SQLException, ErroreLetturaPasswordException {
-        return null;
+        return new SegnalazioniAttiveRisolteDaoImplFileSystem();
     }
 
 
-    public EntitaFerroviariaDao useDao(TypeOfPersistence typeOfPersistence, TypeEntita typeEntita) throws SQLException, ErroreLetturaPasswordException {
+    public EntitaFerroviariaDao getSaveAssetDao(TypeOfPersistence typeOfPersistence, TypeEntita typeEntita) throws SQLException, ErroreLetturaPasswordException {
         // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
         if (typeOfPersistence == TypeOfPersistence.FILESYSTEM) {
             switch (typeEntita) {

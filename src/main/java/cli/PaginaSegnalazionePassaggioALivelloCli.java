@@ -1,6 +1,7 @@
 package cli;
 
 import controllergraficicommandlineinterface.ControllerGraficoPaginaSegnalazionePassaggioLivelloCli;
+import eccezioni.SceltaNonValidaException;
 import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.UtilityAccesso;
@@ -38,24 +39,23 @@ public class PaginaSegnalazionePassaggioALivelloCli {
         else {
             //l'utente non vuole uscire, invio i dati al bean
             //invio i dati al controller grafico della pagina segnalazione problema il quale li invia al bean
-            Printer.print("digita:\n1 se vuoi salvare la segnalazione\n2 se vuoi salvarla su file");
+            Printer.print("salvare la segnalazione? (y/n)");
             try {
-                String scelta = bufferedReader.readLine();
-                int sceltaInt = Integer.parseInt(scelta);
+                String scelta = bufferedReader.readLine().trim().toLowerCase();
 
-                TypeOfPersistence tipoPersistenza;
-
-                if (sceltaInt == 2) {
-                    tipoPersistenza = TypeOfPersistence.FILESYSTEM;
-                } else {
-                    tipoPersistenza = UtilityAccesso.getPersistence(); // MEMORY o JDBC
+                if (!scelta.equals("y") && !scelta.equals("n")) {
+                    throw new SceltaNonValidaException("Scelta non valida. Devi digitare solo 'y' oppure 'n'.");
                 }
-                controllerGraficoPaginaSegnalazioneLevelCrossingCli = new ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(codicePLLevelCrossing, localizzazione,problematica, tipoPersistenza);
+                if (scelta.equals("n")) return;
+
+                controllerGraficoPaginaSegnalazioneLevelCrossingCli = new ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(codicePLLevelCrossing, localizzazione, problematica, UtilityAccesso.getPersistence());
                 controllerGraficoPaginaSegnalazioneLevelCrossingCli.inviaDatiAlBean();
-            }catch(NumberFormatException e){
-                //si verifica se l'utente non digita un numero
-                Printer.error("digitare solo un numero tra 1,2");
-                inserisciInput();  //retry
+
+            } catch (SceltaNonValidaException e) {
+                Printer.error(e.getMessage());
+                inserisciInput(); // Retry
+            } catch (IOException e) {
+                Printer.error("Errore durante la lettura dell'input.");
             }
         }
     }

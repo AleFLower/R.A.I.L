@@ -48,7 +48,10 @@ public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
                 tornaAllaHome();
             }
         }catch(LunghezzaInputException | TipoEntitaException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | SQLException | ErroreLetturaPasswordException |IOException e){
-            Printer.error(e.getMessage());
+            if(e instanceof SegnalazioneGiaAvvenutaException){
+                Printer.error("Segnalazione gia avvenuta per quel passaggio a livello");
+            }
+            else Printer.error(e.getMessage());
             tornaAllaHome();
         }
     }

@@ -42,7 +42,7 @@ public class ControllerApplicativoSegnalazioneEntita {
         this.problematica = beanSegnalaEntita.getDescrizioneProblema();
         //creo la factory che deve creare a sua volta la mia entita in base al tipo
         FactoryEntitaFerroviaria factoryEntitaStradale=new FactoryEntitaFerroviaria();
-        //chiamo il metodo createEntita che in base al tipo che gli passo crea un Semaforo  o una binario stradale
+        //chiamo il metodo createEntita che in base al tipo che gli passo crea un passaggio a livello  o una binario stradale
         entitaStradale=factoryEntitaStradale.createEntita(this.tipoEntita,this.localizzazione,this.infoEntita,this.problematica);
         //nessuna eccezione creata, l'entita stradale e' stata quindi creata, devo inviarla alla rispettiva tabella nel db
         //nessuna eccezione devo inviare l'entità stradale segnalata e per capire se deve essere salvata sul db o in locale
@@ -52,10 +52,10 @@ public class ControllerApplicativoSegnalazioneEntita {
     }
 
     private void inviaSegnalazione(EntitaFerroviaria entitaStradale, TypeOfPersistence typeOfPersistence) throws SQLException, ErroreLetturaPasswordException, SegnalazioneGiaAvvenutaException, IOException {
-        //creo una factoryDao la quale ha solo il metodo useDao e mi restituisce un dao in base al tipo di entita stradale e al
+        //creo una factoryDao la quale ha solo il metodo getSaveAssetDao e mi restituisce un dao in base al tipo di entita stradale e al
         //tipo di persistenza che ho ricevuto come parametri
         FactoryDao factoryDao= FactoryDao.getFactory(typeOfPersistence);
-        EntitaFerroviariaDao entitaStradaleDao=factoryDao.useDao(typeOfPersistence,entitaStradale.getTipoEntita());
+        EntitaFerroviariaDao entitaStradaleDao=factoryDao.getSaveAssetDao(typeOfPersistence,entitaStradale.getTipoEntita());
         entitaStradaleDao.saveEntitaStradale(entitaStradale);
 
     }

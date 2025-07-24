@@ -14,7 +14,7 @@ public class FactoryEntitaFerroviaria {
                 //ho ricevuto un Type_binario_Stradale, creo e ritorno una binario stradale
                 return new Binario(infoEntita,localizzazione,problematica);
             case LEVELCROSSING:
-                //ho ricevuto un Semaforo, creo e ritorno un Semaforo
+                //ho ricevuto un passaggio a livello, creo e ritorno un passaggio a livello
                 return new LevelCrossing(infoEntita,localizzazione,problematica);
             default:
                 //nel caso in cui non ricevessi nessuna delle due di sopra, non posso fare nulla e lancio un eccezione

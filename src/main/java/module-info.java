@@ -5,6 +5,7 @@ module com.example.progettoispw {
     requires java.sql;
     requires jetty.util;
     requires jdk.jshell;
+    requires java.desktop;
 
 
     opens com.example.progettoispw.controllergrafici to javafx.fxml;

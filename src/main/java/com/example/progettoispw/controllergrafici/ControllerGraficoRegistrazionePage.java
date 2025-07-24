@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import utility.UtilityAccesso;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class ControllerGraficoRegistrazionePage extends ControllerGraficoGeneral
                         passwordFieldPassword.setDisable(true);
                         registratiAlSistemaButton.setDisable(true);
                         labelComunicazione.setText("registrazione avvenuta con successo");
-                    }catch (SQLException | UtenteEsistenteException | ErroreLetturaPasswordException e){
+                    }catch (SQLException | UtenteEsistenteException | ErroreLetturaPasswordException | IOException e){
                         labelComunicazione.setText(e.getMessage());
                     }
                 }else{

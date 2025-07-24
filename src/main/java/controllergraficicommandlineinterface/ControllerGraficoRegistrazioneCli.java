@@ -8,6 +8,7 @@ import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.UtilityAccesso;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ControllerGraficoRegistrazioneCli {
@@ -35,7 +36,7 @@ public class ControllerGraficoRegistrazioneCli {
             Printer.print("Registrazione avvenuta con successo!");
         } catch (UtenteEsistenteException e) {
             Printer.error("Registrazione fallita: " + e.getMessage());
-        } catch (ErroreLetturaPasswordException | SQLException e) {
+        } catch (ErroreLetturaPasswordException | SQLException | IOException e) {
             Printer.error("Errore tecnico durante la registrazione: " + e.getMessage());
         }
     }

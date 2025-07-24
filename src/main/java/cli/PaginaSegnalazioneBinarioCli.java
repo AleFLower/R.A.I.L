@@ -1,6 +1,8 @@
 package cli;
 
+import controllergraficicommandlineinterface.ControllerGraficoPaginaSegnalazionePassaggioLivelloCli;
 import controllergraficicommandlineinterface.ControllerGraficoPagineSegnalazioneBinarioCli;
+import eccezioni.SceltaNonValidaException;
 import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.UtilityAccesso;
@@ -14,50 +16,42 @@ public class PaginaSegnalazioneBinarioCli {
     private String numeroBinario;
     private String problematica;
     public void inserisciInput() throws IOException {
-        try{
-        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        Printer.print("-----------------Pagina Segnalazione binario stradale-----------------\n" +
-                "inserisci localizzazione(digitare esc per uscire): ");
-        this.localizzazione =bufferedReader.readLine();
-        Printer.print("inserisci il numero del binario: ");
-        this.numeroBinario =bufferedReader.readLine();
-        Printer.print("inserisci la problematica da segnalare: ");
-        this.problematica=bufferedReader.readLine();
-        
-        if(verificaInputUscita(localizzazione, numeroBinario,problematica)){
-            //l'utente vuole tornare alla home
-            tornaAllaHomePage();
-        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            Printer.print("-----------------Pagina Segnalazione binario stradale-----------------\n" +
+                    "inserisci localizzazione(digitare esc per uscire): ");
+            this.localizzazione = bufferedReader.readLine();
+            Printer.print("inserisci il numero del binario: ");
+            this.numeroBinario = bufferedReader.readLine();
+            Printer.print("inserisci la problematica da segnalare: ");
+            this.problematica = bufferedReader.readLine();
 
+            if (verificaInputUscita(localizzazione, numeroBinario, problematica)) {
+                //l'utente vuole tornare alla home
+                tornaAllaHomePage();
+            }
 
-        //l'utente ha inserito dati corretti, ora questi li passiamo al controller grafico che li passerà a sua volta al bean
-        Printer.print("digita:\n1 per salvare il binario\n2 per salvare il binario su file");
-        String scelta=bufferedReader.readLine();
-            int sceltaInt = Integer.parseInt(scelta);
+            Printer.print("salvare la segnalazione? (y/n)");
+            try {
+                String scelta = bufferedReader.readLine().trim().toLowerCase();
 
-            //secondo le richieste del progetto, in memory non si deve usare nessun meccanismo di persistenza
-            //se uso la full version, allora si , posso scegliere il tipo di persistenza
-            if(UtilityAccesso.getPersistence() == TypeOfPersistence.MEMORY){
-                if(sceltaInt == 2){
-                    Printer.print("This option is not available in demo version");
-                    tornaAllaHomePage();
+                if (!scelta.equals("y") && !scelta.equals("n")) {
+                    throw new SceltaNonValidaException("Scelta non valida. Devi digitare solo 'y' oppure 'n'.");
                 }
-            }
+                if (scelta.equals("n")) return;
 
-            TypeOfPersistence tipoPersistenza;
-
-            if (sceltaInt == 2) {
-                tipoPersistenza = TypeOfPersistence.FILESYSTEM;
-            } else {
-                tipoPersistenza = UtilityAccesso.getPersistence(); // MEMORY o JDBC
+                ControllerGraficoPagineSegnalazioneBinarioCli controllerGraficoPagineSegnalazioneBinarioCli = new ControllerGraficoPagineSegnalazioneBinarioCli(localizzazione, problematica, numeroBinario, UtilityAccesso.getPersistence());
+                controllerGraficoPagineSegnalazioneBinarioCli.inviaDatiAlBean();
+            } catch (SceltaNonValidaException e) {
+                Printer.error(e.getMessage());
+                inserisciInput(); // Retry
             }
-        ControllerGraficoPagineSegnalazioneBinarioCli controllerGraficoPagineSegnalazioneBinarioCli=new ControllerGraficoPagineSegnalazioneBinarioCli(localizzazione,problematica, numeroBinario,tipoPersistenza);
-        controllerGraficoPagineSegnalazioneBinarioCli.inviaDatiAlBean();
-    }catch (NumberFormatException e){
-            Printer.error("inserire numeri dove e' richiesto");
-            inserisciInput();
+        }catch (IOException e) {
+                Printer.error("Errore durante la lettura dell'input.");
         }
+
     }
+
     private boolean verificaInputUscita(String localizzazione, String numeroBinario, String problematica){
         return (localizzazione.equalsIgnoreCase("esc") || numeroBinario.equalsIgnoreCase("esc") || problematica.equalsIgnoreCase("esc"));
 

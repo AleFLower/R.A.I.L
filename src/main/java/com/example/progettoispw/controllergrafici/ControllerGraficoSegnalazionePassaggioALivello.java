@@ -20,15 +20,13 @@ import java.util.ResourceBundle;
 
 public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGraficoGenerale {
 
-    /*questo controller è associato alla PaginaSegnalaProblemaIlluminazione la quale possiede:
+    /*questo controller è associato alla PaginaSegnalaProblema la quale possiede:
      * i DUE textField in cui l'utente inserisce i campi
      * il pulsante invia che consente d' inviare la segnalazione che l'utente ha richiesto  */
 
     @FXML
     private JFXButton salvaInMemoryButton;
     private BeanSegnalaEntita beanVerificaDati;
-    @FXML
-    private JFXButton inviaSegnalazioneInLocaleButton;
     @FXML
     private TextField textFieldProblematica;
     @FXML
@@ -39,8 +37,8 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
     private JFXButton inviaSegnalazioneButton;
     @FXML
     private Label labelErrore;
-    //se sono in questo controller grafico vuol dire che l'utente sta segnalando un levelCrossing dell'illuminazione, quindi la
-    //mia entita stradale sara' di tipo type_levelCrossing_illuminazione
+    //se sono in questo controller grafico vuol dire che l'utente sta segnalando un levelCrossing dell', quindi la
+    //mia entita stradale sara' di tipo type_levelCrossing_
     private TypeEntita typeEntita = TypeEntita.LEVELCROSSING;
     private TypeOfPersistence typeOfPersistence;
 
@@ -68,34 +66,7 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
             }
         });
         // codice che si attiva se l'utente clicca il button per salvare il problema segnalato in locale e non su un database
-        inviaSegnalazioneInLocaleButton.setOnMouseClicked(event -> {
 
-            if (UtilityAccesso.getPersistence() == TypeOfPersistence.MEMORY) {
-                // Disabilita il bottone se persistence è memory
-                inviaSegnalazioneInLocaleButton.setDisable(true);
-                labelErrore.setText("In demo version this option is not available.");
-                return; // Esci dal metodo, non procedere con l'invio
-            }
-
-            //controlla input torna false se i campi sono stati inseriti
-            if (controllaInput()) {
-                try {
-                    //il tipo di persistenza sarà il file system ora
-                    typeOfPersistence = TypeOfPersistence.FILESYSTEM;
-                    beanVerificaDati = beanVerifica(textFieldcodicePL.getText(), textFieldlocalizzazione.getText(), textFieldProblematica.getText(),typeEntita, typeOfPersistence);
-                    ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita = new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-                    //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
-                    //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
-                    //in caso dovesse premere per sbaglio di nuovo il pulsante invia
-                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
-                    disattivaButton();
-                } catch (LunghezzaInputException | SQLException | ErroreLetturaPasswordException |
-                         SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException | IOException e) {
-                    verificaEccezione(e);
-                    labelErrore.setText(e.getMessage());
-                }
-            }
-        });
 
         //questo viene chiamato per implementare le azioni ai button che sono in comune tra le schermate, essendo questa
         //classe figlia di ControllerGraficoLoginPage, questo metodo super chiamerà initialize di ControllerGraficoLoginPage
@@ -114,7 +85,6 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
         textFieldcodicePL.setDisable(true);
         textFieldProblematica.setDisable(true);
         inviaSegnalazioneButton.setDisable(true);
-        inviaSegnalazioneInLocaleButton.setDisable(true);
     }
 
     private void mostraAlertSuccesso(String messaggio) {

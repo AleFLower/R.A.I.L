@@ -55,7 +55,8 @@ public class BinarioDaoImplJDBC implements EntitaFerroviariaDao {
         //ritorna true se c'e 'una segnalazione già effettuata a quell'localizzazione, false altrimenti
         verificaConnessione();
         preparedStatement = connection.prepareStatement(QueriesSegnalazioneBinario.queriesVediSeLeSegnalAQuelllocalizzazioneSonoStateGiaSegnalate());
-        preparedStatement.setString(1, binario.getlocalizzazione());
+        preparedStatement.setString(1, binario.getInfo());
+        preparedStatement.setString(2, binario.getlocalizzazione());
         resultSet = preparedStatement.executeQuery();
         //isBeforeFirst ritorna true se il result set contiene qualcosa, false altrimenti
         return resultSet.isBeforeFirst();

@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import utility.UtilityAccesso;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -38,12 +40,12 @@ public class ControllerGraficoSegnalazioniAttive implements Initializable {
             //passo il bean al controller applicativo che riempira le liste in base alle segnalazioni attive dell'utente
             new ControllerApplicativoTipoSegnalazione(beanListeElementi, UtilityAccesso.getPersistence());
             //se non e' stata ricevuta nessuna eccezione vuol dire che non ci sono stati errori e che qualcosa nelle liste
-            //dei bean e' stato inserito, creo 2 contatori uno che tiene conto dei levelCrossing e uno delle buche cosi so' il numero di
+            //dei bean e' stato inserito, creo 2 contatori uno che tiene conto dei levelCrossing e uno delle binari cosi so' il numero di
             //segnalazioni che l'utente ha per quelle 2 entita
             //contatore che tiene il numero di indirizzi dei levelCrossing ( per come ho costrutito il tutto a n indirizzi corrispondono
             //n numeri di levelCrossing, quindi contare gli indirizzi equivale a contare il numero di levelCrossing segnalati dall'utente)
             int contatoreLevelCrossing=beanListeElementi.getSegnalazioniLevelCrossing().size();
-            //discorso duale per il contatore che conta gli indirizzi delle buche
+            //discorso duale per il contatore che conta gli indirizzi delle binari
             int contatorebinari=beanListeElementi.getSegnalazioniBinari().size();
             //per ogni segnalazione devo creare una label, settare il testo dentro la label stessa..
             listViewName.setFixedCellSize(90);
@@ -87,8 +89,9 @@ public class ControllerGraficoSegnalazioniAttive implements Initializable {
                 }
 
             }
-        }catch(SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException e){
+        }catch(SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException | IOException e){
             labelErrore.setText(e.getMessage());
+            labelErrore.setVisible(true);
         }
         ritornaHomeButton.setOnMouseClicked(event->{
             try {

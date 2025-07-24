@@ -37,15 +37,16 @@ public class StartApplication extends Application {
 
             // Chiedo il tipo di persistenza
             while (typeOfPersistence == null) {
-                Printer.print("Scegli modalità di avvio dell'app: \n1 -> Full version\n2 -> Demo version");
+                Printer.print("Scegli modalità di avvio dell'app: \n1 -> Full version dbms\n2 -> Full version file system\n3 -> Demo version");
                 String tipo = bufferedReader.readLine();
                 if ("1".equals(tipo)) {
                     typeOfPersistence = TypeOfPersistence.JDBC;
                 } else if ("2".equals(tipo)) {
+                    typeOfPersistence = TypeOfPersistence.FILESYSTEM;
+                } else if("3".equals(tipo)){
                     typeOfPersistence = TypeOfPersistence.MEMORY;
-                } else {
-                    Printer.print("Scelta non valida, riprova");
                 }
+                else Printer.print("Scelta non valida, riprova");
             }
 
             // Salvo la scelta in una classe statica d’appoggio

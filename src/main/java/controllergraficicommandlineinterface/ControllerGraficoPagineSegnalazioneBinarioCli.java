@@ -42,7 +42,10 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
                 tornaAllaHome();
             }
         }catch(SQLException| ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException e) {
-            Printer.error(e.getMessage());
+            if(e instanceof SegnalazioneGiaAvvenutaException){
+                Printer.error("Segnalazione gia avvenuta per quel binario");
+            }
+            else Printer.error(e.getMessage());
             tornaAllaHome();
         }
 

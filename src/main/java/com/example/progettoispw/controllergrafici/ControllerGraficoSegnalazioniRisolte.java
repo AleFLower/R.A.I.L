@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import utility.UtilityAccesso;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -74,8 +75,9 @@ public class ControllerGraficoSegnalazioniRisolte implements Initializable{
                     listViewRisolteName.getItems().add(label1);
                 }
             }
-        } catch (SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException e) {
+        } catch (SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException | IOException e) {
             labelErrore.setText(e.getMessage());
+            labelErrore.setVisible(true);
         }
         //se l'utente clicca sul pulsante che ritorna alla home viene attivato questo metodo
         ritornaHomeButton.setOnMouseClicked(event->{

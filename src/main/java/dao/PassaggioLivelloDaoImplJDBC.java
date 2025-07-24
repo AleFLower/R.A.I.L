@@ -16,7 +16,7 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    //variabile che viene impostata a 0 o a 1 in base all'esito del salvataggio del Semaforo illuminazione
+    //variabile che viene impostata a 0 o a 1 in base all'esito del salvataggio del passaggio a livello
     //nel database, utile in fase di test
     private int esito;
     public PassaggioLivelloDaoImplJDBC() throws SQLException, ErroreLetturaPasswordException {
@@ -24,12 +24,12 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
     }
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException {
-        //qui so che ho a che fare con un Semaforo alla fine e lo devo mandare al db , allora rendo l'entita stradale un Semaforo
+        //qui so che ho a che fare con un passaggio a livello alla fine e lo devo mandare al db , allora rendo l'entita stradale un passaggio a livello
         //e poi lo invio
         LevelCrossing levelCrossing=new LevelCrossing(instance.getInfo(),instance.getlocalizzazione(),instance.getDescrizioneProblema());
         //ora lo invio
         //questa operazione può essere fatta da tutti, sia loggati che non
-        //vedo se il Semaforo e' già presente o no nel db, se lo e' comunico che gi esiste nel db, altrimenti lo salvo nel db
+        //vedo se il passaggio a livello e' già presente o no nel db, se lo e' comunico che gi esiste nel db, altrimenti lo salvo nel db
         if(!cercaLevelCrossing(levelCrossing)) {
             if (UtilityAccesso.getCodiceUtente() != null) {
                 //l'utente è loggato nel sistema, la sua segnalazione deve essere salvata nel db
@@ -57,7 +57,6 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
         verificaConnessione();
         preparedStatement=connection.prepareStatement(QueriesSegnalazionePassaggioLivello.cercalevelCrossing());
         preparedStatement.setString(1,levelCrossing.getInfo());
-        preparedStatement.setString(2,levelCrossing.getlocalizzazione());
         resultSet=preparedStatement.executeQuery();
         return resultSet.isBeforeFirst();
     }

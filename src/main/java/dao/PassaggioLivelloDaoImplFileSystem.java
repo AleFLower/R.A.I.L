@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 
 public class PassaggioLivelloDaoImplFileSystem implements EntitaFerroviariaDao {
-    //dao che salva l'entità stradale, in questo caso un Semaforo illuminazione nel file system
+    //dao che salva l'entità stradale, in questo caso un passaggio a livello nel file system
     private static final String CSV_FILE_NAME = "LevelCrossingSegnalato.txt";
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException {

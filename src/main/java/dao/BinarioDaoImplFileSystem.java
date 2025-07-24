@@ -19,7 +19,7 @@ public class BinarioDaoImplFileSystem implements EntitaFerroviariaDao {
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException, IOException {
         //se sono qui voglio salvare su file system la binario
-        Binario binario= new Binario(instance.getlocalizzazione(),instance.getInfo(),instance.getDescrizioneProblema());
+        Binario binario= new Binario(instance.getInfo(),instance.getlocalizzazione(),instance.getDescrizioneProblema());
         //adesso devo salvarla in locale
         try {
             //imposto a true il secondo parametro del costruttore del file writer, in questo modo non c'e' sovrascrittura
@@ -38,7 +38,7 @@ public class BinarioDaoImplFileSystem implements EntitaFerroviariaDao {
         }
     }
     private String convertibinarioInTxt(Binario binario){
-        return "Visibilità binario:  "+binario.getInfo()+"\nlocalizzazione: "+binario.getlocalizzazione()+ "\nproblematica riscontrata: " + binario.getDescrizioneProblema() +"\nstato: ancora non segnalato al database";
+        return "Numero binario:  "+binario.getInfo()+"\nlocalizzazione: "+binario.getlocalizzazione()+ "\nproblematica riscontrata: " + binario.getDescrizioneProblema() +"\nstato: segnalato";
     }
     public int getEsito(){
         return this.esitoSalvataggio;

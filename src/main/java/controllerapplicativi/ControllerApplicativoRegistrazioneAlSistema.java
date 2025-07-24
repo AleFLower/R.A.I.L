@@ -9,6 +9,7 @@ import eccezioni.UtenteEsistenteException;
 import factory.FactoryDao;
 import factory.TypeOfPersistence;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ControllerApplicativoRegistrazioneAlSistema {
@@ -17,14 +18,14 @@ public class ControllerApplicativoRegistrazioneAlSistema {
     private String username;
 
 
-    public ControllerApplicativoRegistrazioneAlSistema(BeanRegistrazione bean, TypeOfPersistence typeOfPersistence) throws SQLException, UtenteEsistenteException, ErroreLetturaPasswordException {
+    public ControllerApplicativoRegistrazioneAlSistema(BeanRegistrazione bean, TypeOfPersistence typeOfPersistence) throws SQLException, UtenteEsistenteException, ErroreLetturaPasswordException, IOException {
         email= bean.getEmail();
         username=bean.getUsername();
         password= bean.getPassword();
         registraUtente(typeOfPersistence);
         int a;
     }
-    private void registraUtente(TypeOfPersistence typeOfPersistence) throws SQLException, UtenteEsistenteException, ErroreLetturaPasswordException {
+    private void registraUtente(TypeOfPersistence typeOfPersistence) throws SQLException, UtenteEsistenteException, ErroreLetturaPasswordException, IOException {
         //devo usare un dao per prendere la connessione e far registrare l'utente nel sistema
 
         FactoryDao factory = FactoryDao.getFactory(typeOfPersistence);

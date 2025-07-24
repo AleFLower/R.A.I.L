@@ -31,9 +31,6 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
     private Label labelErrore;
     private final ControllerVisualizzatoreScene controllerVisualizzatoreScene=ControllerVisualizzatoreScene.getInstance(null);
 
-
-    @FXML
-    private JFXButton inviaSegnalazioneButtonInLocale;
     //se sono in questo controller grafico vuol dire che l'utente sta segnalando una binario , quindi la
     //mia entita stradale sara' di tipo type_binario_stradale
     private TypeEntita typeEntita=TypeEntita.BINARIO;
@@ -63,37 +60,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                 }
             }
         });
-        //se l'utente vuole salvare la segnalazione in locale
-        inviaSegnalazioneButtonInLocale.setOnMouseClicked(event->{
 
-            if (UtilityAccesso.getPersistence() == TypeOfPersistence.MEMORY) {
-                // Disabilita il bottone se persistence è memory
-                inviaSegnalazioneButtonInLocale.setDisable(true);
-                labelErrore.setText("In demo version this option is not available.");
-                return; // Esci dal metodo, non procedere con l'invio
-            }
-
-            if(controllaInput()){
-                try {
-
-                    typeOfPersistence= UtilityAccesso.getPersistence();
-                    beanVerificaDati = beanVerifica(
-                            String.valueOf(comboBoxNumeroBinario.getValue()),
-                            textFieldlocalizzazione.getText(),
-                            textFieldProblematica.getText(),
-                            typeEntita,
-                            typeOfPersistence
-                    );
-                    //questi dati devono essere mandati al controller applicativo
-                    ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita=new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
-                    mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
-
-                    disattivaButton();
-                } catch(SQLException | ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException | IOException e){
-                    settaTestoEccezione(e);
-                }
-            }
-        });
         // Popola la ComboBox con i numeri da 1 a 20
         for (int i = 1; i <= 20; i++) {
             comboBoxNumeroBinario.getItems().add(i);
@@ -107,7 +74,6 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         textFieldlocalizzazione.setDisable(true);
         comboBoxNumeroBinario.setDisable(true);
         inviaSegnalazioneButton1.setDisable(true);
-        inviaSegnalazioneButtonInLocale.setDisable(true);
     }
     public void settaTestoEccezione(Exception e){
         if (e instanceof NessunAccessoEffettuatoException) {
