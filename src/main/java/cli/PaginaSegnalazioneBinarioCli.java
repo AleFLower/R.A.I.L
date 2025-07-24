@@ -28,7 +28,7 @@ public class PaginaSegnalazioneBinarioCli {
 
     public boolean confermaSalvataggio() throws IOException {
         Printer.print("Salvare la segnalazione? (y/n)");
-        String risposta = reader.readLine().trim().toLowerCase();
+        String risposta = reader.readLine();
         if (risposta == null) {
             return false; // oppure puoi decidere un comportamento diverso
         }
