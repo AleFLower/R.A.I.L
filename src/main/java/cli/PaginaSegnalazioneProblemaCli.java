@@ -16,11 +16,14 @@ public class PaginaSegnalazioneProblemaCli {
     public void mostraProblemiChePossonoEssereSegnalati() throws IOException {
         Clear.clear();
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        Printer.print("------------------------------------------Pagina Segnalazione Problema------------------------------------------\n" +
-                "digita:\n" +
-                "1 per segnalare un passaggio a livello\n" +
-                "2 per segnalare un Binario\n" +
-                "qualsiasi altro input se vuoi tornare alla home");
+        Printer.print("""
+        ------------------------------------------Pagina Segnalazione Problema------------------------------------------
+        digita:
+        1 per segnalare un passaggio a livello
+        2 per segnalare un Binario
+        qualsiasi altro input se vuoi tornare alla home
+        """);
+
         String scelta=bufferedReader.readLine();
         try {
             numeroScelta = Integer.parseInt(scelta);

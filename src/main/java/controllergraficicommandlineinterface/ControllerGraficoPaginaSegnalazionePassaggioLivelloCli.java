@@ -44,7 +44,7 @@ public class ControllerGraficoPaginaSegnalazionePassaggioLivelloCli {
             //in caso dovesse premere per sbaglio di nuovo il pulsante invia
             Printer.print("segnalazione avvenuta con successo\ntorna alla home =)\npremere qualsiasi tasto per tornare alla home: ");
             BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-            if(bufferedReader.readLine().length()>=1){
+            if(!bufferedReader.readLine().isEmpty()){
                 tornaAllaHome();
             }
         }catch(LunghezzaInputException | TipoEntitaException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | SQLException | ErroreLetturaPasswordException |IOException e){

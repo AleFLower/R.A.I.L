@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SegnaleStradaleDaoImplFileSystemTest {
-    private SegnaleStradaleDaoImplFileSystem SegnaleStradaleDaoImplFileSystem;
+    private SegnaleStradaleDaoImplFileSystem segnaleStradaleDaoImplFileSystem;
 
     @Test
     void saveSegnaleStradaleNelFileSystem(){
@@ -21,12 +21,12 @@ class SegnaleStradaleDaoImplFileSystemTest {
         try {
             SegnaleStradaleDaoImplFileSystem = new SegnaleStradaleDaoImplFileSystem();
             EntitaFerroviaria entitaStradale = new SegnaleStradale("32", "viaa");
-            SegnaleStradaleDaoImplFileSystem.saveEntitaStradale(entitaStradale);
+            segnaleStradaleDaoImplFileSystem.saveEntitaStradale(entitaStradale);
         }catch(SegnalazioneGiaAvvenutaException |SQLException |ErroreLetturaPasswordException |IOException e){
             //niente da fare qui
         }finally{
             //se la segnalazione è andata a buon fine esito varrà 0, quindi ho scritto sul file SegnaleStradaleSegnalata.txt
-            assertEquals(0, SegnaleStradaleDaoImplFileSystem.getEsito());
+            assertEquals(0, segnaleStradaleDaoImplFileSystem.getEsito());
         }
     }
 
