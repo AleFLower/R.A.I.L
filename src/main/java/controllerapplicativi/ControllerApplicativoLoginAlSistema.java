@@ -2,12 +2,10 @@ package controllerapplicativi;
 
 import bean.BeanLogin;
 import dao.LoginDao;
-import dao.LoginDaoImpl;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsisteUtenteNelSistemaException;
 import factory.FactoryDao;
 import factory.TypeOfPersistence;
-import org.mortbay.log.Log;
 
 import java.sql.SQLException;
 

@@ -21,8 +21,8 @@ public class PassaggioLivelloDaoImplFileSystem implements EntitaFerroviariaDao {
         try {
             //secondo argomento messo a true , spiegazione in BinarioDaoImplFileSystem
             BufferedWriter fileWriter=new BufferedWriter(new FileWriter(CSV_FILE_NAME,true));
-            String LevelCrossingDaMandareNelFileTxt= convertiLevelCrossingInTxt(levelCrossing);
-            fileWriter.write(LevelCrossingDaMandareNelFileTxt);
+            String levelCrossingDaMandareNelFileTxt= convertiLevelCrossingInTxt(levelCrossing);
+            fileWriter.write(levelCrossingDaMandareNelFileTxt);
             //spiegazione in BinarioDaoImplFileSystem per questo uso di newLine()
             fileWriter.newLine();
             fileWriter.close();

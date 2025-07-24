@@ -2,7 +2,6 @@ package cli;
 
 import controllergraficicommandlineinterface.ControllerGraficoPaginaSegnalazionePassaggioLivelloCli;
 import eccezioni.SceltaNonValidaException;
-import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.UtilityAccesso;
 
@@ -32,7 +31,7 @@ public class PaginaSegnalazionePassaggioALivelloCli {
         //prima verifichiamo se l'utente vuole uscire dalla schermata
         if(verificaInputUscita(codicePLLevelCrossing, localizzazione,problematica)){
             tornaAllaHomePage();
-        }else if(codicePLLevelCrossing.equals("")|| localizzazione.equals("") || problematica.equals("")){
+        }else if(codicePLLevelCrossing.isEmpty() || localizzazione.isEmpty() || problematica.isEmpty()){
             Printer.print("la prossima volta inserisci qualcosa");
             tornaAllaHomePage();
         }

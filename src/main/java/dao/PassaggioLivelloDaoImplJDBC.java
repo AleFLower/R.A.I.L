@@ -33,7 +33,7 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
         if(!cercaLevelCrossing(levelCrossing)) {
             if (UtilityAccesso.getCodiceUtente() != null) {
                 //l'utente è loggato nel sistema, la sua segnalazione deve essere salvata nel db
-                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.queriesSalvalevelCrossingAdUnUtenteDelSistema());
+                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.queriesSalvaLevelCrossingAdUnUtenteDelSistema());
                 preparedStatement.setString(1, levelCrossing.getInfo());
                 preparedStatement.setString(2, levelCrossing.getlocalizzazione());
                 preparedStatement.setString(3, levelCrossing.getDescrizioneProblema());
@@ -42,7 +42,7 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
                 this.esito = 0;
             }
             else{
-                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.queriesSalvalevelCrossing());
+                preparedStatement = connection.prepareStatement(QueriesSegnalazionePassaggioLivello.getQueriesSalvaLevelcrossing());
                 preparedStatement.setString(1, levelCrossing.getInfo());
                 preparedStatement.setString(2, levelCrossing.getlocalizzazione());
                 preparedStatement.setString(3, levelCrossing.getDescrizioneProblema());
@@ -55,7 +55,7 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
     private boolean cercaLevelCrossing(LevelCrossing levelCrossing) throws SQLException, ErroreLetturaPasswordException {
         //verifichiamo che la connessione sia aperta prima
         verificaConnessione();
-        preparedStatement=connection.prepareStatement(QueriesSegnalazionePassaggioLivello.cercalevelCrossing());
+        preparedStatement=connection.prepareStatement(QueriesSegnalazionePassaggioLivello.getQueriesCercaLevelcrossing());
         preparedStatement.setString(1,levelCrossing.getInfo());
         resultSet=preparedStatement.executeQuery();
         return resultSet.isBeforeFirst();

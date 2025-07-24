@@ -9,10 +9,9 @@ public class BeanSegnalaEntita {
 
     private String localizzazione;
     private String problematica;
-   // private String tipologia;
     private String infoEntita;
     private TypeEntita tipo;
-    private static final int LUNGHEZZAcodicePL=5;
+    private static final int LUNGHEZZACODICEPL=5;
     private TypeOfPersistence typeOfPersistence;
 
     public BeanSegnalaEntita(String infoEntita, String localizzazione, String problematica,TypeEntita tipoEntitaSegnalata,TypeOfPersistence typeOfPersistence){
@@ -20,21 +19,16 @@ public class BeanSegnalaEntita {
         this.infoEntita=infoEntita;
         this.problematica = problematica;
         this.tipo=tipoEntitaSegnalata;
-      //  this.tipologia = tipologia;
         this.typeOfPersistence=typeOfPersistence;
     }
     public void controllaInputLevelCrossing()throws LunghezzaInputException {
-        if (infoEntita.length() != LUNGHEZZAcodicePL) {
+        if (infoEntita.length() != LUNGHEZZACODICEPL) {
             throw new LunghezzaInputException("\nLa lunghezza del numero seriale non e' corretta");
         }
     }
 
     public String getlocalizzazione() {
         return localizzazione;
-    }
-
-    public void setlocalizzazione(String localizzazione) {
-        this.localizzazione = localizzazione;
     }
 
     public String getInfoEntita() {
@@ -47,14 +41,9 @@ public class BeanSegnalaEntita {
 
     public String getDescrizioneProblema(){return problematica;}
     public void setproblematica(){this.problematica = problematica;}
-   // public String getTipologia(){return tipologia;}
-   // public void setTipologia(){this.tipologia = tipologia;}
 
     public TypeEntita getTipoEntitaSegnalata(){
         return tipo;
-    }
-    public void setTipoEntitaSegnalata(TypeEntita tipoEntitaSegnalata) {
-        this.tipo = tipoEntitaSegnalata;
     }
 
     public TypeOfPersistence getTypeOfPersistence() {

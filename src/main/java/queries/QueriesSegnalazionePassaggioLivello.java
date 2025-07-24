@@ -13,34 +13,34 @@ e dunque in futuro un altro utente possa segnalarla. Stessa cosa per i binari.
 public class QueriesSegnalazionePassaggioLivello {
 
     //questa classe svolgerà il ruolo di utility class, avrà solo metodi statici che restituiscono stringhe
-    //che altro non sono che le query che posso fare sul mio oggetto levelCrossing
-    //nota nelle query il termine 'levelCrossing' e' il nome della relazione presente nel database "database-app-ispw"
+    //che altro non sono che le query che posso fare sul mio oggetto LEVELCROSSING
+    //nota nelle query il termine 'LEVELCROSSING' e' il nome della relazione presente nel database "database-app-ispw"
     //quetse sono dei prepare statment, i valori nei ? verranno settati nella classe che vuole svolgete la query
-    static final String QUERIES_PRENDI_levelCrossing="SELECT * FROM levelCrossing where codicePL=?";
-    static final String QUERIES_SALVA_levelCrossing="INSERT INTO levelCrossing(codicePL,localizzazione,problematica) VALUES(?,?,?);";
-    static final String QUERIES_SALVA_levelCrossing_Ad_Utente="INSERT INTO levelCrossing(codicePL,localizzazione,problematica,codiceUtente) VALUES(?,?,?,?);";
-    static final String QUERIES_RIMUOVI_levelCrossing="DELETE  FROM levelCrossing where (codicePL=? AND localizzazione=?);";
-    static final String QUERIES_RESTITUISCI_levelCrossing="SELECT * FROM levelCrossing";
-    static final String QUERIES_CAMBIA_STATO_levelCrossing="UPDATE levelCrossing SET stato = ? WHERE (codicePL=? AND localizzazione=?);";
-    static final String QUERIES_CERCA_levelCrossing="SELECT * FROM levelCrossing WHERE (codicePL=?);";
-    static final String QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE="SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM levelCrossing,account WHERE (levelCrossing.codiceUtente=? AND stato = 'segnalato');";
-    static final String QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_passaggioALivello = "SELECT * FROM levelCrossing;";
+    static final String QUERIES_PRENDI_LEVELCROSSING="SELECT * FROM LEVELCROSSING where codicePL=?";
+    static final String QUERIES_SALVA_LEVELCROSSING="INSERT INTO LEVELCROSSING(codicePL,localizzazione,problematica) VALUES(?,?,?);";
+    static final String QUERIES_SALVA_LEVELCROSSING_Ad_Utente="INSERT INTO LEVELCROSSING(codicePL,localizzazione,problematica,codiceUtente) VALUES(?,?,?,?);";
+    static final String QUERIES_RIMUOVI_LEVELCROSSING="DELETE  FROM LEVELCROSSING where (codicePL=? AND localizzazione=?);";
+    static final String QUERIES_RESTITUISCI_LEVELCROSSING="SELECT * FROM LEVELCROSSING";
+    static final String QUERIES_CAMBIA_STATO_LEVELCROSSING="UPDATE LEVELCROSSING SET stato = ? WHERE (codicePL=? AND localizzazione=?);";
+    static final String QUERIES_CERCA_LEVELCROSSING="SELECT * FROM LEVELCROSSING WHERE (codicePL=?);";
+    static final String QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE="SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'segnalato');";
+    static final String QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_passaggioALivello = "SELECT * FROM LEVELCROSSING;";
     //provala questa delle completate prima
-    static final String QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE="SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM levelCrossing,account WHERE (levelCrossing.codiceUtente=? AND stato = 'risolto');";
+    static final String QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE="SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'risolto');";
     private QueriesSegnalazionePassaggioLivello(){
         //NON FA NULLA PERCHE LA CLASSE DEVE FORNIRE SOLO METODI STATICI E PUBBLICI
     }
-    public static String queriesPrendilevelCrossing(){
-        return QUERIES_PRENDI_levelCrossing;
+    public static String queriesPrendiLEVELCROSSING(){
+        return QUERIES_PRENDI_LEVELCROSSING;
     }
-    public static String queriesSalvalevelCrossing(){return QUERIES_SALVA_levelCrossing;}
-    public static String queriesRimuovilevelCrossing(){return QUERIES_RIMUOVI_levelCrossing;}
-    public static String  restituiscilevelCrossing(){return QUERIES_RESTITUISCI_levelCrossing;}
-    public static String cambiaStatolevelCrossing(){return QUERIES_CAMBIA_STATO_levelCrossing;}
-    public static String cercalevelCrossing(){return QUERIES_CERCA_levelCrossing;}
+    public static String getQueriesSalvaLevelcrossing(){return QUERIES_SALVA_LEVELCROSSING;}
+    public static String getQueriesRimuoviLevelcrossing(){return QUERIES_RIMUOVI_LEVELCROSSING;}
+    public static String  getQueriesRestituisciLevelcrossing(){return QUERIES_RESTITUISCI_LEVELCROSSING;}
+    public static String getQueriesCambiaStatoLevelcrossing(){return QUERIES_CAMBIA_STATO_LEVELCROSSING;}
+    public static String getQueriesCercaLevelcrossing(){return QUERIES_CERCA_LEVELCROSSING;}
 
-    //queries che salva un levelCrossing se l'utente si e' loggato
-    public static String queriesSalvalevelCrossingAdUnUtenteDelSistema(){return QUERIES_SALVA_levelCrossing_Ad_Utente;}
+    //queries che salva un LEVELCROSSING se l'utente si e' loggato
+    public static String queriesSalvaLevelCrossingAdUnUtenteDelSistema(){return QUERIES_SALVA_LEVELCROSSING_Ad_Utente;}
 
     //queries per vedere i passaggi a livello che gli utenti loggati hanno segnalato e vogliono controllare lo stato della segnalazione
     public static String queriesMostraSegnalazioniEffettuate(){

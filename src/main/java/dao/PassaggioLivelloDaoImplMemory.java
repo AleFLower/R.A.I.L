@@ -5,8 +5,6 @@ import entita.EntitaFerroviaria;
 import entita.LevelCrossing;
 import utility.UtilityAccesso;
 
-import java.util.Set;
-
 public class PassaggioLivelloDaoImplMemory implements EntitaFerroviariaDao {
 
     @Override

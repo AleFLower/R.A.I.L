@@ -20,26 +20,26 @@ public class QueriesSegnalazioneBinario {
     private QueriesSegnalazioneBinario(){
         //non viene chiamato da nessuno, questa classe e' una utity alla fine
     }
-    static final String QUERIES_VEDI_Segnal_SEGNALATE="SELECT * FROM binario";
+    static final String QUERIES_VEDI_Segnal_SEGNALATE="SELECT * FROM BINARIO";
     //operazione che possono fare gli utenti
-    static final String QUERIES_SALVA_binario = "INSERT INTO binario(numeroBinario,localizzazione,problematica,codiceUtente) VALUES(?,?,?,?);";
+    static final String QUERIES_SALVA_BINARIO = "INSERT INTO BINARIO(numeroBINARIO,localizzazione,problematica,codiceUtente) VALUES(?,?,?,?);";
     //operazione che puo fare solo l'admin dopo che il problema e' stato risolto
-    static final String QUERIES_RIMUOVI_binario="DELETE  FROM binario where (localizzazione=? AND codice_utente=?);";
-    static final String QUERIES_CAMBIA_STATO_binario="UPDATE binario SET stato = ? WHERE (codiceUtente = ? AND localizzazione=?);";
+    static final String QUERIES_RIMUOVI_BINARIO="DELETE  FROM BINARIO where (localizzazione=? AND codice_utente=?);";
+    static final String QUERIES_CAMBIA_STATO_BINARIO="UPDATE BINARIO SET stato = ? WHERE (codiceUtente = ? AND localizzazione=?);";
     //queste 2 che mostrano le segnalazioni falle girare prima su mysql rivedila
-    static final String QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE="SELECT DISTINCT localizzazione,stato,problematica,numeroBinario FROM binario,account WHERE (binario.codiceUtente=? AND stato = 'segnalato');";
+    static final String QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE="SELECT DISTINCT localizzazione,stato,problematica,numeroBINARIO FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'segnalato');";
     //provala questa delle completate prima
-    static final String QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE="SELECT DISTINCT numeroBinario,localizzazione,problematica,stato FROM binario,account WHERE (binario.codiceUtente=? AND stato = 'risolto');";
-    static final String QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_binario = "SELECT * FROM binario;";
+    static final String QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE="SELECT DISTINCT numeroBINARIO,localizzazione,problematica,stato FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'risolto');";
+    static final String QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_BINARIO = "SELECT * FROM BINARIO;";
 
 
-    static final String QUERIES_COTROLLA_SE_LA_binario_A_QUELL_localizzazione_E_STATA_SEGNALATA="SELECT DISTINCT numeroBinario,localizzazione FROM binario WHERE (binario.numeroBinario = ? AND binario.localizzazione=?);";
+    static final String QUERIES_COTROLLA_SE_LA_BINARIO_A_QUELL_localizzazione_E_STATA_SEGNALATA="SELECT DISTINCT numeroBINARIO,localizzazione FROM BINARIO WHERE (BINARIO.numeroBINARIO = ? AND BINARIO.localizzazione=?);";
     public static String queriesVediSegnalSegnalate(){
         return QUERIES_VEDI_Segnal_SEGNALATE;
     }
-    public static String queriesSalvabinario(){return QUERIES_SALVA_binario;}
-    public static String queriesRimuovibinario(){return QUERIES_RIMUOVI_binario;}
-    public static String queriesCambiaStatobinario(){return QUERIES_CAMBIA_STATO_binario;}
+    public static String queriesSalvabinario(){return QUERIES_SALVA_BINARIO;}
+    public static String queriesRimuovibinario(){return QUERIES_RIMUOVI_BINARIO;}
+    public static String queriesCambiaStatobinario(){return QUERIES_CAMBIA_STATO_BINARIO;}
    //queries per vedere le binari che gli utenti loggati hanno segnalato
     public static String queriesMostraSegnalazioniEffettuate(){
         return QUERIES_MOSTRA_SEGNALAZIONI_EFFETTUATE;
@@ -47,7 +47,7 @@ public class QueriesSegnalazioneBinario {
     //queries per mostrare le binari che sono state riparate
     public static String queriesMostraSegnalazioniCompletate(){return QUERIES_MOSTRA_SEGNALAZIONI_COMPLETATE;}
     public static String queriesVediSeLeSegnalAQuelllocalizzazioneSonoStateGiaSegnalate(){
-        return QUERIES_COTROLLA_SE_LA_binario_A_QUELL_localizzazione_E_STATA_SEGNALATA;
+        return QUERIES_COTROLLA_SE_LA_BINARIO_A_QUELL_localizzazione_E_STATA_SEGNALATA;
     }
-    public static String getQueriesMostraTutteSegnalazioniSegnal(){return QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_binario;}
+    public static String getQueriesMostraTutteSegnalazioniBinario(){return QUERIES_MOSTRA_TUTTE_SEGNALAZIONI_BINARIO;}
 }

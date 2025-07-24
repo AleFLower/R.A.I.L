@@ -3,7 +3,6 @@ package dao;
 import eccezioni.UtenteEsistenteException;
 
 import java.io.*;
-import java.util.UUID;
 
 public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
 
@@ -44,7 +43,6 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
                 if (campi.length < 3) continue;
 
                 String emailFile = campi[0].trim();
-                String passwordFile = campi[1].trim();
                 String usernameFile = campi[2].trim();
 
                 if (emailFile.equalsIgnoreCase(email)) {

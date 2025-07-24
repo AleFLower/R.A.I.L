@@ -1,11 +1,8 @@
 package dao;
 
 import eccezioni.UtenteEsistenteException;
-import org.mortbay.log.Log;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class RegistrazioneDaoImplMemory implements RegistrazioneDao {
 

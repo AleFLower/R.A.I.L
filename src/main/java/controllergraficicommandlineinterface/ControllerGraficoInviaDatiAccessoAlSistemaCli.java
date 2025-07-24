@@ -35,7 +35,7 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
                 Printer.print("accesso effettuato, premi qualsiasi tasto per tornare alla home");
 
                 BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-                if(bufferedReader.readLine().length()>=1){
+                if(!bufferedReader.readLine().isEmpty()){
                     tornaAllaHome();
                 }
             }catch(SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException| IOException e){
@@ -67,7 +67,7 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
     }
 
 
-    private void avviaRegistrazione(String email,String password, String username) throws IOException {
+    private void avviaRegistrazione(String email,String password, String username)  {
         // Qui non creo il bean di registrazione, lo faccio nel controller grafico
         ControllerGraficoRegistrazioneCli controllerRegistrazione = new ControllerGraficoRegistrazioneCli(email,password,username);
         controllerRegistrazione.registraUtente();

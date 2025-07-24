@@ -116,7 +116,6 @@ public class ControllerGraficoSegnalazionePassaggioALivello extends ControllerGr
         if (e.getClass() == SegnalazioneGiaAvvenutaException.class) {
             /*se l'eccezione è di tipo segnalazione già avvenuta l'utente ha portato a termine quello che
              * voleva fare quindi posso disabilitare i pulsanti */
-           // labelErrore.setText(e.getMessage());
             disattivaButton();
         }
     }

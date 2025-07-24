@@ -8,7 +8,7 @@ public abstract class EntitaFerroviaria {
     protected String stato = "segnalato";        // Stato della segnalazione
     protected TypeEntita tipoEntita;  // Enum specifico per entità ferroviarie
 
-    public EntitaFerroviaria(String localizzazione, String descrizioneProblema) {
+    protected EntitaFerroviaria(String localizzazione, String descrizioneProblema) {
         this.localizzazione = localizzazione;
         this.descrizioneProblema = descrizioneProblema;
     }

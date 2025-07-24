@@ -1,9 +1,7 @@
 package cli;
 
-import controllergraficicommandlineinterface.ControllerGraficoPaginaSegnalazionePassaggioLivelloCli;
 import controllergraficicommandlineinterface.ControllerGraficoPagineSegnalazioneBinarioCli;
 import eccezioni.SceltaNonValidaException;
-import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.UtilityAccesso;
 

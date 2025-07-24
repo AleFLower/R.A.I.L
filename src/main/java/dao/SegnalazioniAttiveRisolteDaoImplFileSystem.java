@@ -23,7 +23,10 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            String codice = null, localizzazione = null, problema = null, stato = null;
+            String codice = null;
+            String localizzazione = null;
+            String problema = null;
+            String stato = null;
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Numero del passaggio a livello: ")) {

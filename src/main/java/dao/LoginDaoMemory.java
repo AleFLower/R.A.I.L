@@ -3,8 +3,6 @@ package dao;
 import entita.Account;
 import utility.UtilityAccesso;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginDaoMemory implements LoginDao {
     private final Account account;

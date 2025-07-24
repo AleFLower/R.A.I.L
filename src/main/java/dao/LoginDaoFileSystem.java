@@ -1,6 +1,7 @@
 package dao;
 
 import entita.Account;
+import utility.Printer;
 import utility.UtilityAccesso;
 
 import java.io.BufferedReader;
@@ -42,7 +43,7 @@ public class LoginDaoFileSystem implements LoginDao {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Errore nella lettura del file utenti: " + e.getMessage());
+            Printer.error("Error: " + e.getMessage());
         }
         return false;
     }

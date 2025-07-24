@@ -18,27 +18,27 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
     private PaginaHome paginaHome=new PaginaHome();
     private String localizzazione;
     private String problematica;
-    private String visibilità;
+    private String numeroBinario;
 
     private BeanSegnalaEntita beanVerificaDati;
     private TypeEntita typeEntita=TypeEntita.BINARIO;
     private TypeOfPersistence typeOfPersistence;
 
 
-    public ControllerGraficoPagineSegnalazioneBinarioCli(String localizzazione, String problematica, String visibilità, TypeOfPersistence typeOfPersistence){
+    public ControllerGraficoPagineSegnalazioneBinarioCli(String localizzazione, String problematica, String numeroBinario, TypeOfPersistence typeOfPersistence){
         this.localizzazione=localizzazione;
         this.problematica = problematica;
-        this.visibilità = visibilità;
+        this.numeroBinario = numeroBinario;
         this.typeOfPersistence = typeOfPersistence;
     }
     public void inviaDatiAlBean() throws IOException {
         try {
-            beanVerificaDati=new BeanSegnalaEntita(visibilità,localizzazione, problematica,typeEntita,typeOfPersistence);
+            beanVerificaDati=new BeanSegnalaEntita(numeroBinario,localizzazione, problematica,typeEntita,typeOfPersistence);
             //questi dati devono essere mandati al controller applicativo
             new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
             Printer.print("segnalazione avvenuta con successo\ntorna alla home =)\npremere qualsiasi tasto per tornare alla home: ");
             BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-            if(bufferedReader.readLine().length()>=1){
+            if(!bufferedReader.readLine().isEmpty()){
                 tornaAllaHome();
             }
         }catch(SQLException| ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException e) {
