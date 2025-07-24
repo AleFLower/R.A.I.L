@@ -47,7 +47,7 @@ public class PaginaSegnalazionePassaggioALivelloCli {
         return scelta.equals("y");
     }
 
-    public void mostraMessaggioSuccesso() throws IOException {
+    public void mostraMessaggioSuccesso()  {
         Printer.print("Segnalazione avvenuta con successo! Back to home page...");
     }
 

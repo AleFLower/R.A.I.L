@@ -41,7 +41,7 @@ public class PaginaSegnalazioneBinarioCli {
         Printer.error(msg);
     }
 
-    public void mostraSuccesso() throws IOException {
+    public void mostraSuccesso()  {
         Printer.print("Segnalazione avvenuta con successo. Back to home page...");
     }
 }

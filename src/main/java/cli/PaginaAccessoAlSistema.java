@@ -41,7 +41,7 @@ public class PaginaAccessoAlSistema {
         return bufferedReader.readLine();
     }
 
-    public void attendiTastoPerContinuare(String messaggio) throws IOException {
+    public void attendiTastoPerContinuare(String messaggio)  {
         Printer.print(messaggio);
     }
 }
