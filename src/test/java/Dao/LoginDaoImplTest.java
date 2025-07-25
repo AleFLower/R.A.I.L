@@ -15,13 +15,13 @@ class LoginDaoImplTest {
         //presente nel db
             LoginDaoImpl loginDao = new LoginDaoImpl();
             //true =email presente
-            assertEquals(true, loginDao.verificaAccountNelSistema("emailprova@gmail.com", "prova"));
+            assertEquals(true, loginDao.verificaAccountNelSistema("andrea@esempio.com", "andrea"));
     }
     @Test
     void verificaNonEsistenzaNelSistema() throws  SQLException, ErroreLetturaPasswordException{
         //test che verifica se una mail non e'presente nel db, qui vi passerò una email non presente nel db
         LoginDaoImpl loginDao= new LoginDaoImpl();
         //false= email non presente
-        assertEquals(false,loginDao.verificaAccountNelSistema("eailsd@gmail.com","siuf"));
+        assertEquals(false,loginDao.verificaAccountNelSistema("pippo@esempio.com","pippo"));
     }
 }
