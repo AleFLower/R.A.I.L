@@ -90,7 +90,8 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
 
     private void attemptLogin() {
         try {
-            ControllerApplicativoLoginAlSistema controller = new ControllerApplicativoLoginAlSistema(beanAccessoUtente, UtilityAccesso.getPersistence());
+            // Directly invoke the controller's constructor without storing the instance
+            new ControllerApplicativoLoginAlSistema(beanAccessoUtente, UtilityAccesso.getPersistence());
             // If no exceptions, login was successful
             handleSuccessfulLogin();
         } catch (SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException e) {
