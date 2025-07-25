@@ -13,8 +13,7 @@ public class ControllerGraficoSegnalazioneProblemaCLI {
 
         switch (scelta) {
             case 1 -> {
-                ControllerGraficoPaginaSegnalazionePassaggioLivelloCli controllerPL =
-                        new ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(UtilityAccesso.getPersistence());
+                ControllerGraficoPaginaSegnalazionePassaggioLivelloCli controllerPL = new ControllerGraficoPaginaSegnalazionePassaggioLivelloCli(UtilityAccesso.getPersistence());
                 controllerPL.mostraPaginaSegnalazione();
             }
             case 2 -> {

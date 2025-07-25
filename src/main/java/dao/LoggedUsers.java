@@ -11,15 +11,18 @@ public class LoggedUsers {
     protected static final Map<String, Role> ruoliUtenti = new HashMap<>();     // email -> ruolo
 
     private LoggedUsers() {}
-
     static {
-        // utenti di default
-        utentiFittizi.put("mario@esempio.com", "1234");
-        nomiUtenti.put("mario@esempio.com", "MarioRossi");
-        ruoliUtenti.put("mario@esempio.com", Role.ADMIN);
+        final String EMAIL_MARIO = "mario@esempio.com";
+        final String EMAIL_ANNA = "anna@esempio.com";
 
-        utentiFittizi.put("anna@esempio.com", "abcd");
-        nomiUtenti.put("anna@esempio.com", "AnnaVerdi");
-        ruoliUtenti.put("anna@esempio.com", Role.USER);
+        // utenti di default
+        utentiFittizi.put(EMAIL_MARIO, "1234");
+        nomiUtenti.put(EMAIL_MARIO, "MarioRossi");
+        ruoliUtenti.put(EMAIL_MARIO, Role.ADMIN);
+
+        utentiFittizi.put(EMAIL_ANNA, "abcd");
+        nomiUtenti.put(EMAIL_ANNA, "AnnaVerdi");
+        ruoliUtenti.put(EMAIL_ANNA, Role.USER);
     }
+
 }

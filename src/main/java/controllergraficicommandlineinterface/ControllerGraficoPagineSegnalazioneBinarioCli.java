@@ -21,7 +21,7 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
 
     public void mostraPaginaSegnalazione() throws IOException {
         String localizzazione = view.chiediLocalizzazione();
-        if (localizzazione.equalsIgnoreCase("esc")) return;
+        if (localizzazione == null || localizzazione.equalsIgnoreCase("esc")) return;
 
         String numeroBinario = view.chiediNumeroBinario();
         if (numeroBinario.equalsIgnoreCase("esc")) return;

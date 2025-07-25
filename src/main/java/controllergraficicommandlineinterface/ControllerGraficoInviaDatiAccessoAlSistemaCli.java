@@ -50,10 +50,8 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
 
         try {
             new ControllerApplicativoLoginAlSistema(bean, UtilityAccesso.getPersistence());
-            if(UtilityAccesso.getRole() == Role.ADMIN){
-                if(!CentroNotifiche.getNotifiche().isEmpty()){
+            if(UtilityAccesso.getRole() == Role.ADMIN && !CentroNotifiche.getNotifiche().isEmpty()){
                     view.mostraNotificheAdmin();
-                }
             }
             view.mostraMessaggio("Accesso effettuato! Back to home...");
         } catch (NonEsisteUtenteNelSistemaException e) {

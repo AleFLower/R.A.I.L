@@ -41,70 +41,93 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
     * per non dover duplicare codice inutilmente*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Registration Button Click Event
+        registratiButton.setOnMouseClicked(event -> handleRegistrazioneButtonClick());
 
-        //se l'utente vuole registrarsi ( e clicca quindi su registrati) verrà caricata questa schermata
-        registratiButton.setOnMouseClicked(event->{
-            try {
-                controllerVisualizzatoreScene.visualizzaScena("registrazione-page.fxml");
-            }catch(Exception e){
-                System.exit(-1);
-            }
-        });
-        //se l'utente possiede un account, compila e due textField con e mail e password e clicca su accedi, viene quindi
-        //eseguito il codice associato ad accediAlTuoAccountButton
-        accediButton.setOnMouseClicked(event->{
-            //prima verifico che entrambi i campi (email e password siano stati compilati)
-            if (emailTextField.getText().equals("") ||  passwordPasswordField.getText().equals("")) {
-                labelComunicazione.setText("inserire entrambi i campi");
-            }else {
-                //i campi sono stati entrambi passati e passo al bean questi dati
-                beanAccessoUtente = new BeanLogin(emailTextField.getText(), passwordPasswordField.getText());
-                //svolgo prima i controlli sulla email inserita dall'utente, verifico cioè se è sintatticamente corretta
-                String controlliSintatticiEmail = beanAccessoUtente.svolgiControlli();
-                //se l'email è sintatticamente corretta vado avanti altrimenti counico l'errore all'utente
-                if (controlliSintatticiEmail == null) {
-                    //mando il bean al controller applicativo
+        // Login Button Click Event
+        accediButton.setOnMouseClicked(event -> handleLoginButtonClick());
 
-
-                    try {
-                        ControllerApplicativoLoginAlSistema controllerApplicativoLoginAlSistema = new ControllerApplicativoLoginAlSistema(beanAccessoUtente, UtilityAccesso.getPersistence());
-                        // se non si e' verificata nessuna eccezione vuol dire che l'accesso e' stato effettuato con successo
-                        emailTextField.setDisable(true);
-                        passwordPasswordField.setDisable(true);
-                        accediButton.setDisable(true);
-                        registratiButton.setDisable(true);
-                        labelComunicazione.setText("accesso effettuato con successo");
-
-                        if(UtilityAccesso.getRole()== Role.ADMIN){
-                            mostraNotificheAdmin();
-                        }
-
-                    }catch(SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException e){
-                         labelComunicazione.setText(e.getMessage());
-                    }
-                }else{
-                    labelComunicazione.setText(controlliSintatticiEmail);
-                }
-            }
-        });
-        //questo avrà i suoi pulsanti e alla fine chiamerà il super di quelli in comune, per non darli al figlio
-        //quelli che non sono in comune dovrei farli private
-        super.initialize(url,resourceBundle);
+        // Call the superclass initialization for common logic
+        super.initialize(url, resourceBundle);
     }
 
-    private void mostraNotificheAdmin(){
-        List<Notifica> notifiche = CentroNotifiche.getNotifiche();
-
-        if (notifiche.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Notifiche Admin");
-            alert.setHeaderText("Nessuna nuova notifica");
-            alert.setContentText("Al momento non ci sono nuove segnalazioni.");
-            alert.showAndWait();
-            return;
+    private void handleRegistrazioneButtonClick() {
+        try {
+            controllerVisualizzatoreScene.visualizzaScena("registrazione-page.fxml");
+        } catch (Exception e) {
+            System.exit(-1);
         }
+    }
 
-        // Mostra tutte le notifiche in una textarea scrollabile
+    private void handleLoginButtonClick() {
+        String email = emailTextField.getText();
+        String password = passwordPasswordField.getText();
+
+        // Check if email or password are empty
+        if (isFieldEmpty(email, password)) {
+            labelComunicazione.setText("inserire entrambi i campi");
+        } else {
+            processLogin(email, password);
+        }
+    }
+
+    private boolean isFieldEmpty(String email, String password) {
+        return email.equals("") || password.equals("");
+    }
+
+    private void processLogin(String email, String password) {
+        beanAccessoUtente = new BeanLogin(email, password);
+
+        // Validate email syntax
+        String emailValidation = beanAccessoUtente.svolgiControlli();
+
+        if (emailValidation == null) {
+            attemptLogin();
+        } else {
+            labelComunicazione.setText(emailValidation);
+        }
+    }
+
+    private void attemptLogin() {
+        try {
+            ControllerApplicativoLoginAlSistema controller = new ControllerApplicativoLoginAlSistema(beanAccessoUtente, UtilityAccesso.getPersistence());
+            // If no exceptions, login was successful
+            handleSuccessfulLogin();
+        } catch (SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException e) {
+            labelComunicazione.setText(e.getMessage());
+        }
+    }
+
+    private void handleSuccessfulLogin() {
+        emailTextField.setDisable(true);
+        passwordPasswordField.setDisable(true);
+        accediButton.setDisable(true);
+        registratiButton.setDisable(true);
+        labelComunicazione.setText("accesso effettuato con successo");
+
+        if (UtilityAccesso.getRole() == Role.ADMIN) {
+            mostraNotificheAdmin();
+        }
+    }
+
+    private void mostraNotificheAdmin() {
+        List<Notifica> notifiche = CentroNotifiche.getNotifiche();
+        if (notifiche.isEmpty()) {
+            showAlert("Notifiche Admin", "Nessuna nuova notifica", "Al momento non ci sono nuove segnalazioni.");
+        } else {
+            displayNotifications(notifiche);
+        }
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void displayNotifications(List<Notifica> notifiche) {
         TextArea area = new TextArea();
         area.setEditable(false);
         area.setWrapText(true);
@@ -115,12 +138,13 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
         for (Notifica n : notifiche) {
             sb.append("🔔 ").append(n.getMessaggio()).append("\n\n");
         }
-        area.setText(sb.toString());
 
+        area.setText(sb.toString());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notifiche Admin");
         alert.setHeaderText("Nuove segnalazioni ricevute");
         alert.getDialogPane().setContent(area);
         alert.showAndWait();
     }
+
 }
