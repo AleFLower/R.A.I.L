@@ -98,7 +98,6 @@ public class ControllerGraficoHome {
     }
 
     private void esci() {
-        SingletonConnessione.closeConnection();  //togliere?
         paginaHome.mostraMessaggioUscita();
         System.exit(0);
     }

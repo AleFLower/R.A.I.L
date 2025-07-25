@@ -22,9 +22,6 @@ public class ControllerApplicativoSegnalazioneEntita {
     /*questo controller applicativo viene chiamato quanod sto inviando una nuova segnalazione di un entita al db,
     * crea quindi un entita dai dati che riceve, chiama il dao che gestisce la dovuta segnalazione e in caso di errori
     * lancia delle eccezioni, al controller grafico non ritorna nulla */
-    private  String localizzazione;
-    private  String infoEntita;
-    private String problematica;
     private TypeEntita tipoEntita;
     private EntitaFerroviaria entitaStradale;
     private FactoryDao dao;
@@ -39,14 +36,11 @@ public class ControllerApplicativoSegnalazioneEntita {
             //dice che la segnalazione della binario puo' essere fatta solo se registrato
             throw new NessunAccessoEffettuatoException("per segnalare un binario devi essere registrato");
         }
-        this.localizzazione=beanSegnalaEntita.getlocalizzazione();
-        this.infoEntita=beanSegnalaEntita.getInfoEntita();
-        this.problematica = beanSegnalaEntita.getDescrizioneProblema();
 
         //creo la factory che deve creare a sua volta la mia entita in base al tipo
         FactoryEntitaFerroviaria factoryEntitaStradale=new FactoryEntitaFerroviaria();
         //chiamo il metodo createEntita che in base al tipo che gli passo crea un passaggio a livello  o una binario stradale
-        entitaStradale=factoryEntitaStradale.createEntita(this.tipoEntita,this.localizzazione,this.infoEntita,this.problematica);
+        entitaStradale=factoryEntitaStradale.createEntita(beanSegnalaEntita);
         //nessuna eccezione creata, l'entita stradale e' stata quindi creata, devo inviarla alla rispettiva tabella nel db
         //nessuna eccezione devo inviare l'entità stradale segnalata e per capire se deve essere salvata sul db o in locale
         //passo come argomento il tipo di persistenza che il controller grafico ha inserito nel mio bean nel momento della segnalazione
