@@ -6,14 +6,16 @@ import dao.LoginDao;
 import dao.LoginDaoMemory;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsisteUtenteNelSistemaException;
+import entita.Role;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import utility.CentroNotifiche;
+import utility.Notifica;
 import utility.UtilityAccesso;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
@@ -73,6 +75,10 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
                         registratiButton.setDisable(true);
                         labelComunicazione.setText("accesso effettuato con successo");
 
+                        if(UtilityAccesso.getRole()== Role.ADMIN){
+                            mostraNotificheAdmin();
+                        }
+
                     }catch(SQLException | NonEsisteUtenteNelSistemaException | ErroreLetturaPasswordException e){
                          labelComunicazione.setText(e.getMessage());
                     }
@@ -84,5 +90,37 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
         //questo avrà i suoi pulsanti e alla fine chiamerà il super di quelli in comune, per non darli al figlio
         //quelli che non sono in comune dovrei farli private
         super.initialize(url,resourceBundle);
+    }
+
+    private void mostraNotificheAdmin(){
+        List<Notifica> notifiche = CentroNotifiche.getNotifiche();
+
+        if (notifiche.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Notifiche Admin");
+            alert.setHeaderText("Nessuna nuova notifica");
+            alert.setContentText("Al momento non ci sono nuove segnalazioni.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Mostra tutte le notifiche in una textarea scrollabile
+        TextArea area = new TextArea();
+        area.setEditable(false);
+        area.setWrapText(true);
+        area.setPrefHeight(300);
+        area.setPrefWidth(400);
+
+        StringBuilder sb = new StringBuilder();
+        for (Notifica n : notifiche) {
+            sb.append("🔔 ").append(n.getMessaggio()).append("\n\n");
+        }
+        area.setText(sb.toString());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notifiche Admin");
+        alert.setHeaderText("Nuove segnalazioni ricevute");
+        alert.getDialogPane().setContent(area);
+        alert.showAndWait();
     }
 }

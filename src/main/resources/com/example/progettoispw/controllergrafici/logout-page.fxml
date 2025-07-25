@@ -61,7 +61,7 @@
                                             </image></ImageView>
                                     </graphic>
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
                             </children>
@@ -100,7 +100,7 @@
                             <children>
                                 <JFXButton fx:id="attiveButtonName" alignment="BASELINE_LEFT" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="38.0" prefWidth="176.0" scaleShape="false" styleClass="sidebarItem" text="attive" textFill="#e0e1dd">
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -111,7 +111,7 @@
                                 </JFXButton>
                                 <JFXButton fx:id="risolteButtonName" alignment="BASELINE_LEFT" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="38.0" prefWidth="176.0" scaleShape="false" styleClass="sidebarItem" text="risolte" textFill="#e0e1dd">
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -139,12 +139,9 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                  <Label layoutX="7.0" layoutY="75.0" prefHeight="59.0" prefWidth="321.0" text="GRAZIE PER ESSERE NOSTRO UTENTE : ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="labelUtente" layoutX="333.0" layoutY="75.0" prefHeight="59.0" prefWidth="191.0" text=" " textFill="#2E2E2E">
+
+                        <Label fx:id="labelUtente" layoutX="7.0" layoutY="75.0" prefHeight="59.0" prefWidth="500.0" text=" " textFill="#2E2E2E" wrapText="true"
+                               style="-fx-text-fill: #2E2E2E; -fx-font-size: 20px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0.5, 1, 1);">
                      <font>
                         <Font size="18.0" />
                      </font>

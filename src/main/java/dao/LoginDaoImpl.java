@@ -2,6 +2,7 @@ package dao;
 
 import eccezioni.ErroreLetturaPasswordException;
 import entita.Account;
+import entita.Role;
 import queries.QueriesAccessoAlSistema;
 import utility.UtilityAccesso;
 import java.sql.Connection;
@@ -41,14 +42,14 @@ public class LoginDaoImpl implements LoginDao{
         if(resultSet.isBeforeFirst()){
             resultSet.next();
             //in questo caso potrei dire che è li che ha un legame con account e modifica lo stato dei suoi attributi
-            account.setCredenziali(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")));
+            account.setCredenziali(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")), Role.valueOf(resultSet.getString("Ruolo")));
             account.passaOnline();
 
             UtilityAccesso.setNomeUtenteNelDatabase(resultSet.getString("username"));
             //converto il tipo intero di codice del database in un tipo stringa poiche codiceUtente in UtilityAccesso
             //è di tipo stringa
             UtilityAccesso.setCodiceUtente(Integer.toString(resultSet.getInt("codiceUtente")));
-
+            UtilityAccesso.setRole(Role.valueOf(resultSet.getString("Ruolo")));  //prendo il ruolo dal db
             //l'utente esiste nel database, ha fatto l'accesso, e' quindi online
             //l'utente è stato trovato nel database, torno true
             return true;

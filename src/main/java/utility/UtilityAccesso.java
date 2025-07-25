@@ -1,6 +1,7 @@
 package utility;
 
 import entita.Account;
+import entita.Role;
 import factory.TypeOfPersistence;
 
 public class UtilityAccesso {
@@ -11,6 +12,7 @@ public class UtilityAccesso {
     * in alcune schermate  */
     private static String nomeUtenteNelDatabase=null;
     private static String codiceUtente=null;
+    private static Role role = null;
     private static TypeOfPersistence persistence;
     private UtilityAccesso(){
         //NON FA NULLA PERCHE E' UNA CLASSE UTILITY E FORNISCE METODI STATICI PER SETTARE IL VALORE DELLE
@@ -23,6 +25,12 @@ public class UtilityAccesso {
 
     public static void setNomeUtenteNelDatabase(String nomeUtenteNelDatabase) {
         UtilityAccesso.nomeUtenteNelDatabase = nomeUtenteNelDatabase;
+    }
+
+
+    public static Role getRole(){return role;}
+    public static void setRole(Role ruolo){
+        role = ruolo;
     }
 
     public static String getCodiceUtente() {

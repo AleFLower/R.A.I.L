@@ -1,6 +1,7 @@
 package dao;
 
 import entita.Account;
+import entita.Role;
 import utility.UtilityAccesso;
 
 
@@ -17,17 +18,20 @@ public class LoginDaoMemory implements LoginDao {
                 LoggedUsers.utentiFittizi.get(email).equals(password)) {
 
             String nomeUtente = LoggedUsers.nomiUtenti.get(email);
-            //momentaneo
+            Role ruoloUtente = LoggedUsers.ruoliUtenti.get(email); // nuovo
             String codiceFittizio = Integer.toString(email.hashCode());
 
-            account.setCredenziali(nomeUtente, codiceFittizio);
+            account.setCredenziali(nomeUtente, codiceFittizio, ruoloUtente);
             account.passaOnline();
 
             UtilityAccesso.setNomeUtenteNelDatabase(nomeUtente);
             UtilityAccesso.setCodiceUtente(codiceFittizio);
+            UtilityAccesso.setRole(ruoloUtente);
+
             return true;
         }
         return false;
     }
+
 }
 

@@ -11,6 +11,8 @@ import factory.FactoryDao;
 import factory.FactoryEntitaFerroviaria;
 import factory.TypeEntita;
 import factory.TypeOfPersistence;
+import utility.CentroNotifiche;
+import utility.Notifica;
 import utility.UtilityAccesso;
 
 import java.io.IOException;
@@ -40,6 +42,7 @@ public class ControllerApplicativoSegnalazioneEntita {
         this.localizzazione=beanSegnalaEntita.getlocalizzazione();
         this.infoEntita=beanSegnalaEntita.getInfoEntita();
         this.problematica = beanSegnalaEntita.getDescrizioneProblema();
+
         //creo la factory che deve creare a sua volta la mia entita in base al tipo
         FactoryEntitaFerroviaria factoryEntitaStradale=new FactoryEntitaFerroviaria();
         //chiamo il metodo createEntita che in base al tipo che gli passo crea un passaggio a livello  o una binario stradale
@@ -49,6 +52,12 @@ public class ControllerApplicativoSegnalazioneEntita {
         //passo come argomento il tipo di persistenza che il controller grafico ha inserito nel mio bean nel momento della segnalazione
 
         inviaSegnalazione(entitaStradale,beanSegnalaEntita.getTypeOfPersistence());
+        //qui mando la notifica all admin, le salvo tutte dentro il centro notifiche
+
+        String nomeUtente = UtilityAccesso.getNomeUtenteNelDatabase();
+        Notifica notifica = new Notifica(nomeUtente + " ha segnalato un " + tipoEntita);
+        CentroNotifiche.aggiungiNotifica(notifica);
+
     }
 
     private void inviaSegnalazione(EntitaFerroviaria entitaStradale, TypeOfPersistence typeOfPersistence) throws SQLException, ErroreLetturaPasswordException, SegnalazioneGiaAvvenutaException, IOException {

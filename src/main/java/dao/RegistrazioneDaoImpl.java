@@ -2,6 +2,7 @@ package dao;
 
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.UtenteEsistenteException;
+import entita.Role;
 import queries.QueriesAccessoAlSistema;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,6 +32,7 @@ public class RegistrazioneDaoImpl implements RegistrazioneDao{
             preparedStatement.setString(1,email);
             preparedStatement.setString(2,password);
             preparedStatement.setString(3,username);
+            preparedStatement.setString(4, Role.USER.toString());
             preparedStatement.executeUpdate();
         }else {
             //verificaEsistenzaUtente ha tornato false, quindi esiste un utente che ha già usato quelle credenziali

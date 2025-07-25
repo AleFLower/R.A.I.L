@@ -10,7 +10,7 @@ public class QueriesAccessoAlSistema {
     static final String QUERIES_VERIFICA_PRESENZA_EMAIL_E_PASSWORD="SELECT * FROM account WHERE (email=? AND password=?);";
     static final String QUERIES_VERIFICA_SE_UTENTE_ESISTE="SELECT * FROM account WHERE username=?;";
     static final String QUERIES_VERIFICA_SE_EMAIL_ESISTE="SELECT * FROM account WHERE email=?;";
-    static final String QUERIES_INSERISCI_UTENTE_NEL_SISTEMA="INSERT INTO account(email,password,username) VALUES(?,?,?);";
+    static final String QUERIES_INSERISCI_UTENTE_NEL_SISTEMA="INSERT INTO account(email,password,username,ruolo) VALUES(?,?,?,?);";
     public static String verificaPresenzaEmailPassword(){return QUERIES_VERIFICA_PRESENZA_EMAIL_E_PASSWORD;}
     public static String verificaSeUtenteEsiste(){return QUERIES_VERIFICA_SE_UTENTE_ESISTE;}
     public static String verificaSeEmailEsiste(){return QUERIES_VERIFICA_SE_EMAIL_ESISTE;}

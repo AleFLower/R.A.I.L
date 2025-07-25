@@ -7,6 +7,8 @@ import controllerapplicativi.ControllerApplicativoLoginAlSistema;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsisteUtenteNelSistemaException;
 
+import entita.Role;
+import utility.CentroNotifiche;
 import utility.UtilityAccesso;
 
 
@@ -48,6 +50,11 @@ public class ControllerGraficoInviaDatiAccessoAlSistemaCli {
 
         try {
             new ControllerApplicativoLoginAlSistema(bean, UtilityAccesso.getPersistence());
+            if(UtilityAccesso.getRole() == Role.ADMIN){
+                if(!CentroNotifiche.getNotifiche().isEmpty()){
+                    view.mostraNotificheAdmin();
+                }
+            }
             view.mostraMessaggio("Accesso effettuato! Back to home...");
         } catch (NonEsisteUtenteNelSistemaException e) {
             view.mostraMessaggioErrore("Credenziali non valide. L'utente non esiste.");

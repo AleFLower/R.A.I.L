@@ -12,6 +12,7 @@ public class Account extends Subject {
     private String nomeUtente;
     private String codiceUtente;
     private static Account account;
+    private Role role;  //di default è admin
     private StateMachine stateMachine;
     //nel momento della creazione di un account il suo stato corrente viene messo offline, quindi la variabile
     //current state associata a stateMachineImpl sarà offline State kind of AbstractState
@@ -66,11 +67,12 @@ public class Account extends Subject {
             o.update(getStatoAttuale(),getNomeUtente());
         }
     }
-    public void setCredenziali(String nomeUtente,String codiceUtente){
+    public void setCredenziali(String nomeUtente,String codiceUtente,Role role){
         //questo metodo viene chiamato da login e logout i quali successivamente chiamano passa online e passa offline,
         //saranno subito questi altri 2 a notificare il tutto
         this.nomeUtente=nomeUtente;
         this.codiceUtente=codiceUtente;
+        this.role = role;
     }
 
     public String getNomeUtente() {
@@ -80,5 +82,7 @@ public class Account extends Subject {
     public String getCodiceUtente() {
         return codiceUtente;
     }
+
+    public Role getRole(){return role;}
 
 }

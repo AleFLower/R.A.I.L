@@ -63,7 +63,7 @@
                                             </image></ImageView>
                                     </graphic>
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
                             </children>
@@ -102,7 +102,7 @@
                             <children>
                                 <JFXButton fx:id="attiveButtonName" alignment="BASELINE_LEFT" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="38.0" prefWidth="176.0" scaleShape="false" styleClass="sidebarItem" text="attive" textFill="#e0e1dd">
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -113,7 +113,7 @@
                                 </JFXButton>
                                 <JFXButton fx:id="risolteButtonName" alignment="BASELINE_LEFT" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="38.0" prefWidth="176.0" scaleShape="false" styleClass="sidebarItem" text="risolte" textFill="#e0e1dd">
                                     <font>
-                                        <Font name="System Bold" size="18.0" />
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -155,7 +155,7 @@
                   </PasswordField>
                   <Label fx:id="labelComunicazione" layoutX="81.0" layoutY="28.0" prefHeight="46.0" prefWidth="363.0" text="  ">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <JFXButton fx:id="accediButton" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="225.0" layoutY="238.0" scaleShape="false" styleClass="menuItem" text="accedi" textFill="#2E2E2E">

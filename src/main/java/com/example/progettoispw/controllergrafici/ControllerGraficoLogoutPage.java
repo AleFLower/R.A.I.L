@@ -17,7 +17,7 @@ public class ControllerGraficoLogoutPage extends ControllerGraficoGenerale{
     private final ControllerVisualizzatoreScene controllerVisualizzatoreScene=ControllerVisualizzatoreScene.getInstance(null);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    labelUtente.setText(UtilityAccesso.getNomeUtenteNelDatabase());
+    labelUtente.setText("GRAZIE PER ESSERE NOSTRO UTENTE : " + UtilityAccesso.getNomeUtenteNelDatabase());
     logoutButton.setOnMouseClicked(event->{
         //porto a null i valori globali di utilityAccesso
         UtilityAccesso.setCodiceUtente(null);

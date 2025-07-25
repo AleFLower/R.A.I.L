@@ -1,5 +1,6 @@
 package cli;
 
+import utility.CentroNotifiche;
 import utility.Printer;
 
 import java.io.BufferedReader;
@@ -43,6 +44,10 @@ public class PaginaAccessoAlSistema {
 
     public void attendiTastoPerContinuare(String messaggio)  {
         Printer.print(messaggio);
+    }
+
+    public void mostraNotificheAdmin() {
+        CentroNotifiche.stampaNotifiche();
     }
 }
 

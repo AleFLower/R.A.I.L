@@ -1,6 +1,8 @@
 package dao;
 
 import eccezioni.UtenteEsistenteException;
+import entita.Role;
+
 import java.sql.SQLException;
 
 
@@ -12,6 +14,7 @@ public class RegistrazioneDaoImplMemory implements RegistrazioneDao {
             // Salva nel "database in memoria" condiviso
             LoggedUsers.nomiUtenti.put(email, username);
             LoggedUsers.utentiFittizi.put(email, password);
+            LoggedUsers.ruoliUtenti.put(email, Role.USER); //di deafult, ho un admin gia nel sistema, quindi tutti gli altri sono user
             return true;
         } else {
             return false;

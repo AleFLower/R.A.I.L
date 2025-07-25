@@ -1,6 +1,7 @@
 package dao;
 
 import eccezioni.UtenteEsistenteException;
+import entita.Role;
 
 import java.io.*;
 
@@ -17,7 +18,7 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
 
             // Scrive su file aggiungendo una nuova riga
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_FILE_UTENTI, true))) {
-                writer.write(email + "," + password + "," + username + "," + codiceUtente);
+                writer.write(email + "," + password + "," + username + "," + codiceUtente + "," + Role.USER);
                 writer.newLine();
             }
             return true;
@@ -40,7 +41,7 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
 
             while ((line = reader.readLine()) != null) {
                 String[] campi = line.split(",");
-                if (campi.length < 3) continue;
+                if (campi.length < 4) continue;
 
                 String emailFile = campi[0].trim();
                 String usernameFile = campi[2].trim();
