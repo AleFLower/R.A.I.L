@@ -76,7 +76,8 @@ public class ControllerGraficoSegnalazioniRisolte implements Initializable{
                 }
             }
         } catch (SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException | IOException e) {
-            labelErrore.setText(e.getMessage());
+            if(e instanceof NonEsistonoSegnalazioniException) labelErrore.setText("Non hai segnalazioni risolte");
+            else labelErrore.setText(e.getMessage());
             labelErrore.setVisible(true);
         }
         //se l'utente clicca sul pulsante che ritorna alla home viene attivato questo metodo

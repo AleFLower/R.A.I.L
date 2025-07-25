@@ -38,10 +38,6 @@ public class PaginaVisualizzazioneSegnalazioniAttiveCli {
             }
         }
 
-        if (contatorelevelCrossing == 0 && contatoreBinari == 0) {
-            Printer.print("Non sono presenti segnalazioni attive.");
-        }
-
     }
 
 }

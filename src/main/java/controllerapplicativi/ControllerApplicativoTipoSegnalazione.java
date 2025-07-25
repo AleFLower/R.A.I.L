@@ -36,7 +36,7 @@ public class ControllerApplicativoTipoSegnalazione {
         List<BeanSegnalazioneLevelCrossing> levelCrossing = segnalazioniRisolteAttiveDao.getSegnalazioniLevelCrossing(typeOfSegnalazione);
         List<BeanSegnalazioneBinario> binari = segnalazioniRisolteAttiveDao.getSegnalazioniBinari(typeOfSegnalazione);
 
-        if(levelCrossing.isEmpty() && binari.isEmpty())  throw new NonEsistonoSegnalazioniException("Nessuna segnalazione trovata.");
+        if(levelCrossing.isEmpty() && binari.isEmpty()) throw new NonEsistonoSegnalazioniException("Non hai effettuato alcuna segnalazione");
 
         for (BeanSegnalazioneLevelCrossing s : levelCrossing) {
             bean.aggiungiSegnalazioneLevelCrossing(s);

@@ -13,7 +13,11 @@ public class CentroNotifiche {
     }
 
     public static List<Notifica> getNotifiche() {
-        return new ArrayList<>(notifiche); // restituisce una copia per sicurezza
+        return notifiche;
+    }
+
+    public static void clearNotifications(){
+        notifiche.clear();
     }
 
     public static void stampaNotifiche() {

@@ -90,7 +90,8 @@ public class ControllerGraficoSegnalazioniAttive implements Initializable {
 
             }
         }catch(SQLException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException | IOException e){
-            labelErrore.setText(e.getMessage());
+           if(e instanceof NonEsistonoSegnalazioniException) labelErrore.setText("Non hai segnalazioni attive");
+            else labelErrore.setText(e.getMessage());
             labelErrore.setVisible(true);
         }
         ritornaHomeButton.setOnMouseClicked(event->{

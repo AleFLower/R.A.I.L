@@ -4,43 +4,72 @@ import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.SegnalazioneGiaAvvenutaException;
 import entita.Binario;
 import entita.EntitaFerroviaria;
+import utility.UtilityAccesso;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 public class BinarioDaoImplFileSystem implements EntitaFerroviariaDao {
-    //dao che si occupa di salvare l'entità stradale nel file system
     private static final String FILE_NAME = "BinarioSegnalato.txt";
-    //variabile che viene cambiata in base all'esito del salvataggio della binario stradale nel file system
-    //molto utile nel momento di testare il metodo SaveEntitaStradale
     private int esitoSalvataggio;
 
     @Override
-    public void saveEntitaStradale(EntitaFerroviaria instance) throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException, IOException {
-        //se sono qui voglio salvare su file system la binario
-        Binario binario= new Binario(instance.getInfo(),instance.getlocalizzazione(),instance.getDescrizioneProblema());
-        //adesso devo salvarla in locale
-        try {
-            //imposto a true il secondo parametro del costruttore del file writer, in questo modo non c'e' sovrascrittura
-            BufferedWriter fileWriter=new BufferedWriter(new FileWriter(FILE_NAME,true));
-            String binarioSegnalataDaSalvareInLocale=convertibinarioInTxt(binario);
+    public void saveEntitaStradale(EntitaFerroviaria instance)
+            throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException, IOException {
+        Binario binario = new Binario(instance.getInfo(), instance.getlocalizzazione(), instance.getDescrizioneProblema());
+
+        // Controllo duplicato
+        if (controllaEsistenzaBinario(binario.getInfo(), binario.getlocalizzazione())) {
+            throw new SegnalazioneGiaAvvenutaException("Questo binario è già stato segnalato da un altro utente.");
+        }
+
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            String binarioSegnalataDaSalvareInLocale = convertibinarioInTxt(binario);
             fileWriter.write(binarioSegnalataDaSalvareInLocale);
-            //vado a capo cosi la prossima volta che si scrive su quel file e' tutto piu ordinato e la segnalazione
-            //nuova non si attaccherà alla vecchia
             fileWriter.newLine();
-            fileWriter.close();
-            //tutto e' andato a buon fine, esito assumerà un valore che indica il successo
-            esitoSalvataggio=0;
+            esitoSalvataggio = 0;
         } catch (IOException e) {
-            esitoSalvataggio=1;
+            esitoSalvataggio = 1;
             throw new IOException("problema con il file writer");
         }
     }
-    private String convertibinarioInTxt(Binario binario){
-        return "Numero binario:  "+binario.getInfo()+"\nlocalizzazione: "+binario.getlocalizzazione()+ "\nproblematica riscontrata: " + binario.getDescrizioneProblema() +"\nstato: segnalato";
+
+    private String convertibinarioInTxt(Binario binario) {
+        return "Numero binario:  " + binario.getInfo() +
+                "\nlocalizzazione: " + binario.getlocalizzazione() +
+                "\nproblematica riscontrata: " + binario.getDescrizioneProblema() +
+                "\nstato: " + binario.getStato() +
+                "\ncodiceUtente: " + UtilityAccesso.getCodiceUtente();
     }
-    public int getEsito(){
+
+    public int getEsito() {
         return this.esitoSalvataggio;
+    }
+
+    private boolean controllaEsistenzaBinario(String numero, String localizzazione) {
+        File file = new File(FILE_NAME);
+        if (!file.exists()) return false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            String numeroLetto = null;
+            String localizzazioneLetta = null;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Numero binario:")) {
+                    numeroLetto = line.split(":")[1].trim();
+                } else if (line.startsWith("localizzazione:")) {
+                    localizzazioneLetta = line.split(":")[1].trim();
+                    if (numeroLetto != null && localizzazioneLetta != null &&
+                            numeroLetto.equalsIgnoreCase(numero) &&
+                            localizzazioneLetta.equalsIgnoreCase(localizzazione)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // Silenzio in lettura
+        }
+
+        return false;
     }
 }

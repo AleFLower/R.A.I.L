@@ -19,7 +19,7 @@ public class LoginDaoMemory implements LoginDao {
 
             String nomeUtente = LoggedUsers.nomiUtenti.get(email);
             Role ruoloUtente = LoggedUsers.ruoliUtenti.get(email); // nuovo
-            String codiceFittizio = Integer.toString(email.hashCode());
+            String codiceFittizio = Integer.toString(email.hashCode());  //genero a caso con un hash il codice utente
 
             account.setCredenziali(nomeUtente, codiceFittizio, ruoloUtente);
             account.passaOnline();

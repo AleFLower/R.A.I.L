@@ -21,10 +21,6 @@ public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisol
         String codiceUtente = UtilityAccesso.getCodiceUtente();
         List<EntitaFerroviaria> segnalazioniUtente = ArchivioSegnalazioniMemory.getSegnalazioniPerUtente(codiceUtente);
 
-        if (segnalazioniUtente.isEmpty()) {
-            throw new NonEsistonoSegnalazioniException("Non hai effettuato nessuna segnalazione.");
-        }
-
         //WARNING: CERCA DI NON USARE instanceof
 
         for (EntitaFerroviaria entita : segnalazioniUtente) {

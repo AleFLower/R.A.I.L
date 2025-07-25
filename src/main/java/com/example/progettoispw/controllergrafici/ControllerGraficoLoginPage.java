@@ -118,6 +118,7 @@ public class ControllerGraficoLoginPage extends ControllerGraficoGenerale {
         } else {
             displayNotifications(notifiche);
         }
+        CentroNotifiche.clearNotifications();
     }
 
     private void showAlert(String title, String header, String content) {

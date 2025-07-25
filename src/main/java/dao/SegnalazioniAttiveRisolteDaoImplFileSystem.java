@@ -4,6 +4,7 @@ import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import eccezioni.NonEsistonoSegnalazioniException;
+import utility.UtilityAccesso;
 
 import java.io.*;
 import java.util.*;
@@ -12,7 +13,6 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
 
     private static final String FILE_BINARI = "BinarioSegnalato.txt";
     private static final String FILE_PL = "LevelCrossingSegnalato.txt";
-
     @Override
     public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
             throws IOException, NonEsistonoSegnalazioniException {
@@ -27,6 +27,9 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
             String localizzazione = null;
             String problema = null;
             String stato = null;
+            String codiceUtenteSegnalatore = null;
+
+            String codiceUtenteAttuale = UtilityAccesso.getCodiceUtente();
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Numero del passaggio a livello: ")) {
@@ -37,14 +40,15 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
                     problema = line.split(": ", 2)[1].trim();
                 } else if (line.startsWith("stato:")) {
                     stato = line.split(": ", 2)[1].trim().toLowerCase();
-                    if (matchTipo(tipo, stato)) {
+                } else if (line.startsWith("codiceUtente:")) {
+                    codiceUtenteSegnalatore = line.split(": ", 2)[1].trim();
+                    if (codiceUtenteSegnalatore.equals(codiceUtenteAttuale) && matchTipo(tipo, stato)) {
                         lista.add(new BeanSegnalazioneLevelCrossing(codice, localizzazione, problema, stato));
                     }
                 }
             }
         }
 
-        if (lista.isEmpty()) throw new NonEsistonoSegnalazioniException("Nessuna segnalazione PL per il tipo richiesto.");
         return lista;
     }
 
@@ -62,6 +66,9 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
             String localizzazione = null;
             String problema = null;
             String stato = null;
+            String codiceUtenteSegnalatore = null;
+
+            String codiceUtenteAttuale = UtilityAccesso.getCodiceUtente();
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Numero binario:")) {
@@ -72,14 +79,15 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
                     problema = line.split(": ", 2)[1].trim();
                 } else if (line.startsWith("stato:")) {
                     stato = line.split(": ", 2)[1].trim().toLowerCase();
-                    if (matchTipo(tipo, stato)) {
+                } else if (line.startsWith("codiceUtente:")) {
+                    codiceUtenteSegnalatore = line.split(": ", 2)[1].trim();
+                    if (codiceUtenteSegnalatore.equals(codiceUtenteAttuale) && matchTipo(tipo, stato)) {
                         lista.add(new BeanSegnalazioneBinario(numero, localizzazione, problema, stato));
                     }
                 }
             }
         }
 
-        if (lista.isEmpty()) throw new NonEsistonoSegnalazioniException("Nessuna segnalazione binario per il tipo richiesto.");
         return lista;
     }
 

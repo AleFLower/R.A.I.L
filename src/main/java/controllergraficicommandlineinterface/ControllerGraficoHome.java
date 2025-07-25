@@ -59,7 +59,6 @@ public class ControllerGraficoHome {
                 Printer.error("Devi effettuare il login per visualizzare le segnalazioni attive.");
                 return;
             }
-            System.out.println(UtilityAccesso.getCodiceUtente());
             // Creo il bean specificando il tipo di segnalazioni da visualizzare
             BeanListeElementi bean = new BeanListeElementi(TypeOfSegnalazione.ATTIVE);
 
@@ -71,7 +70,7 @@ public class ControllerGraficoHome {
             view.mostraSegnalazioniAttive(bean);
 
         } catch (SQLException | IOException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException e) {
-            Printer.error("Errore durante il recupero delle segnalazioni attive: " + e.getMessage());
+            Printer.error("Recupero segnalazioni attive non riuscito: " + e.getMessage());
 
         }
     }
@@ -82,7 +81,6 @@ public class ControllerGraficoHome {
                 Printer.error("Devi effettuare il login per visualizzare le segnalazioni attive.");
                 return;
             }
-            System.out.println(UtilityAccesso.getCodiceUtente());
             // Creo il bean specificando il tipo di segnalazioni da visualizzare
             BeanListeElementi bean = new BeanListeElementi(TypeOfSegnalazione.RISOLTE);
 

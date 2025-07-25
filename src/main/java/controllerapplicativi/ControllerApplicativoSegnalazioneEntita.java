@@ -55,6 +55,7 @@ public class ControllerApplicativoSegnalazioneEntita {
         //qui mando la notifica all admin, le salvo tutte dentro il centro notifiche
 
         String nomeUtente = UtilityAccesso.getNomeUtenteNelDatabase();
+        nomeUtente = (nomeUtente != null) ? nomeUtente : "Unknown user";
         Notifica notifica = new Notifica(nomeUtente + " ha segnalato un " + tipoEntita);
         CentroNotifiche.aggiungiNotifica(notifica);
 

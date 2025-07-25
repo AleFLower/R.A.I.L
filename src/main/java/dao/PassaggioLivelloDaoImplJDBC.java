@@ -46,6 +46,7 @@ public class PassaggioLivelloDaoImplJDBC implements EntitaFerroviariaDao {
                 preparedStatement.setString(1, levelCrossing.getInfo());
                 preparedStatement.setString(2, levelCrossing.getlocalizzazione());
                 preparedStatement.setString(3, levelCrossing.getDescrizioneProblema());
+                preparedStatement.executeUpdate();
             }
         }else {
             esito=-1;

@@ -74,6 +74,7 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         textFieldlocalizzazione.setDisable(true);
         comboBoxNumeroBinario.setDisable(true);
         inviaSegnalazioneButton1.setDisable(true);
+        textFieldProblematica.setDisable(true);
     }
     public void settaTestoEccezione(Exception e){
         if (e instanceof NessunAccessoEffettuatoException) {
