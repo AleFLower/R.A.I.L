@@ -5,7 +5,6 @@ import cli.PaginaHome;
 import cli.PaginaVisualizzazioneSegnalazioniAttiveCli;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import controllerapplicativi.ControllerApplicativoTipoSegnalazione;
-import dao.SingletonConnessione;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsistonoSegnalazioniException;
 import utility.Printer;
