@@ -1,13 +1,16 @@
 package com.example.progettoispw.controllergrafici;
 import bean.BeanObserverAccount;
 import com.jfoenix.controls.JFXButton;
+import entita.Role;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import utility.UtilityAccesso;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,6 +65,8 @@ public class ControllerGraficoSenzaAccesso implements Initializable {
                 menuBack.setVisible(true);
             });
         });
+
+
         menuBack.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -122,9 +127,18 @@ public class ControllerGraficoSenzaAccesso implements Initializable {
             System.exit(-1);
         }
     }
+    //verifico che solamente lo user puo segnalare problemi, l'admin l'ho messo solo per far vedere la conclusione
+    //del caso d'uso con la notifica all'admin.
     @FXML
     void SegnalaProblemaAccess() throws Exception {
-        controllerVisualizzatoreScene.visualizzaScena("PaginaSegnalaProblema.fxml");
+        if(UtilityAccesso.getRole()==Role.ADMIN){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Permesso negato");
+            alert.setHeaderText(null);
+            alert.setContentText("Solo un UTENTE può segnalare un problema.");
+            alert.showAndWait();
+        }
+       else  controllerVisualizzatoreScene.visualizzaScena("PaginaSegnalaProblema.fxml");
     }
 
 }
