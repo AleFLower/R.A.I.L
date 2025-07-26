@@ -51,9 +51,10 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
                             typeOfPersistence
                     );
                     //questi dati devono essere mandati al controller applicativo
-                    ControllerApplicativoSegnalazioneEntita controllerApplicativoSegnalazioneEntita=new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
+                   new ControllerApplicativoSegnalazioneEntita(beanVerificaDati);
                     mostraAlertSuccesso("Segnalazione avvenuta con successo.\nTorna alla home =)");
                     disattivaButton();
+                    //qui catturo tutte le eccezioni che rilancio dal controller applicativo segnala entita
                 } catch(SQLException | ErroreLetturaPasswordException | SegnalazioneGiaAvvenutaException | NessunAccessoEffettuatoException | TipoEntitaException |
                         IOException e){
                     settaTestoEccezione(e);
@@ -123,8 +124,6 @@ public class ControllerGraficoSegnalazioneBinario extends ControllerGraficoGener
         alert.setContentText(messaggio);
         alert.showAndWait();
     }
-
-
 
     public boolean controllaInput() {
         if (textFieldlocalizzazione.getText().isEmpty() || comboBoxNumeroBinario.getValue() == null) {

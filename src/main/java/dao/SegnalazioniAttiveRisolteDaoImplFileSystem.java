@@ -15,11 +15,10 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
     private static final String FILE_PL = "LevelCrossingSegnalato.txt";
     @Override
     public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
-            throws IOException, NonEsistonoSegnalazioniException {
+            throws IOException {
 
         List<BeanSegnalazioneLevelCrossing> lista = new ArrayList<>();
         File file = new File(FILE_PL);
-        if (!file.exists()) throw new NonEsistonoSegnalazioniException("Nessuna segnalazione PL trovata.");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -54,11 +53,10 @@ public class SegnalazioniAttiveRisolteDaoImplFileSystem implements SegnalazioniR
 
     @Override
     public List<BeanSegnalazioneBinario> getSegnalazioniBinari(TypeOfSegnalazione tipo)
-            throws IOException, NonEsistonoSegnalazioniException {
+            throws IOException {
 
         List<BeanSegnalazioneBinario> lista = new ArrayList<>();
         File file = new File(FILE_BINARI);
-        if (!file.exists()) throw new NonEsistonoSegnalazioniException("Nessuna segnalazione binario trovata.");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;

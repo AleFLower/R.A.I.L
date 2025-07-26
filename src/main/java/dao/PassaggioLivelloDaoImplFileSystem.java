@@ -15,7 +15,7 @@ public class PassaggioLivelloDaoImplFileSystem implements EntitaFerroviariaDao {
 
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance)
-            throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException {
+            throws SQLException, SegnalazioneGiaAvvenutaException {
         LevelCrossing levelCrossing = new LevelCrossing(instance.getInfo(), instance.getlocalizzazione(), instance.getDescrizioneProblema());
 
         // Controllo duplicato

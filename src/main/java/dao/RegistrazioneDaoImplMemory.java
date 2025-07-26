@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class RegistrazioneDaoImplMemory implements RegistrazioneDao {
 
     @Override
-    public boolean registraUtente(String username, String email, String password) throws SQLException, UtenteEsistenteException {
+    public boolean registraUtente(String username, String email, String password)  {
         if (verificaEsistenzaUtente(username, email)) {
             // Salva nel "database in memoria" condiviso
             LoggedUsers.nomiUtenti.put(email, username);
@@ -22,13 +22,9 @@ public class RegistrazioneDaoImplMemory implements RegistrazioneDao {
     }
 
     @Override
-    public boolean verificaEsistenzaUtente(String username, String email) throws UtenteEsistenteException {
-        if (LoggedUsers.nomiUtenti.containsValue(username)) {
-            throw new UtenteEsistenteException("Username già esistente");
-        }
-        if (LoggedUsers.utentiFittizi.containsKey(email)) {
-            throw new UtenteEsistenteException("Email già esistente");
-        }
-        return true;
+    public boolean verificaEsistenzaUtente(String username, String email)  {
+
+        //non so se lanciare, forse deve ritornare solo false per come è stato progettato?
+        return !LoggedUsers.nomiUtenti.containsValue(username) || !LoggedUsers.utentiFittizi.containsKey(email);
     }
 }

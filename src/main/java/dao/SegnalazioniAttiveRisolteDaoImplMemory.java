@@ -15,7 +15,7 @@ import java.util.List;
 public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisolteAttiveDao {
     @Override
     public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
-            throws NonEsistonoSegnalazioniException {
+            {
         List<BeanSegnalazioneLevelCrossing> lista = new ArrayList<>();
 
         String codiceUtente = UtilityAccesso.getCodiceUtente();
@@ -46,15 +46,11 @@ public class SegnalazioniAttiveRisolteDaoImplMemory implements SegnalazioniRisol
 
     @Override
     public List<BeanSegnalazioneBinario> getSegnalazioniBinari(TypeOfSegnalazione tipo)
-            throws NonEsistonoSegnalazioniException {
+    {
         List<BeanSegnalazioneBinario> lista = new ArrayList<>();
 
         String codiceUtente = UtilityAccesso.getCodiceUtente();
         List<EntitaFerroviaria> segnalazioniUtente = ArchivioSegnalazioniMemory.getSegnalazioniPerUtente(codiceUtente);
-
-        if (segnalazioniUtente.isEmpty()) {
-            throw new NonEsistonoSegnalazioniException("Non hai effettuato nessuna segnalazione.");
-        }
 
         for (EntitaFerroviaria entita : segnalazioniUtente) {
             if (entita instanceof Binario binario) {

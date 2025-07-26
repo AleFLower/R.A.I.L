@@ -14,7 +14,7 @@ public class BinarioDaoImplFileSystem implements EntitaFerroviariaDao {
 
     @Override
     public void saveEntitaStradale(EntitaFerroviaria instance)
-            throws SQLException, SegnalazioneGiaAvvenutaException, ErroreLetturaPasswordException, IOException {
+            throws SegnalazioneGiaAvvenutaException,IOException {
         Binario binario = new Binario(instance.getInfo(), instance.getlocalizzazione(), instance.getDescrizioneProblema());
 
         // Controllo duplicato

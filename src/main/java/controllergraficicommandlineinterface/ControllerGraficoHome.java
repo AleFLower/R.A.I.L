@@ -7,6 +7,7 @@ import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import controllerapplicativi.ControllerApplicativoTipoSegnalazione;
 import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.NonEsistonoSegnalazioniException;
+import entita.Role;
 import utility.Printer;
 import utility.UtilityAccesso;
 
@@ -25,7 +26,10 @@ public class ControllerGraficoHome {
             int scelta = paginaHome.mostraMenuHome();
 
             switch (scelta) {
-                case 1 -> segnalaProblema();
+                case 1 -> {
+                    if(UtilityAccesso.getRole() == Role.ADMIN) paginaHome.mostraMessaggio("Devi loggarti come user per segnalare un problema");
+                    else segnalaProblema();
+                }
                 case 2 -> paginaHome.mostraFunzioneNonDisponibile("recensione");
                 case 3 -> paginaHome.mostraFunzioneNonDisponibile("suggerimento funzionalità");
                 case 4 -> gestisciAccesso();
@@ -91,7 +95,8 @@ public class ControllerGraficoHome {
             view.mostraSegnalazioniAttive(bean);
 
         } catch (SQLException | IOException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException e) {
-            Printer.error("Errore durante il recupero delle segnalazioni attive: " + e.getMessage());
+            if(e instanceof NonEsistonoSegnalazioniException) Printer.error("Non esistono segnalazioni risolte");
+            else Printer.error("Recupero segnalazioni risolte non riuscito: " + e.getMessage());
 
         }
     }

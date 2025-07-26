@@ -25,6 +25,7 @@ public class ControllerApplicativoSegnalazioneEntita {
     private TypeEntita tipoEntita;
     private EntitaFerroviaria entitaStradale;
     private FactoryDao dao;
+    //lui non cattura SegnalazioneGiaAvvenuta(e altre) ma le rilancia al metodo chiamante, e lancia una nuova eccezione nessunaccessoeffettuato
     public ControllerApplicativoSegnalazioneEntita(BeanSegnalaEntita beanSegnalaEntita) throws SQLException, ErroreLetturaPasswordException, SegnalazioneGiaAvvenutaException, NessunAccessoEffettuatoException, TipoEntitaException, IOException {
         /*il controller applicativo riceve il bean che contiene le informazioni dell'entita segnalata, setta quindi tutti i
         * suoi parametri prendendoli dal bean*/

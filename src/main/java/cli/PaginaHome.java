@@ -44,5 +44,9 @@ public class PaginaHome {
     public void mostraMessaggioUscita() {
         Printer.print("Grazie per aver usato l'applicazione. Arrivederci!");
     }
+
+    public void mostraMessaggio(String s) {
+    Printer.print(s);
+    }
 }
 

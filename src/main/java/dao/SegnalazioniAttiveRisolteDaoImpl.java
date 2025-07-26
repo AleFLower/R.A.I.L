@@ -32,7 +32,7 @@ public class SegnalazioniAttiveRisolteDaoImpl implements SegnalazioniRisolteAtti
     }
     @Override
     public List<BeanSegnalazioneLevelCrossing> getSegnalazioniLevelCrossing(TypeOfSegnalazione tipo)
-            throws SQLException, NonEsistonoSegnalazioniException, ErroreLetturaPasswordException {
+            throws SQLException,  ErroreLetturaPasswordException {
 
         verificaConnessione();
         String query = tipo == TypeOfSegnalazione.ATTIVE ?
@@ -57,7 +57,7 @@ public class SegnalazioniAttiveRisolteDaoImpl implements SegnalazioniRisolteAtti
 
     @Override
     public List<BeanSegnalazioneBinario> getSegnalazioniBinari(TypeOfSegnalazione tipo)
-            throws SQLException, NonEsistonoSegnalazioniException, ErroreLetturaPasswordException {
+            throws SQLException,  ErroreLetturaPasswordException {
 
         verificaConnessione();
         String query = tipo == TypeOfSegnalazione.ATTIVE ?

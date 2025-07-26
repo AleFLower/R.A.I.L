@@ -120,9 +120,6 @@ public class ControllerGraficoSenzaAccesso implements Initializable {
                     }
             });
 
-
-
-
         }catch (Exception e){
             System.exit(-1);
         }

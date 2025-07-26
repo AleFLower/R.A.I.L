@@ -11,7 +11,7 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
 
     @Override
     public boolean registraUtente(String username, String email, String password)
-            throws IOException, UtenteEsistenteException {
+            throws IOException {
 
         if (verificaEsistenzaUtente(username, email)) {
             String codiceUtente = String.valueOf(generaCodiceUtenteIncrementale());
@@ -29,7 +29,7 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
 
     @Override
     public boolean verificaEsistenzaUtente(String username, String email)
-            throws UtenteEsistenteException, IOException {
+            throws IOException {
 
         File file = new File(PATH_FILE_UTENTI);
         if (!file.exists()) {
@@ -46,11 +46,9 @@ public class RegistrazioneDaoFileSystem implements RegistrazioneDao {
                 String emailFile = campi[0].trim();
                 String usernameFile = campi[2].trim();
 
-                if (emailFile.equalsIgnoreCase(email)) {
-                    throw new UtenteEsistenteException("Email già esistente");
-                }
-                if (usernameFile.equalsIgnoreCase(username)) {
-                    throw new UtenteEsistenteException("Username già esistente");
+                //non so se lanciarle, al massimo ritorna false piu che lanciare queste eccezioni
+                if (emailFile.equalsIgnoreCase(email) && usernameFile.equalsIgnoreCase(username)) {
+                    return false;
                 }
             }
         }

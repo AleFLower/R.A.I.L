@@ -36,6 +36,7 @@ public class ControllerApplicativoTipoSegnalazione {
         List<BeanSegnalazioneLevelCrossing> levelCrossing = segnalazioniRisolteAttiveDao.getSegnalazioniLevelCrossing(typeOfSegnalazione);
         List<BeanSegnalazioneBinario> binari = segnalazioniRisolteAttiveDao.getSegnalazioniBinari(typeOfSegnalazione);
 
+        //la lancio qui l'eccezione, non nei dao, perché devo controllare entrambe le liste
         if(levelCrossing.isEmpty() && binari.isEmpty()) throw new NonEsistonoSegnalazioniException("Non hai effettuato alcuna segnalazione");
 
         for (BeanSegnalazioneLevelCrossing s : levelCrossing) {

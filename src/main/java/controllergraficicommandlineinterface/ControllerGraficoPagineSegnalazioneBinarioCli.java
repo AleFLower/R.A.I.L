@@ -19,22 +19,32 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
         this.view = new PaginaSegnalazioneBinarioCli();
     }
 
-    public void mostraPaginaSegnalazione() throws IOException {
-        String localizzazione = view.chiediLocalizzazione();
-        if (localizzazione == null || localizzazione.equalsIgnoreCase("esc")) return;
+    public void mostraPaginaSegnalazione() {
+        try {
+            String localizzazione = view.chiediLocalizzazione();
+            if (localizzazione == null || localizzazione.equalsIgnoreCase("esc")) return;
 
-        String numeroBinario = view.chiediNumeroBinario();
-        if (numeroBinario.equalsIgnoreCase("esc")) return;
+            String numeroBinario = view.chiediNumeroBinario();
+            if (numeroBinario.equalsIgnoreCase("esc")) return;
 
-        String problematica = view.chiediProblematica();
-        if (problematica.equalsIgnoreCase("esc")) return;
+            String problematica = view.chiediProblematica();
+            if (problematica.equalsIgnoreCase("esc")) return;
 
-        if (view.confermaSalvataggio()) {
-            salvaSegnalazione(localizzazione, numeroBinario, problematica);
+            try {
+                if (view.confermaSalvataggio()) {
+                    salvaSegnalazione(localizzazione, numeroBinario, problematica);
+                }
+            } catch (SceltaNonValidaException e) {
+                view.mostraErrore("Scelta non valida: " + e.getMessage());
+            }
+
+        } catch (IOException e) {
+            view.mostraErrore("Errore di input/output: " + e.getMessage());
         }
     }
 
-    private void salvaSegnalazione(String localizzazione, String numeroBinario, String problematica) throws IOException {
+
+    private void salvaSegnalazione(String localizzazione, String numeroBinario, String problematica)  {
         try {
             BeanSegnalaEntita bean = new BeanSegnalaEntita(
                     numeroBinario, localizzazione, problematica, TypeEntita.BINARIO, UtilityAccesso.getPersistence());
