@@ -48,12 +48,16 @@ public class ControllerApplicativoSegnalazioneEntita {
 
         inviaSegnalazione(entitaStradale,beanSegnalaEntita.getTypeOfPersistence());
         //qui mando la notifica all admin, le salvo tutte dentro il centro notifiche
+        notificaAdmin();
 
+
+    }
+
+    private void notificaAdmin() {
         String nomeUtente = UtilityAccesso.getNomeUtenteNelDatabase();
         nomeUtente = (nomeUtente != null) ? nomeUtente : "Unknown user";
         Notifica notifica = new Notifica(nomeUtente + " ha segnalato un " + tipoEntita);
         CentroNotifiche.aggiungiNotifica(notifica);
-
     }
 
     private void inviaSegnalazione(EntitaFerroviaria entitaStradale, TypeOfPersistence typeOfPersistence) throws SQLException, ErroreLetturaPasswordException, SegnalazioneGiaAvvenutaException, IOException {
