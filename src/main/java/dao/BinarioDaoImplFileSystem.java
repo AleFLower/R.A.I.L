@@ -1,13 +1,12 @@
 package dao;
 
-import eccezioni.ErroreLetturaPasswordException;
+
 import eccezioni.SegnalazioneGiaAvvenutaException;
 import entita.Binario;
 import entita.EntitaFerroviaria;
 import utility.UtilityAccesso;
 
 import java.io.*;
-import java.sql.SQLException;
 public class BinarioDaoImplFileSystem implements EntitaFerroviariaDao {
     private static final String FILE_NAME = "BinarioSegnalato.txt";
     private int esitoSalvataggio;

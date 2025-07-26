@@ -4,7 +4,6 @@ import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
 import eccezioni.ErroreLetturaPasswordException;
-import eccezioni.NonEsistonoSegnalazioniException;
 import queries.QueriesSegnalazionePassaggioLivello;
 import queries.QueriesSegnalazioneBinario;
 import utility.UtilityAccesso;

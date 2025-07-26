@@ -94,10 +94,10 @@ public class ControllerGraficoHome {
             PaginaVisualizzazioneSegnalazioniAttiveCli view = new PaginaVisualizzazioneSegnalazioniAttiveCli();
             view.mostraSegnalazioniAttive(bean);
 
-        } catch (SQLException | IOException | NonEsistonoSegnalazioniException | ErroreLetturaPasswordException e) {
-            if(e instanceof NonEsistonoSegnalazioniException) Printer.error("Non esistono segnalazioni risolte");
-            else Printer.error("Recupero segnalazioni risolte non riuscito: " + e.getMessage());
-
+        } catch (NonEsistonoSegnalazioniException e) {
+            Printer.error("Non esistono segnalazioni risolte");
+        } catch (SQLException | IOException | ErroreLetturaPasswordException e) {
+            Printer.error("Recupero segnalazioni risolte non riuscito: " + e.getMessage());
         }
     }
 

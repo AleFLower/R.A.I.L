@@ -3,7 +3,6 @@ package dao;
 import bean.BeanSegnalazioneBinario;
 import bean.BeanSegnalazioneLevelCrossing;
 import com.example.progettoispw.controllergrafici.TypeOfSegnalazione;
-import eccezioni.NonEsistonoSegnalazioniException;
 import entita.Binario;
 import entita.EntitaFerroviaria;
 import entita.LevelCrossing;

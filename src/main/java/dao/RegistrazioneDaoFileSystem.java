@@ -1,6 +1,5 @@
 package dao;
 
-import eccezioni.UtenteEsistenteException;
 import entita.Role;
 
 import java.io.*;

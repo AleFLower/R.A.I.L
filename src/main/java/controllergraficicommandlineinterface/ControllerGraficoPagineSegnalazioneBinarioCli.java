@@ -30,16 +30,15 @@ public class ControllerGraficoPagineSegnalazioneBinarioCli {
             String problematica = view.chiediProblematica();
             if (problematica.equalsIgnoreCase("esc")) return;
 
-            try {
-                if (view.confermaSalvataggio()) {
+            if (view.confermaSalvataggio()) {
                     salvaSegnalazione(localizzazione, numeroBinario, problematica);
-                }
-            } catch (SceltaNonValidaException e) {
-                view.mostraErrore("Scelta non valida: " + e.getMessage());
             }
 
         } catch (IOException e) {
             view.mostraErrore("Errore di input/output: " + e.getMessage());
+        }
+        catch (SceltaNonValidaException e) {
+            view.mostraErrore("Scelta non valida: " + e.getMessage());
         }
     }
 

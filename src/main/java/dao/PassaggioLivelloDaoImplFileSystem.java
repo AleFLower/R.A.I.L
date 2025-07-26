@@ -1,6 +1,5 @@
 package dao;
 
-import eccezioni.ErroreLetturaPasswordException;
 import eccezioni.SegnalazioneGiaAvvenutaException;
 import entita.EntitaFerroviaria;
 import entita.LevelCrossing;
