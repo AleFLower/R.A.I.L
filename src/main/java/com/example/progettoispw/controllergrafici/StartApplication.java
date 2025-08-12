@@ -1,25 +1,24 @@
 package com.example.progettoispw.controllergrafici;
-import cli.PaginaHome;
-import controllergraficicommandlineinterface.ControllerGraficoHome;
-import dao.SingletonConnessione;
-import entita.Account;
+import graphiccontrollercli.HomeGraphicControllerCLI;
+import dao.DbConnection;
+import model.Account;
 import factory.TypeOfPersistence;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import utility.Printer;
-import utility.UtilityAccesso;
+import utility.AccessUtility;
 import java.io.*;
 
 public class StartApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        final String schermataPrincipale = "prova-home.fxml";
+        final String mainPage = "/com/example/progettoispw/viewsfxml/HomeView.fxml";
         //controller che fa da "navigation"
-        ControllerVisualizzatoreScene controllerVisualizzatoreScene = ControllerVisualizzatoreScene.getInstance(stage);
-        controllerVisualizzatoreScene.visualizzaScenaPrincipale(schermataPrincipale);
-        stage.setOnCloseRequest(windowEvent->{
+        SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(stage);
+        sceneController.showMainScene(mainPage);
+        stage.setOnCloseRequest(windowEvent->{  //se schiaccio la x nello stage, faccio il logout
             windowEvent.consume();
             logout(stage);
         });
@@ -27,7 +26,8 @@ public class StartApplication extends Application {
 
     public static void main(String[] args) throws IOException {
         //l'app viene lanciata, creiamo quindi un utente di default che possiede come stato di default offline
-        UtilityAccesso.setAccount(Account.getInitialAccount());
+
+        AccessUtility.setAccount(Account.getInitialAccount()); //al primo accesso, creo una istanza di account
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");
 
@@ -38,46 +38,46 @@ public class StartApplication extends Application {
 
             // Chiedo il tipo di persistenza
             while (typeOfPersistence == null) {
-                Printer.print("Scegli modalità di avvio dell'app: \n1 -> Full version dbms\n2 -> Full version file system\n3 -> Demo version");
-                String tipo = bufferedReader.readLine();
-                if ("1".equals(tipo)) {
+                Printer.print("Choose app start mode: \n1 -> Full version DBMS\n2 -> Full version file system\n3 -> Demo version");
+                String type = bufferedReader.readLine();
+                if ("1".equals(type)) {
                     typeOfPersistence = TypeOfPersistence.JDBC;
-                } else if ("2".equals(tipo)) {
+                } else if ("2".equals(type)) {
                     typeOfPersistence = TypeOfPersistence.FILESYSTEM;
-                } else if("3".equals(tipo)){
+                } else if("3".equals(type)){
                     typeOfPersistence = TypeOfPersistence.MEMORY;
                 }
-                else Printer.print("Scelta non valida, riprova");
+                else Printer.print("Invalid choice, please try again");
             }
 
             // Salvo la scelta in una classe statica d’appoggio
-            UtilityAccesso.setPersistence(typeOfPersistence);
+            AccessUtility.setPersistence(typeOfPersistence);
 
-            Printer.print("digitare:\n1 per visualizzare l'app con l'interfaccia grafica\n2 per visualizzare l'app in linea di comando");
-            String scelta=bufferedReader.readLine();
+            Printer.print("Type:\n1 to launch the app with GUI\n2 to launch the app in command line");
+            String choice=bufferedReader.readLine();
             try {
-                Integer.parseInt(scelta);
+                Integer.parseInt(choice);
             } catch (NumberFormatException e) {
                 //di default lancio l'interfaccia grafica
                 launch();
                 break;
             }
             //l'utente ha inserito effettivamente dei numeri
-            int numeroScelta = Integer.parseInt(scelta);
-            if(numeroScelta==1) {
+            int choiceNumber = Integer.parseInt(choice);
+            if(choiceNumber==1) {
                 //è stata scelta l'interfaccia grafica
                 launch();
                 System.exit(0);
 
             }
             //CLI
-            else if(numeroScelta==2) {
+            else if(choiceNumber==2) {
                 //è stata scelta la linea di comando
-                ControllerGraficoHome controllerGraficoHome = new ControllerGraficoHome();
-                controllerGraficoHome.mostraHome();
+                HomeGraphicControllerCLI homeGraphicControllerCLI = new HomeGraphicControllerCLI();
+                homeGraphicControllerCLI.displayHomePage();
                 System.exit(0);
             }
-            Printer.print("mi spiace, prova a digitare 1 oppure 2");
+            Printer.print("Sorry, please type 1 or 2");
             Printer.print("---------------------------------------------------------------------");
         }
 
@@ -86,12 +86,10 @@ public class StartApplication extends Application {
         //metodo che si attiva se con l'interfaccia grafica clicco sulla "x" di uscita, avverte l'utente (grazie ad
         //una finestra) che sta uscendo dal sistema e gli fa decidere se uscire oppure no
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("uscita");
-        alert.setContentText("vuoi davvero uscire ? ");
-        alert.setHeaderText("stai uscendo ");
+        alert.setTitle("Exit");
+        alert.setContentText("Do you really want to exit?");
+        alert.setHeaderText("Exiting application");
         if(alert.showAndWait().get()== ButtonType.OK){
-            //verifichiamo prima di aver chiuso la connessione con il db se e' stata aperta
-            SingletonConnessione.closeConnection();
             //usciamo dall'applicazione
             stage.close();
         }

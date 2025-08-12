@@ -2,10 +2,10 @@ package utility;
 
 public class Printer {
     private Printer(){}
-    public static void print(String messaggio){
-        System.out.println(messaggio);
-    }  //NOSONAR
-    public static void error(String errore){
-        System.err.println(errore);
-    } //NOSONAR
+    public static void print(String message){
+        System.out.println(message);
+    }
+    public static void error(String error){
+        System.err.println(error);
+    }
 }

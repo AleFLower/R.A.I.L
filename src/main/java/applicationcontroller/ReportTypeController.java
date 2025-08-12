@@ -1,0 +1,50 @@
+package applicationcontroller;
+
+import bean.ReportListBean;
+import bean.ReportTrackBean;
+import bean.ReportLevelCrossingBean;
+import com.example.progettoispw.controllergrafici.ReportType;
+import dao.*;
+
+import exception.PasswordReadException;
+import exception.NoReportsFoundException;
+import factory.DaoFactory;
+import factory.TypeOfPersistence;
+import utility.AccessUtility;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+public class ReportTypeController {
+    private int userCode;
+    private ReportType reportType;
+    private ActiveResolvedReportsDao activeResolvedReportsDao;
+
+    public ReportTypeController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
+        userCode = Integer.parseInt(AccessUtility.getUserCode());
+        reportType =bean.getReportType();
+        //devo aggiungere elementi alla lista che si trova nel bean ce che verrà usata da controller grafico per prendere le info
+        addElements(bean,persistence);
+    }
+    private void addElements(ReportListBean bean, TypeOfPersistence persistence)
+            throws SQLException, NoReportsFoundException, PasswordReadException, IOException {
+
+        DaoFactory dao = DaoFactory.getFactory(persistence);
+        activeResolvedReportsDao = dao.getActiveResolvedDao();
+
+        List<ReportLevelCrossingBean> levelCrossinglist = activeResolvedReportsDao.getLevelCrossinReports(reportType);
+        List<ReportTrackBean> tracks = activeResolvedReportsDao.getTrackReports(reportType);
+
+        //la lancio qui l'eccezione, non nei dao, perché devo controllare entrambe le liste
+        if(levelCrossinglist.isEmpty() && tracks.isEmpty()) throw new NoReportsFoundException("You have not filed any reports");
+
+        for (ReportLevelCrossingBean s : levelCrossinglist) {
+            bean.addLevelCrossingReports(s);
+        }
+
+        for (ReportTrackBean ss : tracks) {
+            bean.addTrackReports(ss);
+        }
+    }
+}

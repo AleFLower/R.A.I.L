@@ -15,6 +15,7 @@ public class OfflineState extends AbstractState{
     @Override
     public void logout(StateMachineImpl s){
         //non fa nulla come metodo sono solo costretto a implementarlo da contratto con il padre
+        //sarebbe una ignore dello stato, ovvero se l'evento è login rimango nello stesso stato della SM
     }
 
 

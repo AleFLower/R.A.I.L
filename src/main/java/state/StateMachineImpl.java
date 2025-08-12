@@ -8,8 +8,7 @@ public class StateMachineImpl implements StateMachine{
     public StateMachineImpl(){
         //il costruttore viene chiamato una volta sola, cioe' quando viene creato l'account,
         //nel momento della creazione un account viene messo in stato offline
-        this.currentState=AbstractState.getInitialState();
-
+        this.currentState=AbstractState.getInitialState();  //all inizio proprio ritornerà un Offlinestate chiaramente
     }
     @Override
     public void goNext(Events e) {
@@ -35,9 +34,7 @@ public class StateMachineImpl implements StateMachine{
         }
     }
     public void changeToState(AbstractState s){
-        //exit dallo stato corrente
-        //entriamo nel nuovo stato
-        currentState=s;
+        this.currentState=s;
     }
     public AbstractState getState(){
         return this.currentState;

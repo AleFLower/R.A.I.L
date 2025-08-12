@@ -6,7 +6,12 @@ public abstract class AbstractState {
     //la classeStateMachineImpl riesce a mantenere in quella variabile lo stato corrente in cui l'utente si trova
     public static AbstractState getInitialState(){
         return new OfflineState();
-    }
+    } //di base è offline
     public abstract void login(StateMachineImpl s);
     public abstract void logout(StateMachineImpl s);
+
+    //preparazione per estensioni future del pattern, per ora non prevedo una azione da effettuare nella entry
+    //state o nella exit state, le metto qui per un futuro uso
+    public void entry(StateMachineImpl contextSM){}
+    public void exit(StateMachineImpl contextSM){}
 }

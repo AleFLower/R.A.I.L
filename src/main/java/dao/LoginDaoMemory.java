@@ -1,8 +1,8 @@
 package dao;
 
-import entita.Account;
-import entita.Role;
-import utility.UtilityAccesso;
+import model.Account;
+import model.Role;
+import utility.AccessUtility;
 
 
 public class LoginDaoMemory implements LoginDao {
@@ -13,20 +13,20 @@ public class LoginDaoMemory implements LoginDao {
     }
 
     @Override
-    public boolean verificaAccountNelSistema(String email, String password) {
-        if (LoggedUsers.utentiFittizi.containsKey(email) &&
-                LoggedUsers.utentiFittizi.get(email).equals(password)) {
+    public boolean verifyAccount(String email, String password) {
+        if (LoggedUsers.users.containsKey(email) &&
+                LoggedUsers.users.get(email).equals(password)) {
 
-            String nomeUtente = LoggedUsers.nomiUtenti.get(email);
-            Role ruoloUtente = LoggedUsers.ruoliUtenti.get(email); // nuovo
-            String codiceFittizio = Integer.toString(email.hashCode());  //genero a caso con un hash il codice utente
+            String username = LoggedUsers.usernames.get(email);
+            Role userRole = LoggedUsers.userRoles.get(email); // nuovo
+            String userCode = Integer.toString(email.hashCode());  //genero a caso con un hash il codice utente
 
-            account.setCredenziali(nomeUtente, codiceFittizio, ruoloUtente);
-            account.passaOnline();
+            account.setCredentials(username, userCode, userRole);
+            account.goOnline();
 
-            UtilityAccesso.setNomeUtenteNelDatabase(nomeUtente);
-            UtilityAccesso.setCodiceUtente(codiceFittizio);
-            UtilityAccesso.setRole(ruoloUtente);
+            AccessUtility.setUsername(username);
+            AccessUtility.setUserCode(userCode);
+            AccessUtility.setRole(userRole);
 
             return true;
         }
