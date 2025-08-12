@@ -20,7 +20,7 @@ public class HomeGraphicControllerCLI {
     //uso la bean per recuperare informazioni dall account, visto che le view non devono essere accoppiate con model
     //la bean si registra come observer: non appena avviene cambia stato l'account, notifica la bean
     private AccountBeanObserver beanObserver= AccountBeanObserver.getObserver();
-    private static final String state = "OFFLINE";
+    private static final String STATE = "OFFLINE";
 
     public HomeGraphicControllerCLI() {
         this.homePage = new HomePageViewCLI();
@@ -52,7 +52,7 @@ public class HomeGraphicControllerCLI {
     }
 
     private void handleAccess() throws IOException {
-        if(beanObserver.getActualState().equals(state))
+        if(beanObserver.getActualState().equals(STATE))
             new LoginGraphicControllerCLI().accediAlSistema();
         else {
             LogoutGraphicControllerCLI logoutCli = new LogoutGraphicControllerCLI();
@@ -62,7 +62,7 @@ public class HomeGraphicControllerCLI {
 
     private void displayActiveReports() {
         try {
-            if (beanObserver.getActualState().equals(state)) {
+            if (beanObserver.getActualState().equals(STATE)) {
                 Printer.error("You must log in to view active reports.");
                 return;
             }
@@ -85,7 +85,7 @@ public class HomeGraphicControllerCLI {
     private void displayResolvedReports(){
         try {
 
-            if (beanObserver.getActualState().equals(state)) {
+            if (beanObserver.getActualState().equals(STATE)) {
                 Printer.error("You must log in to view resolved reports.");
                 return;
             }
