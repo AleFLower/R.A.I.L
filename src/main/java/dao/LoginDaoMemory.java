@@ -14,12 +14,10 @@ public class LoginDaoMemory implements LoginDao {
 
     @Override
     public boolean verifyAccount(String email, String password) {
-        if (LoggedUsers.users.containsKey(email) &&
-                LoggedUsers.users.get(email).equals(password)) {
-
-            String username = LoggedUsers.usernames.get(email);
-            Role userRole = LoggedUsers.userRoles.get(email); // nuovo
-            String userCode = Integer.toString(email.hashCode());  //genero a caso con un hash il codice utente
+        if (LoggedUsers.isValidUser(email, password)) {
+            String username = LoggedUsers.getUsername(email);
+            Role userRole = LoggedUsers.getUserRole(email);
+            String userCode = Integer.toString(email.hashCode());
 
             account.setCredentials(username, userCode, userRole);
             account.goOnline();
@@ -32,6 +30,7 @@ public class LoginDaoMemory implements LoginDao {
         }
         return false;
     }
+
 
 }
 

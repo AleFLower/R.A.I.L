@@ -3,6 +3,9 @@ package dao;
 import bean.ReportTrackBean;
 import bean.ReportLevelCrossingBean;
 import com.example.progettoispw.graphiccontroller.ReportType;
+import model.LevelCrossing;
+import model.RailwayAsset;
+import model.Track;
 import utility.AccessUtility;
 
 import java.io.*;
@@ -12,60 +15,63 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
 
     private static final String TRACK_FILE = "ReportedTracks.txt";
     private static final String LC_FILE = "ReportedLevelCrossing.txt";
+
     @Override
-    public List<ReportLevelCrossingBean> getLevelCrossinReports(ReportType type)
-            throws IOException {
+    public List<RailwayAsset> getReports(ReportType type) throws IOException {
+        List<RailwayAsset> list = new ArrayList<>();
+        String actualUserCode = AccessUtility.getUserCode();
 
-        List<ReportLevelCrossingBean> list = new ArrayList<>();
-        File file = new File(LC_FILE);
+        list.addAll(readLevelCrossingReports(type, actualUserCode));
+        list.addAll(readTrackReports(type, actualUserCode));
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        return list;
+    }
+
+    private List<RailwayAsset> readLevelCrossingReports(ReportType type, String userCode) throws IOException {
+        List<RailwayAsset> list = new ArrayList<>();
+        File lcFile = new File(LC_FILE);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(lcFile))) {
             String line;
             String lcCode = null;
             String location = null;
             String issue = null;
             String state = null;
-            String userCode = null;
-
-            String actualUserCode = AccessUtility.getUserCode();
+            String fileUserCode = null;
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Level crossing code: ")) {
                     lcCode = line.split(": ", 2)[1].trim();
                 } else if (line.startsWith("location:")) {
                     location = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("Issue:")) {
+                } else if (line.startsWith("issue:")) {
                     issue = line.split(": ", 2)[1].trim();
                 } else if (line.startsWith("state:")) {
                     state = line.split(": ", 2)[1].trim().toLowerCase();
-                } else if (line.startsWith("user code:")) {
-                    userCode = line.split(": ", 2)[1].trim();
-                    if (userCode.equals(actualUserCode) && typeMatch(type, state)) {
-                        list.add(new ReportLevelCrossingBean(lcCode, location, issue, state));
+                } else if (line.startsWith("userCode:")) {
+                    fileUserCode = line.split(": ", 2)[1].trim();
+                    if (fileUserCode.equals(userCode) && typeMatch(type, state)) {
+                        RailwayAsset lc = new LevelCrossing(lcCode, location, issue);
+                        lc.setState(state);
+                        list.add(lc);
                     }
                 }
             }
         }
-
         return list;
     }
 
-    @Override
-    public List<ReportTrackBean> getTrackReports(ReportType type)
-            throws IOException {
+    private List<RailwayAsset> readTrackReports(ReportType type, String userCode) throws IOException {
+        List<RailwayAsset> list = new ArrayList<>();
+        File trackFile = new File(TRACK_FILE);
 
-        List<ReportTrackBean> list = new ArrayList<>();
-        File file = new File(TRACK_FILE);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(trackFile))) {
             String line;
             String trackNumber = null;
             String location = null;
             String issue = null;
             String state = null;
-            String userCode = null;
-
-            String actualUserCode = AccessUtility.getUserCode();
+            String fileUserCode = null;
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Track number:")) {
@@ -77,14 +83,15 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
                 } else if (line.startsWith("state:")) {
                     state = line.split(": ", 2)[1].trim().toLowerCase();
                 } else if (line.startsWith("userCode:")) {
-                    userCode = line.split(": ", 2)[1].trim();
-                    if (userCode.equals(actualUserCode) && typeMatch(type, state)) {
-                        list.add(new ReportTrackBean(trackNumber, location, issue, state));
+                    fileUserCode = line.split(": ", 2)[1].trim();
+                    if (fileUserCode.equals(userCode) && typeMatch(type, state)) {
+                        RailwayAsset track = new Track(trackNumber, location, issue);
+                        track.setState(state);
+                        list.add(track);
                     }
                 }
             }
         }
-
         return list;
     }
 

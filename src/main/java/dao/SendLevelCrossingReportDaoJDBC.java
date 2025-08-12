@@ -24,7 +24,7 @@ public class SendLevelCrossingReportDaoJDBC implements SendReportDao {
     }
     @Override
     public void sendRailwayAssetReport(RailwayAsset instance) throws SQLException, ReportAlreadyExistsException, PasswordReadException {
-        //qui so che ho a che fare con un passaggio a livello alla fine e lo devo mandare al db , allora rendo l'entita stradale un passaggio a livello
+        //qui so che ho a che fare con un passaggio a livello alla fine e lo devo mandare al db , allora rendo l'entita ferroviaria un passaggio a livello
         //e poi lo invio
         LevelCrossing levelCrossing=new LevelCrossing(instance.getAssetInfo(),instance.getLocation(),instance.getIssue());
         //ora lo invio

@@ -8,7 +8,7 @@ import utility.AccessUtility;
 
 import java.io.*;
 public class SendTrackReportDaoFS implements SendReportDao {
-    private static final String FILE_NAME = "ReportedTrack.txt";
+    private static final String FILE_NAME = "ReportedTracks.txt";
     private int outcome;
 
     @Override

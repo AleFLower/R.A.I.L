@@ -8,12 +8,17 @@ import dao.*;
 
 import exception.PasswordReadException;
 import exception.NoReportsFoundException;
+import factory.AssetType;
 import factory.DaoFactory;
 import factory.TypeOfPersistence;
+import model.LevelCrossing;
+import model.RailwayAsset;
+import model.Track;
 import utility.AccessUtility;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportTypeController {
@@ -33,18 +38,17 @@ public class ReportTypeController {
         DaoFactory dao = DaoFactory.getFactory(persistence);
         activeResolvedReportsDao = dao.getActiveResolvedDao();
 
-        List<ReportLevelCrossingBean> levelCrossinglist = activeResolvedReportsDao.getLevelCrossinReports(reportType);
-        List<ReportTrackBean> tracks = activeResolvedReportsDao.getTrackReports(reportType);
+       List<RailwayAsset> reports = dao.getActiveResolvedDao().getReports(reportType);
 
         //la lancio qui l'eccezione, non nei dao, perché devo controllare entrambe le liste
-        if(levelCrossinglist.isEmpty() && tracks.isEmpty()) throw new NoReportsFoundException("You have not filed any reports");
+        if(reports.isEmpty()) throw new NoReportsFoundException("You have not filed any reports");
 
-        for (ReportLevelCrossingBean s : levelCrossinglist) {
-            bean.addLevelCrossingReports(s);
-        }
 
-        for (ReportTrackBean ss : tracks) {
-            bean.addTrackReports(ss);
+        for(RailwayAsset asset: reports){
+            if(asset.getAssetType().equals(AssetType.LEVELCROSSING)){
+                bean.addLevelCrossingReports(new ReportLevelCrossingBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState()));
+            }
+            else bean.addTrackReports(new ReportTrackBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState()));
         }
     }
 }

@@ -6,23 +6,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoggedUsers {
-    protected static final Map<String, String> users = new HashMap<>(); // email -> password
-    protected static final Map<String, String> usernames = new HashMap<>();    // email -> username
-    protected static final Map<String, Role> userRoles = new HashMap<>();     // email -> ruolo
+    // dati private static (incapsulati)
+    private static final Map<String, String> users = new HashMap<>();
+    private static final Map<String, String> usernames = new HashMap<>();
+    private static final Map<String, Role> userRoles = new HashMap<>();
 
-    private LoggedUsers() {}
     static {
-        final String EMAIL_MARIO = "mario@esempio.com";
-        final String EMAIL_ANNA = "anna@esempio.com";
 
-        // utenti di default
-        users.put(EMAIL_MARIO, "1234");
-        usernames.put(EMAIL_MARIO, "MarioRossi");
-        userRoles.put(EMAIL_MARIO, Role.ADMIN);
+        //di default crea uno user e un admin
+        users.put("mario@esempio.com", "1234");
+        usernames.put("mario@esempio.com", "MarioRossi");
+        userRoles.put("mario@esempio.com", Role.ADMIN);
 
-        users.put(EMAIL_ANNA, "abcd");
-        usernames.put(EMAIL_ANNA, "AnnaVerdi");
-        userRoles.put(EMAIL_ANNA, Role.USER);
+        users.put("anna@esempio.com", "abcd");
+        usernames.put("anna@esempio.com", "AnnaVerdi");
+        userRoles.put("anna@esempio.com", Role.USER);
     }
 
+    // metodi statici per leggere dati (non espongo le mappe)
+    public static boolean isValidUser(String email, String password) {
+        return users.containsKey(email) && users.get(email).equals(password);
+    }
+
+    public static String getUsername(String email) {
+        return usernames.get(email);
+    }
+
+    public static Role getUserRole(String email) {
+        return userRoles.get(email);
+    }
+    public static  boolean userExistsByUsername(String username) {
+        return usernames.containsValue(username);
+    }
+
+    public static boolean userExistsByEmail(String email) {
+        return users.containsKey(email);
+    }
+
+    public static void addUser(String username, String email, String password, Role role) {
+        usernames.put(email, username);
+        users.put(email, password);
+        userRoles.put(email, role);
+    }
 }
+

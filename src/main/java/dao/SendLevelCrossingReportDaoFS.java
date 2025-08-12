@@ -31,7 +31,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
     }
 
     private String convertLevelCrossingInTxt(LevelCrossing levelCrossing) {
-        return "Code of the level crossing: " + levelCrossing.getAssetInfo() +
+        return "Level crossing code: " + levelCrossing.getAssetInfo() +
                 "\nlocation: " + levelCrossing.getLocation() +
                 "\nissue: " + levelCrossing.getIssue() +
                 "\nstate: " + levelCrossing.getState() +

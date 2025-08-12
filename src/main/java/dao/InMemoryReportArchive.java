@@ -11,14 +11,11 @@ import java.util.*;
 
 public class InMemoryReportArchive {
 
-    private static final Set<LevelCrossing> reportedLevelCrossing = new HashSet<>();
+    private static final List<LevelCrossing> reportedLevelCrossing = new ArrayList<>();
     private static final List<Track> reportedTracks = new ArrayList<>();
-    private static final Set<String> trackAddressReported = new HashSet<>();
 
-   //per memorizzare codice utente alle segnalazioni in memory
+    //per memorizzare codice utente alle segnalazioni in memory
     private static final Map<String, List<RailwayAsset>> reportsForUser = new HashMap<>();
-
-    private InMemoryReportArchive() {}
 
     public static void sendLevelCrossingReport(LevelCrossing newLcCode, String userCode) throws ReportAlreadyExistsException {
         for (LevelCrossing pl : reportedLevelCrossing) {
@@ -45,14 +42,6 @@ public class InMemoryReportArchive {
 
     private static void registrateReport(String userCode, RailwayAsset railwayAsset) {
         reportsForUser.computeIfAbsent(userCode, k -> new ArrayList<>()).add(railwayAsset);
-    }
-
-    public static Set<LevelCrossing> getReportedLevelCrossing() {
-        return Collections.unmodifiableSet(reportedLevelCrossing);
-    }
-
-    public static List<Track> getReportedTracks() {
-        return Collections.unmodifiableList(reportedTracks);
     }
 
     public static List<RailwayAsset> getReportsForUser(String userCode) {
