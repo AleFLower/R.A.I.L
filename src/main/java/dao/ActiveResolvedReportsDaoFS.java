@@ -30,6 +30,11 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
         List<RailwayAsset> list = new ArrayList<>();
         File lcFile = new File(LC_FILE);
 
+        if (!lcFile.exists()) {
+            // File non trovato, ritorno lista vuota
+            return list;
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(lcFile))) {
             String line;
             String lcCode = null;
@@ -63,6 +68,11 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
     private List<RailwayAsset> readTrackReports(ReportType type, String userCode) throws IOException {
         List<RailwayAsset> list = new ArrayList<>();
         File trackFile = new File(TRACK_FILE);
+
+        if (!trackFile.exists()) {
+            // File non trovato, ritorno lista vuota
+            return list;
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(trackFile))) {
             String line;
