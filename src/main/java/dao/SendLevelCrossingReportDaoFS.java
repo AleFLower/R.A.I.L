@@ -45,7 +45,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Code of the level crossing:")) {
+                if (line.startsWith("Level crossing code:")) {
                     String readCode = line.split(": ", 2)[1].trim();
                     if (readCode.equalsIgnoreCase(lcCode)) {
                         return true;
