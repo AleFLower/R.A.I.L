@@ -1,4 +1,4 @@
-package cli;
+package viewcli;
 
 import bean.ReportListBean;
 import bean.ReportTrackBean;

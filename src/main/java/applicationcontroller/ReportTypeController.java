@@ -3,7 +3,7 @@ package applicationcontroller;
 import bean.ReportListBean;
 import bean.ReportTrackBean;
 import bean.ReportLevelCrossingBean;
-import com.example.progettoispw.controllergrafici.ReportType;
+import com.example.progettoispw.graphiccontroller.ReportType;
 import dao.*;
 
 import exception.PasswordReadException;

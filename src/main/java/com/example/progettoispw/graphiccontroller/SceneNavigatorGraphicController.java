@@ -1,4 +1,4 @@
-package com.example.progettoispw.controllergrafici;
+package com.example.progettoispw.graphiccontroller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -2,9 +2,9 @@ package graphiccontrollercli;
 
 import bean.ReportListBean;
 import bean.AccountBeanObserver;
-import cli.HomePageViewCLI;
-import cli.ActiveReportsViewCLI;
-import com.example.progettoispw.controllergrafici.ReportType;
+import viewcli.HomePageViewCLI;
+import viewcli.ActiveReportsViewCLI;
+import com.example.progettoispw.graphiccontroller.ReportType;
 import applicationcontroller.ReportTypeController;
 import exception.PasswordReadException;
 import exception.NoReportsFoundException;

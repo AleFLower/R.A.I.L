@@ -1,4 +1,4 @@
-package cli;
+package viewcli;
 
 import exception.InvalidChoiceException;
 import utility.Printer;

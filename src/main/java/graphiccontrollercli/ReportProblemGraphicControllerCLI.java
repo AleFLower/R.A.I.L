@@ -1,6 +1,6 @@
 package graphiccontrollercli;
 
-import cli.ReportProblemViewCLI;
+import viewcli.ReportProblemViewCLI;
 import utility.AccessUtility;
 
 import java.io.IOException;

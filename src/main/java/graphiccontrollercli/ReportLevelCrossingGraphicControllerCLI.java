@@ -1,7 +1,7 @@
 package graphiccontrollercli;
 
 import bean.ReportBean;
-import cli.ReportLevelCrossingViewCLI;
+import viewcli.ReportLevelCrossingViewCLI;
 import applicationcontroller.ReportController;
 import exception.*;
 

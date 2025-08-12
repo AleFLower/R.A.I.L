@@ -104,7 +104,7 @@
                 <executions>
                     <execution>
                         <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
+                        <id>default-viewcli</id>
                         <configuration>
                             <mainClass>com.example.progettoispw/com.example.progettoispw.HelloApplication</mainClass>
                             <launcher>app</launcher>

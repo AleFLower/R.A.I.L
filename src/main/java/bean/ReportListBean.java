@@ -1,6 +1,6 @@
 package bean;
 
-import com.example.progettoispw.controllergrafici.ReportType;
+import com.example.progettoispw.graphiccontroller.ReportType;
 
 import java.util.ArrayList;
 import java.util.List;

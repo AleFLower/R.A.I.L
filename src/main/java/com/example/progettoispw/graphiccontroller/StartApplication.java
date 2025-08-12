@@ -1,6 +1,5 @@
-package com.example.progettoispw.controllergrafici;
+package com.example.progettoispw.graphiccontroller;
 import graphiccontrollercli.HomeGraphicControllerCLI;
-import dao.DbConnection;
 import model.Account;
 import factory.TypeOfPersistence;
 import javafx.application.Application;

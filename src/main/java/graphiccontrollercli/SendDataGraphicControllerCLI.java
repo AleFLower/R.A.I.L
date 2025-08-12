@@ -1,8 +1,8 @@
 package graphiccontrollercli;
 
 import bean.LoginBean;
-import cli.SystemAccessViewCLI;
-import cli.HomePageViewCLI;
+import viewcli.SystemAccessViewCLI;
+import viewcli.HomePageViewCLI;
 import applicationcontroller.LoginController;
 import exception.PasswordReadException;
 import exception.UserNotFoundException;

@@ -1,4 +1,4 @@
-package com.example.progettoispw.controllergrafici;
+package com.example.progettoispw.graphiccontroller;
 
 import bean.ReportListBean;
 import bean.ReportTrackBean;

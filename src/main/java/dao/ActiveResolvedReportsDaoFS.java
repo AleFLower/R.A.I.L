@@ -2,7 +2,7 @@ package dao;
 
 import bean.ReportTrackBean;
 import bean.ReportLevelCrossingBean;
-import com.example.progettoispw.controllergrafici.ReportType;
+import com.example.progettoispw.graphiccontroller.ReportType;
 import utility.AccessUtility;
 
 import java.io.*;

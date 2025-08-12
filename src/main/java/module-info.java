@@ -8,6 +8,6 @@ module com.example.progettoispw {
     requires java.desktop;
 
 
-    opens com.example.progettoispw.controllergrafici to javafx.fxml;
-    exports com.example.progettoispw.controllergrafici;
+    opens com.example.progettoispw.graphiccontroller to javafx.fxml;
+    exports com.example.progettoispw.graphiccontroller;
 }

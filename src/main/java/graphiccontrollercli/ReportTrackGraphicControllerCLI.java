@@ -2,7 +2,7 @@ package graphiccontrollercli;
 
 import bean.ReportBean;
 
-import cli.ReportTrackViewCLI;
+import viewcli.ReportTrackViewCLI;
 import applicationcontroller.ReportController;
 import exception.*;
 import factory.AssetType;

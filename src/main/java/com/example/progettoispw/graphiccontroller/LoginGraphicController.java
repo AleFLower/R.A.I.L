@@ -1,4 +1,4 @@
-package com.example.progettoispw.controllergrafici;
+package com.example.progettoispw.graphiccontroller;
 import bean.LoginBean;
 import com.jfoenix.controls.JFXButton;
 import applicationcontroller.LoginController;
