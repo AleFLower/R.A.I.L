@@ -7,14 +7,17 @@ import java.sql.SQLException;
 
 public class MemoryDaoFactory extends DaoFactory {
 
+    private static final UserRepository userRepository = new UserRepository();
+    private static final ReportRepository reportRepository = new ReportRepository();
+
     @Override
     public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) throws SQLException, PasswordReadException {
         // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
             switch (assetType) {
                 case TRACK:
-                    return new SendTrackReportDaoMemory();
+                    return new SendTrackReportDaoMemory(reportRepository);
                 case LEVELCROSSING:
-                    return new SendLevelCrossingReportDaoMemory();
+                    return new SendLevelCrossingReportDaoMemory(reportRepository);
                 default:
                     throw new IllegalArgumentException("Asset type not supported: " + assetType);
             }
@@ -23,16 +26,16 @@ public class MemoryDaoFactory extends DaoFactory {
 
     @Override
     public LoginDao getLoginDao() {
-        return new LoginDaoMemory();
+        return new LoginDaoMemory(userRepository);
     }
 
     @Override
     public RegistrationDao getRegistrationDao() {
-        return new RegistrationDaoMemory();
+        return new RegistrationDaoMemory(userRepository);
     }
 
     @Override
     public ActiveResolvedReportsDao getActiveResolvedDao() {
-        return new ActiveResolvedReportsDaoMemory();
+        return new ActiveResolvedReportsDaoMemory(reportRepository);
     }
 }

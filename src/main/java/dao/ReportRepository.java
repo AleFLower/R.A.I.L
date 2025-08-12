@@ -9,28 +9,23 @@ import model.LevelCrossing;
 
 import java.util.*;
 
-public class InMemoryReportArchive {
+public class ReportRepository {
 
-    private static final List<LevelCrossing> reportedLevelCrossing = new ArrayList<>();
-    private static final List<Track> reportedTracks = new ArrayList<>();
+    private final List<LevelCrossing> reportedLevelCrossing = new ArrayList<>();
+    private final List<Track> reportedTracks = new ArrayList<>();
+    private final Map<String, List<RailwayAsset>> reportsForUser = new HashMap<>();
 
-    private InMemoryReportArchive(){}
-
-    //per memorizzare codice utente alle segnalazioni in memory
-    private static final Map<String, List<RailwayAsset>> reportsForUser = new HashMap<>();
-
-    public static void sendLevelCrossingReport(LevelCrossing newLcCode, String userCode) throws ReportAlreadyExistsException {
+    public void sendLevelCrossingReport(LevelCrossing newLcCode, String userCode) throws ReportAlreadyExistsException {
         for (LevelCrossing pl : reportedLevelCrossing) {
             if (pl.getAssetInfo().equals(newLcCode.getAssetInfo())) {
                 throw new ReportAlreadyExistsException("Level Crossing already reported ");
             }
         }
         reportedLevelCrossing.add(newLcCode);
-        registrateReport(userCode, newLcCode);
+        registerReport(userCode, newLcCode);
     }
 
-
-    public static void sendTrackReport(Track newTrack, String userCode) throws ReportAlreadyExistsException {
+    public void sendTrackReport(Track newTrack, String userCode) throws ReportAlreadyExistsException {
         for (Track b : reportedTracks) {
             if (b.getAssetInfo().equals(newTrack.getAssetInfo())
                     && b.getLocation().equals(newTrack.getLocation())) {
@@ -38,17 +33,14 @@ public class InMemoryReportArchive {
             }
         }
         reportedTracks.add(newTrack);
-        registrateReport(userCode, newTrack);
+        registerReport(userCode, newTrack);
     }
 
-
-    private static void registrateReport(String userCode, RailwayAsset railwayAsset) {
+    private void registerReport(String userCode, RailwayAsset railwayAsset) {
         reportsForUser.computeIfAbsent(userCode, k -> new ArrayList<>()).add(railwayAsset);
     }
 
-    public static List<RailwayAsset> getReportsForUser(String userCode) {
+    public List<RailwayAsset> getReportsForUser(String userCode) {
         return reportsForUser.getOrDefault(userCode, Collections.emptyList());
     }
 }
-
-

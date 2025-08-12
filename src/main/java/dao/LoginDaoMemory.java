@@ -6,17 +6,19 @@ import utility.AccessUtility;
 
 
 public class LoginDaoMemory implements LoginDao {
+    private final UserRepository userRepository;
     private final Account account;
 
-    public LoginDaoMemory() {
+    public LoginDaoMemory(UserRepository userRepository) {
+        this.userRepository = userRepository;
         account = Account.getInitialAccount();
     }
 
     @Override
     public boolean verifyAccount(String email, String password) {
-        if (LoggedUsers.isValidUser(email, password)) {
-            String username = LoggedUsers.getUsername(email);
-            Role userRole = LoggedUsers.getUserRole(email);
+        if (userRepository.isValidUser(email, password)) {
+            String username = userRepository.getUsername(email);
+            Role userRole = userRepository.getUserRole(email);
             String userCode = Integer.toString(email.hashCode());
 
             account.setCredentials(username, userCode, userRole);
@@ -30,7 +32,6 @@ public class LoginDaoMemory implements LoginDao {
         }
         return false;
     }
-
-
 }
+
 
