@@ -20,7 +20,7 @@ public class HomeGraphicControllerCLI {
     //uso la bean per recuperare informazioni dall account, visto che le view non devono essere accoppiate con model
     //la bean si registra come observer: non appena avviene cambia stato l'account, notifica la bean
     private AccountBeanObserver beanObserver= AccountBeanObserver.getObserver();
-    private final String state = "OFFLINE";
+    private static final String state = "OFFLINE";
 
     public HomeGraphicControllerCLI() {
         this.homePage = new HomePageViewCLI();
