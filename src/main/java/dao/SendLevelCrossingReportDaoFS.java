@@ -6,8 +6,6 @@ import model.LevelCrossing;
 import utility.AccessUtility;
 
 import java.io.*;
-import java.sql.SQLException;
-
 
 public class SendLevelCrossingReportDaoFS implements SendReportDao {
     private static final String CSV_FILE_NAME = "ReportedLevelCrossing.txt";

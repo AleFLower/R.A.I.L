@@ -6,8 +6,8 @@ public class ReportLevelCrossingBean {
     private String issue;
     private String state;
 
-    public ReportLevelCrossingBean(String LcCode, String location, String issue, String state) {
-        this.lcCode = LcCode;
+    public ReportLevelCrossingBean(String lcCode, String location, String issue, String state) {
+        this.lcCode = lcCode;
         this.location = location;
         this.issue = issue;
         this.state = state;

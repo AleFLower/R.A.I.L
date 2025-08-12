@@ -73,9 +73,9 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
     }
 
     public ReportBean verifyBean(String lcCode, String location, String issue , AssetType te, TypeOfPersistence top) throws InvalidInputLengthException {
-        ReportBean reportBean = new ReportBean(lcCode, location, issue,te, top);
-        reportBean.validateInput();
-        return reportBean;
+        ReportBean bean = new ReportBean(lcCode, location, issue,te, top);
+        bean.validateInput();
+        return bean;
     }
 
     public void disableButton() {

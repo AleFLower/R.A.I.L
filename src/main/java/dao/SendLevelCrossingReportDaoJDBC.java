@@ -49,7 +49,7 @@ public class SendLevelCrossingReportDaoJDBC implements SendReportDao {
                 preparedStatement.executeUpdate();
             }
         }else {
-            outcome =-1;
+            this.outcome= -1;
             throw new ReportAlreadyExistsException("the level crossing has been already reported by another user");
         }
     }
