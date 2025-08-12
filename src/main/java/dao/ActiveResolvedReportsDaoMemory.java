@@ -1,12 +1,9 @@
 package dao;
 
-import bean.ReportTrackBean;
-import bean.ReportLevelCrossingBean;
+
 import com.example.progettoispw.graphiccontroller.ReportType;
-import factory.AssetType;
-import model.Track;
+
 import model.RailwayAsset;
-import model.LevelCrossing;
 import utility.AccessUtility;
 
 import java.util.ArrayList;

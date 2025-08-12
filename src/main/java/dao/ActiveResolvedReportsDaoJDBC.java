@@ -44,7 +44,7 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
         return list;
     }
 
-    private List<RailwayAsset> readLevelCrossingReports(ReportType type) throws SQLException, PasswordReadException {
+    private List<RailwayAsset> readLevelCrossingReports(ReportType type) throws SQLException {
         List<RailwayAsset> list = new ArrayList<>();
 
         String query = type == ReportType.ACTIVE ?
@@ -71,7 +71,7 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
         return list;
     }
 
-    private List<RailwayAsset> readTrackReports(ReportType type) throws SQLException, PasswordReadException {
+    private List<RailwayAsset> readTrackReports(ReportType type) throws SQLException {
         List<RailwayAsset> list = new ArrayList<>();
 
         String query = type == ReportType.ACTIVE ?

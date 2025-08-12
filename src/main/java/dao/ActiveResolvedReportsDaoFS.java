@@ -1,7 +1,6 @@
 package dao;
 
-import bean.ReportTrackBean;
-import bean.ReportLevelCrossingBean;
+
 import com.example.progettoispw.graphiccontroller.ReportType;
 import model.LevelCrossing;
 import model.RailwayAsset;

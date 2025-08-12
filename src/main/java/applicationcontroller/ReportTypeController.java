@@ -11,14 +11,11 @@ import exception.NoReportsFoundException;
 import factory.AssetType;
 import factory.DaoFactory;
 import factory.TypeOfPersistence;
-import model.LevelCrossing;
 import model.RailwayAsset;
-import model.Track;
 import utility.AccessUtility;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReportTypeController {

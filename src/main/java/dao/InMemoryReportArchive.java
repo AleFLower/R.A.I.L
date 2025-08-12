@@ -14,6 +14,8 @@ public class InMemoryReportArchive {
     private static final List<LevelCrossing> reportedLevelCrossing = new ArrayList<>();
     private static final List<Track> reportedTracks = new ArrayList<>();
 
+    private InMemoryReportArchive(){}
+
     //per memorizzare codice utente alle segnalazioni in memory
     private static final Map<String, List<RailwayAsset>> reportsForUser = new HashMap<>();
 

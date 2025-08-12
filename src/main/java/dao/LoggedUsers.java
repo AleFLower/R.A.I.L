@@ -11,18 +11,21 @@ public class LoggedUsers {
     private static final Map<String, String> usernames = new HashMap<>();
     private static final Map<String, Role> userRoles = new HashMap<>();
 
+    private LoggedUsers(){}
+
+    private static final String MARIO_EMAIL = "mario@esempio.com";
+    private static final String ANNA_EMAIL = "anna@esempio.com";
+
     static {
+        // di default crea uno user e un admin
+        users.put(MARIO_EMAIL, "1234");
+        usernames.put(MARIO_EMAIL, "MarioRossi");
+        userRoles.put(MARIO_EMAIL, Role.ADMIN);
 
-        //di default crea uno user e un admin
-        users.put("mario@esempio.com", "1234");
-        usernames.put("mario@esempio.com", "MarioRossi");
-        userRoles.put("mario@esempio.com", Role.ADMIN);
-
-        users.put("anna@esempio.com", "abcd");
-        usernames.put("anna@esempio.com", "AnnaVerdi");
-        userRoles.put("anna@esempio.com", Role.USER);
+        users.put(ANNA_EMAIL, "abcd");
+        usernames.put(ANNA_EMAIL, "AnnaVerdi");
+        userRoles.put(ANNA_EMAIL, Role.USER);
     }
-
     // metodi statici per leggere dati (non espongo le mappe)
     public static boolean isValidUser(String email, String password) {
         return users.containsKey(email) && users.get(email).equals(password);
