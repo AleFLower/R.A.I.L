@@ -9,7 +9,7 @@ public class LogoutGraphicControllerCLI {
         // Pulisce i dati di sessione
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
-        AccessUtility.getAccount().goOffline();
+        AccessUtility.goOffline();
 
         Printer.print("Logout successful.\nYou will be returned to the home screen.");
     }

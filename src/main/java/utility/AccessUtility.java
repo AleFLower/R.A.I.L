@@ -41,13 +41,13 @@ public class AccessUtility {
         AccessUtility.userCode = userCode;
     }
 
-    //nuova aggiunta account
-//aggiungere effettivamente un account? E stato messo perché tanto lo puoi sempre raggiungere perché è static singleton
-    //però cosi forse introduco coupling? Questa classe sa troppo? Magari devo usare direttamente Account. ?
+ //nota: mi serve che sia chiamata questa classe perché con essa vi interagiscono anche la parte di view
+    //quindi la view non è che puo chiamare direttamente Account.goOffline() anche se raggiungibile, perché è non
+    //deve venire a conoscenza della parte model. L'unico modo è dare questa resp a questa classe
     private static Account account;
 
-    public static Account getAccount() {
-        return account;
+    public static void goOffline(){
+        account.goOffline();
     }
 
     public static void setAccount(Account account) {

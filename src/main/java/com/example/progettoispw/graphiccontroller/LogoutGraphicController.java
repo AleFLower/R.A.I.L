@@ -22,7 +22,7 @@ public class LogoutGraphicController extends GeneralGraphicController {
         //porto a null i valori globali di utilityAccesso
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
-        AccessUtility.getAccount().goOffline();
+        AccessUtility.goOffline();
         //poi carico la pagina del login
         try {
             sceneController.displayScene("/com/example/progettoispw/viewsfxml/LoginRegistrationView.fxml");
