@@ -43,7 +43,7 @@ public class DbConnection {
         } catch (SQLException e) {
             throw new SQLException("Cannot connect to the database. Retry later", e);
         } catch (IOException e) {
-            throw new PasswordReadException("Cannot read database configuration", e);
+            throw new PasswordReadException("Cannot read database configuration");
         }
         return connection;
     }

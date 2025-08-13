@@ -1,9 +1,6 @@
 package factory;
 
 import dao.*;
-import exception.PasswordReadException;
-
-import java.sql.SQLException;
 
 public class FSDaoFactory extends DaoFactory {
 
