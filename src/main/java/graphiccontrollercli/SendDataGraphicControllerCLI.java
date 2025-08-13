@@ -1,8 +1,7 @@
 package graphiccontrollercli;
 
 import bean.LoginBean;
-import observer.Observer;
-import utility.NotificationItem;
+
 import viewcli.SystemAccessViewCLI;
 import viewcli.HomePageViewCLI;
 import applicationcontroller.LoginController;
@@ -17,7 +16,7 @@ import utility.AccessUtility;
 import java.io.IOException;
 
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class SendDataGraphicControllerCLI  {
     private final SystemAccessViewCLI view = new SystemAccessViewCLI();

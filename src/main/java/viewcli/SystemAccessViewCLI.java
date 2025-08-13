@@ -1,6 +1,5 @@
 package viewcli;
 
-import utility.NotificationHub;
 import utility.NotificationItem;
 import utility.Printer;
 

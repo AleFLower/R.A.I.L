@@ -1,16 +1,6 @@
 package utility;
 
-import observer.Observer;
-import observer.Subject;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NotificationHub {
@@ -19,7 +9,7 @@ public class NotificationHub {
 
     private final List<NotificationItem> notifications;
 
-    private NotificationHub() {
+    protected NotificationHub() {
         this.notifications = new ArrayList<>();
     }
 
