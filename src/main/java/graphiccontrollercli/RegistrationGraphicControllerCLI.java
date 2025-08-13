@@ -4,7 +4,6 @@ import bean.RegistrationBean;
 import applicationcontroller.RegistrationController;
 import exception.PasswordReadException;
 import exception.UserAlreadyExistsException;
-import factory.TypeOfPersistence;
 import utility.Printer;
 import utility.AccessUtility;
 
