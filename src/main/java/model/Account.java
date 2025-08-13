@@ -16,7 +16,8 @@ public class Account extends Subject {
     private StateMachine stateMachine;
     //nel momento della creazione di un account il suo stato corrente viene messo offline, quindi la variabile
     //current state associata a stateMachineImpl sarà offline State kind of AbstractState
-    public static Account getInitialAccount(){
+
+    public static Account getInitialAccount(){   //forse meglio renderla synchronized?
         if(account==null){
            account=new Account();
         }
@@ -57,7 +58,7 @@ public class Account extends Subject {
     @Override
     public void detach(Observer o) {
         int i=this.observerList.indexOf(o);
-        if(i>0) {
+        if(i>=0) {
             this.observerList.remove(i);
         }
     }

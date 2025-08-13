@@ -14,35 +14,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BinarioDaoImplJDBCTest {
 
-    SendTrackReportDaoJDBC binarioDaoImpl;
+    SendTrackReportDaoJDBC trackDaoImpl;
 
     @Test
-    void saveBinarioNonPresenteNelDb() {
+    void saveTrackNotInDB() {
         // Test per salvare un binario che non è ancora nel DB
         try {
             AccessUtility.setUserCode("2"); // imposta codice utente valido
-            binarioDaoImpl = new SendTrackReportDaoJDBC();
-            RailwayAsset nuovoBinario = new Track("1", "Napoli", "rotaie usurate");
-            binarioDaoImpl.sendRailwayAssetReport(nuovoBinario);
+            trackDaoImpl = new SendTrackReportDaoJDBC();
+            RailwayAsset newTrack = new Track("1", "Milano centrale", "rotaie usurate");
+            trackDaoImpl.sendRailwayAssetReport(newTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
             // nessuna eccezione prevista qui
         } finally {
-            assertEquals(0, binarioDaoImpl.getOutcome()); //mi aspetto che esito ritorni 0
+            assertEquals(0, trackDaoImpl.getOutcome()); //mi aspetto che esito ritorni 0
         }
     }
 
     @Test
-    void saveBinarioGiaPresenteNelDb() {
+    void saveTrackAlreadyInDB() {
         // Test che verifica che il sistema rifiuti l'inserimento duplicato
         try {
             AccessUtility.setUserCode("999");
-            binarioDaoImpl = new SendTrackReportDaoJDBC();
-            RailwayAsset binarioDuplicato = new Track("2", "stazione termini", "corpo estraneo");
-            binarioDaoImpl.sendRailwayAssetReport(binarioDuplicato);
+            trackDaoImpl = new SendTrackReportDaoJDBC();
+            RailwayAsset duplicateTrack = new Track("2", "stazione termini", "corpo estraneo");
+            trackDaoImpl.sendRailwayAssetReport(duplicateTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
             // l'eccezione è prevista in questo caso
         } finally {
-            assertEquals(-1, binarioDaoImpl.getOutcome());  //mi aspetto che esito ritorni 1
+            assertEquals(-1, trackDaoImpl.getOutcome());  //mi aspetto che esito ritorni 1
         }
     }
 }

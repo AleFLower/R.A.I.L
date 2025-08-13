@@ -16,7 +16,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class LoginGraphicController extends GeneralGraphicController {
+//non la implemento come observer per il fatto che con load ogni volta ricarico il controller grafico, quindi istanze diverse di controller grafico
+public class LoginGraphicController extends GeneralGraphicController{
 
     //aggiunta ora con il singleton
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
@@ -32,13 +33,16 @@ public class LoginGraphicController extends GeneralGraphicController {
     private Label messageLabel;
 
     private LoginBean loginBean;
+    private NotificationHub notificationHub = NotificationHub.getInstance();
 
     /*questa classe gestisce la login page, avendo piu' button e non avendoli in comune con le altre page, ho creato
     * questo controller grafico apposta per essa, questa classe è il controller grafico della page LoginRegistrationView.fxml,
     * usa anche la classe ControllerGraficoSenzaAccesso nel caso in cui si dovessero premere altri pulsanti, lo faccio
     * per non dover duplicare codice inutilmente*/
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Registration Button Click Event
         signupBtn.setOnMouseClicked(event -> handleRegistration());
 
@@ -48,6 +52,7 @@ public class LoginGraphicController extends GeneralGraphicController {
         // Call the superclass initialization for common logic
         super.initialize(url, resourceBundle);
     }
+
 
     private void handleRegistration() {
         try {
@@ -110,13 +115,12 @@ public class LoginGraphicController extends GeneralGraphicController {
     }
 
     private void showAdminNotifications() {
-        List<NotificationItem> notifications = NotificationHub.getNotifications();
-        if (notifications.isEmpty()) {
+        if (notificationHub.getNotifications().isEmpty()) {
             showAlert("Admin notifications", "No notifications", "There are no notifications right now.");
         } else {
-            displayNotifications(notifications);
+            displayNotifications(notificationHub.getNotifications());
         }
-        NotificationHub.clearNotifications();
+       notificationHub.clearNotifications();
     }
 
     private void showAlert(String title, String header, String content) {

@@ -11,30 +11,43 @@ import java.util.Properties;
 
 public class DbConnection {
     private static Connection connection;
-    private static final String URL="jdbc:mysql://localhost:3306/Track";  //da gestire in modo piu sicuro?
-    private static final String USERNAME="root";
+
     private DbConnection() throws SQLException, IOException {
         connectToDb();
     }
+
     private static void connectToDb() throws IOException, SQLException {
-        Properties properties=new Properties();
-        InputStream is= new FileInputStream("application.properties");
-        properties.load(is);
-        connection=DriverManager.getConnection(URL,USERNAME,(String)properties.get("password"));
+        Properties properties = new Properties();
+        // usa try-with-resources per chiudere automaticamente l'InputStream
+        try (InputStream is = new FileInputStream("db.properties")) {
+            properties.load(is);
+        }
+
+        // Legge URL, username e password dal file properties
+        String url = properties.getProperty("db.url");
+        String username = properties.getProperty("db.username");
+        String password = properties.getProperty("db.password");
+
+        if (url == null || username == null || password == null) {
+            throw new IOException("Missing database configuration in db.properties");
+        }
+
+        connection = DriverManager.getConnection(url, username, password);
     }
 
-    public static Connection getInstance() throws SQLException, PasswordReadException {
+    public static synchronized Connection getInstance() throws SQLException, PasswordReadException {
         try {
-            if (connection == null) {
+            if (connection == null || connection.isClosed()) {
                 new DbConnection();
             }
-        }catch (SQLException e){
-            throw new SQLException("Cannot connect to the database\nRetry later");
+        } catch (SQLException e) {
+            throw new SQLException("Cannot connect to the database. Retry later", e);
         } catch (IOException e) {
-            throw new PasswordReadException("Cannot extract the password\nof connection to DB");
+            throw new PasswordReadException("Cannot read database configuration", e);
         }
         return connection;
     }
+
     public static void closeConnection()  {
         if (connection != null) {
             try {

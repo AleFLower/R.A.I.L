@@ -10,15 +10,15 @@ class LoginDaoImplTest {
     //test sul login,
 
     @Test
-    void verificaEsistenzaNelSistema() throws SQLException, PasswordReadException {
+    void verifyExistance() throws SQLException, PasswordReadException {
         //test che verifica se una email esiste nel sistema, qui vi passerò una email che e' quindi effettivamente
         //presente nel db
             LoginDaoJDBC loginDao = new LoginDaoJDBC();
             //true =email presente
-            assertEquals(true, loginDao.verifyAccount("andrea@esempio.com", "andrea"));
+            assertEquals(true, loginDao.verifyAccount("admin@esempio.com", "adminpass"));
     }
     @Test
-    void verificaNonEsistenzaNelSistema() throws  SQLException, PasswordReadException {
+    void verifyNotExistInSystem() throws  SQLException, PasswordReadException {
         //test che verifica se una mail non e'presente nel db, qui vi passerò una email non presente nel db
         LoginDaoJDBC loginDao= new LoginDaoJDBC();
         //false= email non presente

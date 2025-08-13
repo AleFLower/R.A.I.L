@@ -1,6 +1,8 @@
 package graphiccontrollercli;
 
 import bean.LoginBean;
+import observer.Observer;
+import utility.NotificationItem;
 import viewcli.SystemAccessViewCLI;
 import viewcli.HomePageViewCLI;
 import applicationcontroller.LoginController;
@@ -15,10 +17,12 @@ import utility.AccessUtility;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class SendDataGraphicControllerCLI {
+public class SendDataGraphicControllerCLI  {
     private final SystemAccessViewCLI view = new SystemAccessViewCLI();
     private final HomePageViewCLI homePage = new HomePageViewCLI();
+    private NotificationHub notificationHub = NotificationHub.getInstance();
 
     public void displayAccessPage() throws IOException {
         String email = view.askEmail();
@@ -50,10 +54,9 @@ public class SendDataGraphicControllerCLI {
 
         try {
             new LoginController(bean, AccessUtility.getPersistence());
-            if(AccessUtility.getRole() == Role.ADMIN && !NotificationHub.getNotifications().isEmpty()){
-                view.displayAdminNotifications();
-                NotificationHub.clearNotifications();  // after showing notifications, clear old ones
-
+            if(AccessUtility.getRole() == Role.ADMIN && !notificationHub.getNotifications().isEmpty()){
+                view.displayAdminNotifications(notificationHub.getNotifications());
+                notificationHub.clearNotifications();
             }
             view.showMessage("Login successful! Back to home...");
         } catch (UserNotFoundException e) {

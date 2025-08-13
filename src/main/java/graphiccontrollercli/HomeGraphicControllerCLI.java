@@ -53,7 +53,7 @@ public class HomeGraphicControllerCLI {
 
     private void handleAccess() throws IOException {
         if(beanObserver.getActualState().equals(STATE))
-            new LoginGraphicControllerCLI().accediAlSistema();
+            new LoginGraphicControllerCLI().login();
         else {
             LogoutGraphicControllerCLI logoutCli = new LogoutGraphicControllerCLI();
             logoutCli.logout();

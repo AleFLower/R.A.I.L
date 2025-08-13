@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegistrazioneDaoImplTest {
     //test sulla registrazione
     @Test
-    void registraUtente() throws SQLException, PasswordReadException, UserAlreadyExistsException {
-        RegistrationDaoJDBC registrazioneDao=new RegistrationDaoJDBC();
+    void registerUser() throws SQLException, PasswordReadException, UserAlreadyExistsException {
+        RegistrationDaoJDBC registrationDao=new RegistrationDaoJDBC();
         // se l'utente gia esiste nel sistema mi aspetto false come risultato, altrimenti true
-        assertEquals(true,registrazioneDao.registrateUser("nuovoUtente12d","nuovoUtente1d2@gmail.com","nuovoUtente"));
+        assertEquals(true,registrationDao.registrateUser("nuovoUtente12d","nuovoUtente1d2@gmail.com","nuovoUtente"));
     }
 
     @Test
-    void verificaEsistenzaUtente() throws SQLException, PasswordReadException, UserAlreadyExistsException {
-        RegistrationDaoJDBC registrazioneDao=new RegistrationDaoJDBC();
+    void verifyUserExistance() throws SQLException, PasswordReadException, UserAlreadyExistsException {
+        RegistrationDaoJDBC registrationDao=new RegistrationDaoJDBC();
         //verificaEsistenzaUtente torna false se esiste già un utente con quelle credenziali, true altrimenti
-        assertEquals(true,registrazioneDao.verifyUserExistance("nuovoUtente1","nuovoUtente1Test@gmail.com"));
+        assertEquals(true,registrationDao.verifyUserExistance("nuovoUtente1","nuovoUtente1Test@gmail.com"));
     }
 }

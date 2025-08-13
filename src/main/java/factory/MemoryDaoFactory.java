@@ -11,7 +11,7 @@ public class MemoryDaoFactory extends DaoFactory {
     private static final ReportRepository reportRepository = new ReportRepository();
 
     @Override
-    public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) throws SQLException, PasswordReadException {
+    public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) {
         // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
             switch (assetType) {
                 case TRACK:

@@ -1,33 +1,48 @@
 package utility;
 
+import observer.Observer;
+import observer.Subject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class NotificationHub {
-    private static final List<NotificationItem> notifications = new ArrayList<>();
 
-    private NotificationHub() {}
+    private static NotificationHub instance;
 
-    public static void addNotification(NotificationItem notification) {
+    private final List<NotificationItem> notifications;
+
+    private NotificationHub() {
+        this.notifications = new ArrayList<>();
+    }
+
+    // Singleton thread-safe semplice
+    public static synchronized NotificationHub getInstance() {
+        if (instance == null) {
+            instance = new NotificationHub();
+        }
+        return instance;
+    }
+
+    // Aggiunge una notifica
+    public synchronized void addNotification(NotificationItem notification) {
         notifications.add(notification);
     }
 
-    public static List<NotificationItem> getNotifications() {
+    // Restituisce una lista immutabile per evitare modifiche esterne
+    public synchronized List<NotificationItem> getNotifications() {
         return notifications;
     }
 
-    public static void clearNotifications(){
+    // Pulisce tutte le notifiche
+    public synchronized void clearNotifications() {
         notifications.clear();
-    }
-
-    public static void printNotifications() {
-        Printer.print("🔔 Notifications for admin:");
-        if (notifications.isEmpty()) {
-            System.out.println("No notifications.");
-        } else {
-            for (NotificationItem n : notifications) {
-                System.out.println(" - " + n);
-            }
-        }
     }
 }
