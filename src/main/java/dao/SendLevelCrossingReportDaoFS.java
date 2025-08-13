@@ -17,18 +17,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
             throws ReportAlreadyExistsException, IOException {
 
         String userCode = AccessUtility.getUserCode();
-        Map<String, List<RailwayAsset>> allReports = new HashMap<>();
-        File file = new File(FILE_NAME);
-
-        if (file.exists() && file.length() > 0) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
-            } catch (ClassNotFoundException e) {
-                throw new IOException("Error while reading file", e);
-            } catch (EOFException e) {
-                allReports = new HashMap<>();
-            }
-        }
+        Map<String, List<RailwayAsset>> allReports = readReports();
 
         // Controllo duplicato tra tutti gli utenti
         for (List<RailwayAsset> reports : allReports.values()) {
@@ -44,8 +33,23 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
         // Aggiungi report dell’utente
         allReports.computeIfAbsent(userCode, k -> new ArrayList<>()).add(instance);
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-            oos.writeObject(allReports);
+        writeReports(allReports);
+    }
+
+    private Map<String, List<RailwayAsset>> readReports() throws IOException {
+        File file = new File(FILE_NAME);
+        if (!file.exists() || file.length() == 0) return new HashMap<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            return (Map<String, List<RailwayAsset>>) ois.readObject();
+        } catch (ClassNotFoundException | EOFException e) {
+            return new HashMap<>();
+        }
+    }
+
+    private void writeReports(Map<String, List<RailwayAsset>> reports) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(reports);
         }
     }
 }
