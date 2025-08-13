@@ -1,7 +1,6 @@
 package com.example.progettoispw.graphiccontroller;
 import applicationcontroller.AccountController;
 import graphiccontrollercli.HomeGraphicControllerCLI;
-import model.Account;
 import factory.TypeOfPersistence;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
@@ -10,8 +9,7 @@ import javafx.stage.Stage;
 import utility.Printer;
 import utility.AccessUtility;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class StartApplication extends Application {
     @Override
@@ -29,8 +27,8 @@ public class StartApplication extends Application {
     public static void main(String[] args) throws IOException {
         //l'app viene lanciata, creiamo quindi un utente di default che possiede come stato di default offline
 
-       //al primo accesso, creo una istanza di account
-        AccountController controller = new AccountController();
+       //al primo accesso, creo una istanza di account, delegato all account controller
+        new AccountController();
 
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");
