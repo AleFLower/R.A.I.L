@@ -16,7 +16,7 @@ public class RegistrationController {
     private String username;
 
 
-    public RegistrationController(RegistrationBean bean) throws SQLException, UserAlreadyExistsException, PasswordReadException, IOException {
+    public RegistrationController(RegistrationBean bean)  {
         email= bean.getEmail();
         username=bean.getUsername();
         password= bean.getPassword();

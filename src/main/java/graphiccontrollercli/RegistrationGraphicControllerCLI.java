@@ -27,8 +27,6 @@ public class RegistrationGraphicControllerCLI {
             // Creo il bean con i dati forniti
             RegistrationBean bean = new RegistrationBean(email,password,username);
 
-            // Recupero il tipo di persistenza selezionata (JDBC, FILESYSTEM, ecc.)
-            TypeOfPersistence persistence = AccessUtility.getPersistence();
 
             // Chiamo il controller applicativo
             RegistrationController registrationController = new RegistrationController(bean);

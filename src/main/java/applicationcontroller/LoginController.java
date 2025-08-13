@@ -15,7 +15,7 @@ public class LoginController {
     private final String email;
     private final String password;
     //costruttore a cui il controller grafico passa i bean
-    public LoginController(LoginBean beanLogin) throws SQLException, UserNotFoundException, PasswordReadException {
+    public LoginController(LoginBean beanLogin) {
         this.email=beanLogin.getEmail();
         this.password=beanLogin.getPassword();
     }
