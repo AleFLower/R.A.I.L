@@ -1,4 +1,5 @@
 package com.example.progettoispw.graphiccontroller;
+import applicationcontroller.AccountController;
 import graphiccontrollercli.HomeGraphicControllerCLI;
 import model.Account;
 import factory.TypeOfPersistence;
@@ -28,7 +29,9 @@ public class StartApplication extends Application {
     public static void main(String[] args) throws IOException {
         //l'app viene lanciata, creiamo quindi un utente di default che possiede come stato di default offline
 
-        AccessUtility.setAccount(Account.getInitialAccount()); //al primo accesso, creo una istanza di account
+       //al primo accesso, creo una istanza di account
+        AccountController controller = new AccountController();
+
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");
 

@@ -1,5 +1,6 @@
 package com.example.progettoispw.graphiccontroller;
 
+import applicationcontroller.AccountController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,6 +15,8 @@ public class LogoutGraphicController extends GeneralGraphicController {
     private Label userLabel;
     @FXML
     private JFXButton logoutButton;
+    private AccountController accountController = new AccountController();
+
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -22,7 +25,7 @@ public class LogoutGraphicController extends GeneralGraphicController {
         //porto a null i valori globali di utilityAccesso
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
-        AccessUtility.goOffline();
+        accountController.goOffline();
         //poi carico la pagina del login
         try {
             sceneController.displayScene("/com/example/progettoispw/viewsfxml/LoginRegistrationView.fxml");

@@ -23,6 +23,7 @@ public class ReportTypeController {
     private ReportType reportType;
     private ActiveResolvedReportsDao activeResolvedReportsDao;
 
+
     public ReportTypeController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
         userCode = Integer.parseInt(AccessUtility.getUserCode());
         reportType =bean.getReportType();
