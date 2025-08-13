@@ -1,6 +1,6 @@
 package utility;
 
-import model.Account;
+
 import model.Role;
 import factory.TypeOfPersistence;
 
