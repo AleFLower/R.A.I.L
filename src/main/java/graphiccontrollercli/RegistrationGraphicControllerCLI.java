@@ -31,7 +31,8 @@ public class RegistrationGraphicControllerCLI {
             TypeOfPersistence persistence = AccessUtility.getPersistence();
 
             // Chiamo il controller applicativo
-            new RegistrationController(bean, persistence);
+            RegistrationController registrationController = new RegistrationController(bean);
+            registrationController.registrateUser(AccessUtility.getPersistence());
 
             Printer.print("Registration successful!");
         } catch (UserAlreadyExistsException e) {

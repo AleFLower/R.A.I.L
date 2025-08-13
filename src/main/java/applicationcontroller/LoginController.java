@@ -15,10 +15,9 @@ public class LoginController {
     private final String email;
     private final String password;
     //costruttore a cui il controller grafico passa i bean
-    public LoginController(LoginBean beanLogin, TypeOfPersistence typeOfPersistence) throws SQLException, UserNotFoundException, PasswordReadException {
+    public LoginController(LoginBean beanLogin) throws SQLException, UserNotFoundException, PasswordReadException {
         this.email=beanLogin.getEmail();
         this.password=beanLogin.getPassword();
-        login(typeOfPersistence);
     }
     public void login(TypeOfPersistence typeOfPersistence) throws SQLException, UserNotFoundException, PasswordReadException {
         //devo aprire una connessione e far inviare al dao del login i dati

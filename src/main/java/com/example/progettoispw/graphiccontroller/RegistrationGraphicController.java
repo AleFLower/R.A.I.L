@@ -46,7 +46,8 @@ public class RegistrationGraphicController extends GeneralGraphicController {
                 if (emailValidation == null) {
                     //la sintassi dell'email e' corretta, invio il bean al controller applicativo che gestisce la registrazione
                     try{
-                        new RegistrationController(registrationBean, AccessUtility.getPersistence());
+                        RegistrationController registrationController = new RegistrationController(registrationBean);
+                        registrationController.registrateUser(AccessUtility.getPersistence());
                         textFieldEmail.setDisable(true);
                         textFieldUsername.setDisable(true);
                         passwordFieldPassword.setDisable(true);

@@ -52,7 +52,8 @@ public class SendDataGraphicControllerCLI  {
         }
 
         try {
-            new LoginController(bean, AccessUtility.getPersistence());
+            LoginController loginController = new LoginController(bean);
+            loginController.login(AccessUtility.getPersistence());
             if(AccessUtility.getRole() == Role.ADMIN && !notificationHub.getNotifications().isEmpty()){
                 view.displayAdminNotifications(notificationHub.getNotifications());
                 notificationHub.clearNotifications();

@@ -37,7 +37,7 @@ public class ActiveReportsGraphicController implements Initializable {
             //questa variabile contatore riporta il numero di segnalazioni ancora attive ell'utente
             ReportListBean reportList=new ReportListBean(reportType);
             //passo il bean al controller applicativo che riempira le liste in base alle segnalazioni attive dell'utente
-            new ReportTypeController(reportList, AccessUtility.getPersistence());
+            new ReportTypeController(reportList,AccessUtility.getPersistence());
             //se non e' stata ricevuta nessuna eccezione vuol dire che non ci sono stati errori e che qualcosa nelle liste
             //dei bean e' stato inserito, creo 2 contatori uno che tiene conto dei levelCrossing e uno delle binari cosi so' il numero di
             //segnalazioni che l'utente ha per quelle 2 entita

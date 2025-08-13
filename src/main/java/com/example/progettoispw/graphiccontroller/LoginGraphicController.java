@@ -94,7 +94,8 @@ public class LoginGraphicController extends GeneralGraphicController{
     private void attemptLogin() {
         try {
             // Directly invoke the controller's constructor without storing the instance
-            new LoginController(loginBean, AccessUtility.getPersistence());
+           LoginController loginController = new LoginController(loginBean);
+           loginController.login(AccessUtility.getPersistence());
             // If no exceptions, login was successful
             handleSuccessfulLogin();
         } catch (SQLException | UserNotFoundException | PasswordReadException e) {

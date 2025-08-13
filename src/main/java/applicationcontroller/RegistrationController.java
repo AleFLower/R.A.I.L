@@ -16,13 +16,12 @@ public class RegistrationController {
     private String username;
 
 
-    public RegistrationController(RegistrationBean bean, TypeOfPersistence typeOfPersistence) throws SQLException, UserAlreadyExistsException, PasswordReadException, IOException {
+    public RegistrationController(RegistrationBean bean) throws SQLException, UserAlreadyExistsException, PasswordReadException, IOException {
         email= bean.getEmail();
         username=bean.getUsername();
         password= bean.getPassword();
-        registrateUser(typeOfPersistence);
     }
-    private void registrateUser(TypeOfPersistence typeOfPersistence) throws SQLException, UserAlreadyExistsException, PasswordReadException, IOException {
+    public void registrateUser(TypeOfPersistence typeOfPersistence) throws SQLException, UserAlreadyExistsException, PasswordReadException, IOException {
         //devo usare un dao per prendere la connessione e far registrare l'utente nel sistema
 
         DaoFactory factory = DaoFactory.getFactory(typeOfPersistence);
