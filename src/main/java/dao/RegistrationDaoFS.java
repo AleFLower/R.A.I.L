@@ -3,23 +3,46 @@ package dao;
 import model.Role;
 
 import java.io.*;
+import java.util.*;
 
 public class RegistrationDaoFS implements RegistrationDao {
 
-    private static final String PATH_FILE_UTENTI = "users.txt"; // percorso del file utenti
+    private static final String PATH_FILE_UTENTI = "users.ser"; // file serializzato
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean registrateUser(String username, String email, String password)
             throws IOException {
 
         if (verifyUserExistance(username, email)) {
-            String userCode = String.valueOf(generateUserCode());
+            List<String[]> utenti = new ArrayList<>();
+            File file = new File(PATH_FILE_UTENTI);
 
-            // Scrive su file aggiungendo una nuova riga
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_FILE_UTENTI, true))) {
-                writer.write(email + "," + password + "," + username + "," + userCode + "," + Role.USER);
-                writer.newLine();
+            // Carica lista se esiste
+            if (file.exists()) {
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                    utenti = (List<String[]>) ois.readObject();
+                } catch (ClassNotFoundException e) {
+                    throw new IOException("Error while reading file", e);
+                }
             }
+
+            String userCode = String.valueOf(generateUserCode(utenti));
+
+            // Aggiunge il nuovo utente
+            utenti.add(new String[]{
+                    email,
+                    password,
+                    username,
+                    userCode,
+                    Role.USER.name()
+            });
+
+            // Riscrive la lista su file
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_FILE_UTENTI))) {
+                oos.writeObject(utenti);
+            }
+
             return true;
         } else {
             return false;
@@ -27,59 +50,45 @@ public class RegistrationDaoFS implements RegistrationDao {
     }
 
     @Override
-    public boolean verifyUserExistance(String username, String email)
-            throws IOException {
-
+    @SuppressWarnings("unchecked")
+    public boolean verifyUserExistance(String username, String email) throws IOException {
         File file = new File(PATH_FILE_UTENTI);
         if (!file.exists()) {
             return true; // Se il file non esiste, non c'è nessun utente
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            List<String[]> users = (List<String[]>) ois.readObject();
 
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-                if (fields.length < 4) continue;
-
+            for (String[] fields : users) {
+                if (fields.length < 3) continue;
                 String emailFile = fields[0].trim();
                 String usernameFile = fields[2].trim();
 
-                //non so se lanciarle, al massimo ritorna false piu che lanciare queste eccezioni
                 if (emailFile.equalsIgnoreCase(email) && usernameFile.equalsIgnoreCase(username)) {
                     return false;
                 }
             }
+        } catch (ClassNotFoundException e) {
+            throw new IOException("Error while reading file", e);
         }
+
         return true;
     }
 
-    private int generateUserCode() throws IOException {
-        File file = new File(PATH_FILE_UTENTI);
+    private int generateUserCode(List<String[]> users) {
         int maxCode = 0;
-
-        if (!file.exists()) {
-            return 1; // primo utente
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-                if (fields.length < 4) continue;
-
-                try {
-                    int code = Integer.parseInt(fields[3].trim());
-                    if (code > maxCode) {
-                        maxCode = code;
-                    }
-                } catch (NumberFormatException ignored) {
-                    // ignora righe con codice non numerico
+        for (String[] fields : users) {
+            if (fields.length < 4) continue;
+            try {
+                int code = Integer.parseInt(fields[3].trim());
+                if (code > maxCode) {
+                    maxCode = code;
                 }
+            } catch (NumberFormatException ignored) {
+                // ignora righe con codice non numerico
             }
         }
-
         return maxCode + 1;
     }
-
 }

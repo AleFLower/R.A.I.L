@@ -111,6 +111,7 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
 
     public void verifyException(Exception e){
         showErrorAlert(e.getMessage());
+
         if (e.getClass() == ReportAlreadyExistsException.class) {
             /*se l'eccezione è di tipo segnalazione già avvenuta l'utente ha portato a termine quello che
              * voleva fare quindi posso disabilitare i pulsanti */

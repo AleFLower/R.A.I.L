@@ -2,7 +2,9 @@ package model;
 
 import factory.AssetType;
 
-public abstract class RailwayAsset {
+import java.io.Serializable;
+
+public abstract class RailwayAsset implements Serializable {
     protected final String location;          // Es. "Binario 5", "localizzazione Centrale"
     protected final String issue; // Es. "display spento", "ascensore bloccato"
     protected String state = "reported";        // Stato della segnalazione

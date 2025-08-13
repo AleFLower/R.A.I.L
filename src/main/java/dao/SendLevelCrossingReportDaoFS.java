@@ -2,60 +2,50 @@ package dao;
 
 import exception.ReportAlreadyExistsException;
 import model.RailwayAsset;
-import model.LevelCrossing;
 import utility.AccessUtility;
 
 import java.io.*;
+import java.util.*;
 
 public class SendLevelCrossingReportDaoFS implements SendReportDao {
-    private static final String CSV_FILE_NAME = "ReportedLevelCrossing.txt";
+
+    private static final String FILE_NAME = "ReportedLevelCrossing.ser";
 
     @Override
+    @SuppressWarnings("unchecked")
     public void sendRailwayAssetReport(RailwayAsset instance)
             throws ReportAlreadyExistsException, IOException {
-        LevelCrossing levelCrossing = new LevelCrossing(instance.getAssetInfo(), instance.getLocation(), instance.getIssue());
 
-        // Controllo duplicato
-        if (verifyExistance(levelCrossing.getAssetInfo())) {
-            throw new ReportAlreadyExistsException("The level crossing has been already reported by another user.");
+        String userCode = AccessUtility.getUserCode();
+        Map<String, List<RailwayAsset>> allReports = new HashMap<>();
+        File file = new File(FILE_NAME);
+
+        if (file.exists() && file.length() > 0) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
+            } catch (ClassNotFoundException e) {
+                throw new IOException("Error while reading file", e);
+            } catch (EOFException e) {
+                allReports = new HashMap<>();
+            }
         }
 
-        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(CSV_FILE_NAME, true))) {
-            String levelCrossingToReport = convertLevelCrossingInTxt(levelCrossing);
-            fileWriter.write(levelCrossingToReport);
-            fileWriter.newLine();
-        } catch (IOException e) {
-            //sql exception? It is not right!
-            throw new IOException("There are problems with file writer");
-        }
-    }
-
-    private String convertLevelCrossingInTxt(LevelCrossing levelCrossing) {
-        return "Level crossing code: " + levelCrossing.getAssetInfo() +
-                "\nlocation: " + levelCrossing.getLocation() +
-                "\nissue: " + levelCrossing.getIssue() +
-                "\nstate: " + levelCrossing.getState() +
-                "\nuserCode: " + AccessUtility.getUserCode();
-    }
-
-    private boolean verifyExistance(String lcCode) {
-        File file = new File(CSV_FILE_NAME);
-        if (!file.exists()) return false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Level crossing code:")) {
-                    String readCode = line.split(": ", 2)[1].trim();
-                    if (readCode.equalsIgnoreCase(lcCode)) {
-                        return true;
-                    }
+        // Controllo duplicato tra tutti gli utenti
+        for (List<RailwayAsset> reports : allReports.values()) {
+            for (RailwayAsset r : reports) {
+                if (r.getAssetInfo().equalsIgnoreCase(instance.getAssetInfo()) &&
+                        r.getLocation().equalsIgnoreCase(instance.getLocation())) {
+                    throw new ReportAlreadyExistsException(
+                            "The level crossing has been already reported by another user.");
                 }
             }
-        } catch (IOException e) {
-            // Silenzio in lettura, non blocchiamo il flusso
         }
 
-        return false;
+        // Aggiungi report dell’utente
+        allReports.computeIfAbsent(userCode, k -> new ArrayList<>()).add(instance);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(allReports);
+        }
     }
 }

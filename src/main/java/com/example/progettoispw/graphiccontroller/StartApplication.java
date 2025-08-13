@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import utility.Printer;
 import utility.AccessUtility;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StartApplication extends Application {
     @Override

@@ -2,112 +2,64 @@ package dao;
 
 
 import com.example.progettoispw.graphiccontroller.ReportType;
-import model.LevelCrossing;
 import model.RailwayAsset;
-import model.Track;
+
 import utility.AccessUtility;
 
 import java.io.*;
 import java.util.*;
 
+
 public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
 
-    private static final String TRACK_FILE = "ReportedTracks.txt";
-    private static final String LC_FILE = "ReportedLevelCrossing.txt";
+    private static final String TRACK_FILE = "ReportedTracks.ser";
+    private static final String LC_FILE = "ReportedLevelCrossing.ser";
 
     @Override
     public List<RailwayAsset> getReports(ReportType type) throws IOException {
-        List<RailwayAsset> list = new ArrayList<>();
         String actualUserCode = AccessUtility.getUserCode();
+        List<RailwayAsset> list = new ArrayList<>();
 
-        list.addAll(readLevelCrossingReports(type, actualUserCode));
-        list.addAll(readTrackReports(type, actualUserCode));
+        list.addAll(readReportsFromFile(LC_FILE, type, actualUserCode));
+        list.addAll(readReportsFromFile(TRACK_FILE, type, actualUserCode));
 
         return list;
     }
 
-    private List<RailwayAsset> readLevelCrossingReports(ReportType type, String userCode) throws IOException {
-        List<RailwayAsset> list = new ArrayList<>();
-        File lcFile = new File(LC_FILE);
-
-        if (!lcFile.exists()) {
-            // File non trovato, ritorno lista vuota
-            return list;
+    @SuppressWarnings("unchecked")
+    private List<RailwayAsset> readReportsFromFile(String fileName, ReportType type, String userCode) throws IOException {
+        File file = new File(fileName);
+        if (!file.exists() || file.length() == 0) {
+            return new ArrayList<>(); // file inesistente o vuoto
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(lcFile))) {
-            String line;
-            String lcCode = null;
-            String location = null;
-            String issue = null;
-            String state = null;
-            String fileUserCode = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            // Legge la mappa <userCode, List<RailwayAsset>>
+            Map<String, List<RailwayAsset>> allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
 
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Level crossing code: ")) {
-                    lcCode = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("location:")) {
-                    location = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("issue:")) {
-                    issue = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("state:")) {
-                    state = line.split(": ", 2)[1].trim().toLowerCase();
-                } else if (line.startsWith("userCode:")) {
-                    fileUserCode = line.split(": ", 2)[1].trim();
-                    if (fileUserCode.equals(userCode) && typeMatch(type, state)) {
-                        RailwayAsset lc = new LevelCrossing(lcCode, location, issue);
-                        lc.setState(state);
-                        list.add(lc);
-                    }
+            List<RailwayAsset> userReports = allReports.getOrDefault(userCode, new ArrayList<>());
+            List<RailwayAsset> filtered = new ArrayList<>();
+
+            for (RailwayAsset asset : userReports) {
+                if (typeMatch(type, asset.getState())) {
+                    filtered.add(asset);
                 }
             }
+            return filtered;
+
+        } catch (EOFException e) {
+            return new ArrayList<>();
+        } catch (ClassNotFoundException e) {
+            throw new IOException("Error while reading file", e);
         }
-        return list;
-    }
-
-    private List<RailwayAsset> readTrackReports(ReportType type, String userCode) throws IOException {
-        List<RailwayAsset> list = new ArrayList<>();
-        File trackFile = new File(TRACK_FILE);
-
-        if (!trackFile.exists()) {
-            // File non trovato, ritorno lista vuota
-            return list;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(trackFile))) {
-            String line;
-            String trackNumber = null;
-            String location = null;
-            String issue = null;
-            String state = null;
-            String fileUserCode = null;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Track number:")) {
-                    trackNumber = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("location:")) {
-                    location = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("issue:")) {
-                    issue = line.split(": ", 2)[1].trim();
-                } else if (line.startsWith("state:")) {
-                    state = line.split(": ", 2)[1].trim().toLowerCase();
-                } else if (line.startsWith("userCode:")) {
-                    fileUserCode = line.split(": ", 2)[1].trim();
-                    if (fileUserCode.equals(userCode) && typeMatch(type, state)) {
-                        RailwayAsset track = new Track(trackNumber, location, issue);
-                        track.setState(state);
-                        list.add(track);
-                    }
-                }
-            }
-        }
-        return list;
     }
 
     private boolean typeMatch(ReportType type, String readState) {
         if (type == ReportType.RESOLVED)
-            return readState.equalsIgnoreCase("resolved");
+            return "resolved".equalsIgnoreCase(readState);
         else
-            return readState.equalsIgnoreCase("reported") || readState.contains("yet");
+            return "reported".equalsIgnoreCase(readState) || readState.toLowerCase().contains("yet");
     }
 }
+
+

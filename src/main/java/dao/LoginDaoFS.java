@@ -5,50 +5,52 @@ import model.Role;
 import utility.Printer;
 import utility.AccessUtility;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+
+import java.io.*;
+import java.util.*;
 
 public class LoginDaoFS implements LoginDao {
 
     private final Account account;
-
-    private static final String PATH_FILE_UTENTI = "users.txt"; // percorso reale nel tuo progetto
+    private static final String PATH_FILE_UTENTI = "users.ser";
 
     public LoginDaoFS() {
         account = Account.getInitialAccount();
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean verifyAccount(String email, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(PATH_FILE_UTENTI))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
+        File file = new File(PATH_FILE_UTENTI);
+        if (!file.exists()) return false;
 
-                if (fields.length != 5) continue; // ignora righe malformate
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            List<String[]> utenti = (List<String[]>) ois.readObject();
+
+            for (String[] fields : utenti) {
+                if (fields.length != 5) continue;
 
                 String emailFile = fields[0].trim();
                 String passwordFile = fields[1].trim();
                 String username = fields[2].trim();
                 String userCode = fields[3].trim();
-                String role = fields[4].trim();  //il ruolo lo leggo da file system
+                String role = fields[4].trim();
                 Role userRole = Role.valueOf(role.toUpperCase());
 
                 if (emailFile.equals(email) && passwordFile.equals(password)) {
-                    account.setCredentials(username, userCode,userRole);
+                    account.setCredentials(username, userCode, userRole);
                     account.goOnline();
-
                     AccessUtility.setUsername(username);
                     AccessUtility.setUserCode(userCode);
-                    AccessUtility.setRole(userRole);  //setto il ruolo per quell utente nella utility
-
+                    AccessUtility.setRole(userRole);
                     return true;
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Printer.error("Error: " + e.getMessage());
         }
         return false;
     }
 }
+

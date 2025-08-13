@@ -7,68 +7,62 @@ import model.RailwayAsset;
 import utility.AccessUtility;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SendTrackReportDaoFS implements SendReportDao {
-    private static final String FILE_NAME = "ReportedTracks.txt";
+
+    private static final String FILE_NAME = "ReportedTracks.ser";
     private int outcome;
 
     @Override
+    @SuppressWarnings("unchecked")
     public void sendRailwayAssetReport(RailwayAsset instance)
-            throws ReportAlreadyExistsException,IOException {
-        Track track = new Track(instance.getAssetInfo(), instance.getLocation(), instance.getIssue());
+            throws ReportAlreadyExistsException, IOException {
 
-        // Controllo duplicato
-        if (verifyExistance(track.getAssetInfo(), track.getLocation())) {
-            throw new ReportAlreadyExistsException("The track has been already reported by another user.");
+        Track track = new Track(instance.getAssetInfo(), instance.getLocation(), instance.getIssue());
+        String userCode = AccessUtility.getUserCode();
+
+        Map<String, List<RailwayAsset>> allReports = new HashMap<>();
+        File file = new File(FILE_NAME);
+
+        // Leggi file esistente
+        if (file.exists() && file.length() > 0) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
+            } catch (ClassNotFoundException e) {
+                throw new IOException("Error while reading file", e);
+            } catch (EOFException e) {
+                allReports = new HashMap<>();
+            }
         }
 
-        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-            String trackToReport = convertTrackInTxt(track);
-            fileWriter.write(trackToReport);
-            fileWriter.newLine();
+        // Controllo duplicato tra tutti gli utenti
+        for (List<RailwayAsset> reports : allReports.values()) {
+            for (RailwayAsset r : reports) {
+                if (r.getAssetInfo().equalsIgnoreCase(track.getAssetInfo()) &&
+                        r.getLocation().equalsIgnoreCase(track.getLocation())) {
+                    throw new ReportAlreadyExistsException(
+                            "The track has been already reported by another user.");
+                }
+            }
+        }
+
+        // Aggiungi report dell’utente
+        allReports.computeIfAbsent(userCode, k -> new ArrayList<>()).add(track);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(allReports);
             outcome = 0;
         } catch (IOException e) {
             outcome = 1;
-            throw new IOException("There are problems with file writer");
+            throw new IOException("Error while writing file", e);
         }
-    }
-
-    private String convertTrackInTxt(Track track) {
-        return "Track number:  " + track.getAssetInfo() +
-                "\nlocation: " + track.getLocation() +
-                "\nissue: " + track.getIssue() +
-                "\nstate: " + track.getState() +
-                "\nuserCode: " + AccessUtility.getUserCode();
     }
 
     public int getEsito() {
-        return this.outcome;
-    }
-
-    private boolean verifyExistance(String trackNumber, String location) {
-        File file = new File(FILE_NAME);
-        if (!file.exists()) return false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            String readNumber = null;
-            String readLocation = null;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Track number:")) {
-                    readNumber = line.split(":")[1].trim();
-                } else if (line.startsWith("location:")) {
-                    readLocation = line.split(":")[1].trim();
-                    if (readNumber != null && readLocation != null &&
-                            readNumber.equalsIgnoreCase(trackNumber) &&
-                            readLocation.equalsIgnoreCase(location)) {
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            // Silenzio in lettura
-        }
-
-        return false;
+        return outcome;
     }
 }
