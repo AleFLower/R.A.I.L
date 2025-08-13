@@ -27,9 +27,6 @@ public class StartApplication extends Application {
     public static void main(String[] args) throws IOException {
         //l'app viene lanciata, creiamo quindi un utente di default che possiede come stato di default offline
 
-       //al primo accesso, creo una istanza di account, delegato all account controller
-        new AccountController();
-
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");
 

@@ -129,23 +129,18 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@Style.css" BorderPane.alignment="CENTER">
                     <children>
-                        <JFXButton fx:id="segnalaPassaggioAlivelloBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="59.0" onAction="#reportLevelCrossing" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report a level crossing" textFill="#e0e1dd">
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
-                            </graphic>
+                        <JFXButton fx:id="segnalaPassaggioAlivelloBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="59.0" onAction="#reportLevelCrossing" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report a level crossing" textFill="#e0e1dd"  alignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton fx:id = "segnalaBinarioBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="143.0" onAction="#reportTrack" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report a track" textFill="#e0e1dd">
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
-                            </graphic>
+                        <JFXButton fx:id = "segnalaBinarioBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="143.0" onAction="#reportTrack" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report a track" textFill="#e0e1dd" alignment="CENTER">
+
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton fx:id="segnalaAltroButton" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="230.0" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report another problem " textFill="#e0e1dd">
+                        <JFXButton fx:id="segnalaAltroButton" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="84.0" layoutY="230.0" prefHeight="50.0" prefWidth="292.0" ripplerFill="WHITE" scaleShape="false" style="-fx-background-color: #2E2E2E;" styleClass="buttonItem" text="Report another problem " textFill="#e0e1dd" alignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>

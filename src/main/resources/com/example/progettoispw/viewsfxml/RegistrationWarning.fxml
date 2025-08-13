@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.HBox?>
 <AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.graphiccontroller.RegistrationAlertGraphicController">
     <children>
         <BorderPane layoutX="7.0" layoutY="8.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -33,12 +34,12 @@
                             </graphic>
                         </JFXButton>
                         <Label layoutX="40.0" layoutY="104.0" prefHeight="75.0" prefWidth="610.0"
-                               text="SORRY, YOU MUST BE REGISTERED TO ACCESS"
+                               text="SORRY, YOU MUST BE REGISTERED TO ACCESS TO THIS AREA"
 
-                               textAlignment="CENTER" alignment="CENTER_LEFT"
+                                alignment="CENTER_LEFT"
                                style="-fx-background-color: #FFF3CD;
               -fx-text-fill: #856404;
-              -fx-font-size: 18px;
+              -fx-font-size: 16px;
               -fx-font-weight: bold;
               -fx-background-radius: 10;
               -fx-border-color: #FFEEBA;
@@ -54,11 +55,24 @@
                             </graphic>
                         </Label>
 
+                        <HBox layoutX="190.0" layoutY="283.0" spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Do you have an account?" />
+                            <JFXButton cacheShape="false" centerShape="false" focusTraversable="false"
+                                       onAction="#login"
+                                       prefHeight="26.0" prefWidth="65.0"
+                                       scaleShape="false" styleClass="menuItem"
+                                       text="Log in" />
 
-                  <Label layoutX="368.0" layoutY="288.0" text="else" />
-                  <JFXButton cacheShape="false" centerShape="false" focusTraversable="false" layoutX="303.0" layoutY="283.0" onAction="#login" prefHeight="26.0" prefWidth="65.0" scaleShape="false" styleClass="menuItem" text="Log in" />
-                  <Label layoutX="190.0" layoutY="287.0" text="Do you have an account?" />
-                  <JFXButton cacheShape="false" centerShape="false" focusTraversable="false" layoutX="425.0" layoutY="283.0" onAction="#signup" scaleShape="false" styleClass="menuItem" text="Sign up" />
+                            <Label text="else" />
+
+
+                            <JFXButton cacheShape="false" centerShape="false" focusTraversable="false"
+                                       onAction="#signup"
+                                       scaleShape="false" styleClass="menuItem"
+                                       text="Sign up" />
+                        </HBox>
+
+
                     </children>
                 </AnchorPane>
          </center>

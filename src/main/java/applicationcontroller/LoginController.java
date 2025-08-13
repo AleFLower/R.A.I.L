@@ -18,6 +18,7 @@ public class LoginController {
     public LoginController(LoginBean beanLogin) {
         this.email=beanLogin.getEmail();
         this.password=beanLogin.getPassword();
+        new AccountController();
     }
     public void login(TypeOfPersistence typeOfPersistence) throws SQLException, UserNotFoundException, PasswordReadException {
         //devo aprire una connessione e far inviare al dao del login i dati
