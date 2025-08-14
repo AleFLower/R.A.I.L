@@ -30,8 +30,11 @@ public class SendTrackReportDaoJDBC implements SendReportDao {
     @Override
     public void sendRailwayAssetReport(RailwayAsset instance) throws SQLException, ReportAlreadyExistsException, PasswordReadException {
         //sono qui sto segnalando una binario quindi faccio il cast da entità stradale a binario
+        //meccanismo di scelta qui avviene prima in sendReportDao, che decide de trovarmi qui o in sendLevelCrossing,
+        // qui do per scontato che questa implementazione sia per un track
+        //Java sceglie a runtime quale sendRailwayAssetReport eseguire, in base alla classe reale del DAO.
         Track track = new Track(instance.getAssetInfo(), instance.getLocation(), instance.getIssue());
-        //verifico se la binario che sto segnalando e' gia presente nel db( cioe' se c'e' già un localizzazione che ha
+        //verifico se  binario che sto segnalando e' gia presente nel db( cioe' se c'e' già un localizzazione che ha
         //ricevuto quella segnalazione
         //cerca binario torna true se la binario è gia presente, false se non lo è
         if (!searchTrack(track)) {

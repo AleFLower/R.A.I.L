@@ -22,7 +22,6 @@ public class ReportController {
      * lancia delle eccezioni, al controller grafico non ritorna nulla */
     private AssetType assetType;
     private RailwayAsset railwayAsset;
-    private DaoFactory dao;
     private AccountController accountController = new AccountController();
 
     //lui non cattura SegnalazioneGiaAvvenuta(e altre) ma le rilancia al metodo chiamante, e lancia una nuova eccezione nessunaccessoeffettuato
@@ -38,6 +37,7 @@ public class ReportController {
         //creo la factory che deve creare a sua volta la mia entita in base al tipo
         RailwayAssetFactory railwayAssetFactory=new RailwayAssetFactory();
         //chiamo il metodo createEntita che in base al tipo che gli passo crea un passaggio a livello  o un binario
+        //qui avviene il polimorfismo per l' entità RailwayAsset
         railwayAsset = railwayAssetFactory.createAsset(reportBean);
         //nessuna eccezione creata, l'entita ferroviaria e' stata quindi creata, devo inviarla alla rispettiva tabella nel db
         //nessuna eccezione devo inviare l'entità ferroviaria segnalata e per capire se deve essere salvata sul db o in locale
@@ -68,6 +68,10 @@ public class ReportController {
         //creo una factoryDao la quale ha solo il metodo getSaveAssetDao e mi restituisce un dao in base al tipo di entita stradale e al
         //tipo di persistenza che ho ricevuto come parametri
         DaoFactory factoryDao = DaoFactory.getFactory(typeOfPersistence);
+
+        //l’uso dell’interfaccia SendReportDao ti permette di istanziare dinamicamente SendTrackReportDao
+        // o SendLevelCrossingReportDao senza che il chiamante sappia la classe concreta, in base a una condizione,
+        //ossia al tipo del railway asset creato
         SendReportDao sendreportDao = factoryDao.getSendAssetDao(typeOfPersistence, railwayAsset.getAssetType());
         sendreportDao.sendRailwayAssetReport(railwayAsset);
     }

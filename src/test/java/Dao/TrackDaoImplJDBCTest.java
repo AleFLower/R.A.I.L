@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BinarioDaoImplJDBCTest {
+class TrackDaoImplJDBCTest {
 
     SendTrackReportDaoJDBC trackDaoImpl;
 
