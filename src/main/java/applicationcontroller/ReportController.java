@@ -11,7 +11,6 @@ import factory.DaoFactory;
 import factory.RailwayAssetFactory;
 import factory.AssetType;
 import factory.TypeOfPersistence;
-import utility.NotificationHub;
 import utility.AccessUtility;
 
 import java.io.IOException;
