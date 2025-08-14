@@ -1,7 +1,9 @@
 package graphiccontrollercli;
 
+import applicationcontroller.NotificationController;
 import bean.LoginBean;
 
+import viewcli.AdminNotificationViewCLI;
 import viewcli.SystemAccessViewCLI;
 import viewcli.HomePageViewCLI;
 import applicationcontroller.LoginController;
@@ -9,7 +11,6 @@ import exception.PasswordReadException;
 import exception.UserNotFoundException;
 
 import model.Role;
-import utility.NotificationHub;
 import utility.AccessUtility;
 
 
@@ -20,8 +21,7 @@ import java.sql.SQLException;
 
 public class SendDataGraphicControllerCLI  {
     private final SystemAccessViewCLI view = new SystemAccessViewCLI();
-    private final HomePageViewCLI homePage = new HomePageViewCLI();
-    private NotificationHub notificationHub = NotificationHub.getInstance();
+    private AdminNotificationViewCLI adminView = new AdminNotificationViewCLI();
 
     public void displayAccessPage() throws IOException {
         String email = view.askEmail();
@@ -54,10 +54,12 @@ public class SendDataGraphicControllerCLI  {
         try {
             LoginController loginController = new LoginController(bean);
             loginController.login(AccessUtility.getPersistence());
-            if(AccessUtility.getRole() == Role.ADMIN && !notificationHub.getNotifications().isEmpty()){
-                view.displayAdminNotifications(notificationHub.getNotifications());
-                notificationHub.clearNotifications();
+            NotificationController notificationController = new NotificationController();
+            if (AccessUtility.getRole() == Role.ADMIN && notificationController.hasNotifications()) {
+                adminView.getReportNotifications(notificationController.getNotifications());
+                notificationController.clearNotifications();
             }
+
             view.showMessage("Login successful! Back to home...");
         } catch (UserNotFoundException e) {
             view.displayErrorMessage("Invalid credentials. User does not exist.");

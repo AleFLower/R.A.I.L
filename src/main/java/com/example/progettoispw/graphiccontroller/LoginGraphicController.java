@@ -1,4 +1,5 @@
 package com.example.progettoispw.graphiccontroller;
+import applicationcontroller.NotificationController;
 import bean.LoginBean;
 import com.jfoenix.controls.JFXButton;
 import applicationcontroller.LoginController;
@@ -7,7 +8,6 @@ import exception.UserNotFoundException;
 import model.Role;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import utility.NotificationHub;
 import utility.NotificationItem;
 import utility.AccessUtility;
 
@@ -33,7 +33,6 @@ public class LoginGraphicController extends GeneralGraphicController{
     private Label messageLabel;
 
     private LoginBean loginBean;
-    private NotificationHub notificationHub = NotificationHub.getInstance();
 
     /*questa classe gestisce la login page, avendo piu' button e non avendoli in comune con le altre page, ho creato
     * questo controller grafico apposta per essa, questa classe è il controller grafico della page LoginRegistrationView.fxml,
@@ -116,12 +115,15 @@ public class LoginGraphicController extends GeneralGraphicController{
     }
 
     private void showAdminNotifications() {
-        if (notificationHub.getNotifications().isEmpty()) {
+        NotificationController notificationController = new NotificationController();
+
+        if (!notificationController.hasNotifications()) {
             showAlert("Admin notifications", "No notifications", "There are no notifications right now.");
         } else {
-            displayNotifications(notificationHub.getNotifications());
+            getReportNotifications(notificationController.getNotifications());
+            notificationController.clearNotifications();
         }
-       notificationHub.clearNotifications();
+
     }
 
     private void showAlert(String title, String header, String content) {
@@ -132,7 +134,7 @@ public class LoginGraphicController extends GeneralGraphicController{
         alert.showAndWait();
     }
 
-    private void displayNotifications(List<NotificationItem> notifications) {
+    private void getReportNotifications(List<NotificationItem> notifications) {
         TextArea area = new TextArea();
         area.setEditable(false);
         area.setWrapText(true);

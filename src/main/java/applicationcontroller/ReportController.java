@@ -63,8 +63,8 @@ public class ReportController {
     private void notifyAdmin() {
         String username = AccessUtility.getUsername();
         username = (username != null) ? username : "Unknown user";
-        NotificationItem notification = new NotificationItem(username + " has reported a " + assetType);
-        notificationHub.addNotification(notification);
+        NotificationController notificationController = new NotificationController();  //collabora con esso
+        notificationController.addNotification(username + " has reported a " + assetType);
     }
 
     private void sendReport(RailwayAsset railwayAsset, TypeOfPersistence typeOfPersistence) throws SQLException, PasswordReadException, ReportAlreadyExistsException, IOException {

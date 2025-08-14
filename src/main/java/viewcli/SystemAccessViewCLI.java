@@ -1,13 +1,11 @@
 package viewcli;
 
-import utility.NotificationItem;
 import utility.Printer;
 
 import java.io.BufferedReader;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 public class SystemAccessViewCLI {
     private final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -43,14 +41,4 @@ public class SystemAccessViewCLI {
         return bufferedReader.readLine();
     }
 
-    public void displayAdminNotifications(List<NotificationItem> notifications) {
-        Printer.print("🔔 Notifications for admin:");
-        if (notifications == null || notifications.isEmpty()) {
-            System.out.println("No notifications.");
-        } else {
-            for (NotificationItem n : notifications) {
-                System.out.println(" - " + n);
-            }
-        }
-    }
 }
