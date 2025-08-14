@@ -12,7 +12,6 @@ import factory.RailwayAssetFactory;
 import factory.AssetType;
 import factory.TypeOfPersistence;
 import utility.NotificationHub;
-import utility.NotificationItem;
 import utility.AccessUtility;
 
 import java.io.IOException;
@@ -25,7 +24,6 @@ public class ReportController {
     private AssetType assetType;
     private RailwayAsset railwayAsset;
     private DaoFactory dao;
-    private NotificationHub notificationHub = NotificationHub.getInstance();
     private AccountController accountController = new AccountController();
 
     //lui non cattura SegnalazioneGiaAvvenuta(e altre) ma le rilancia al metodo chiamante, e lancia una nuova eccezione nessunaccessoeffettuato
