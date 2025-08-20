@@ -38,7 +38,13 @@ public class NoAccessGraphicController implements Initializable {
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     private static final  String STATE ="ONLINE";
 
-    private AccountBeanObserver beanObserver= AccountBeanObserver.getObserver();
+    //la uso static perchè in javafx ogni volta che faccio load() mi carica una nuova istanza di tale controller grafico
+    //dunque avrò diverse istanze di beanObserver e di conseguenza le altre non verranno notificate dal model perché si registrano
+    //dopo l'avvenuta notifica. Inoltre, non uso singleton in quanto solo tale classe usa AccountBeanObserver, le altre non faranno la new
+    //quindi non mi serve singleton, non ho che viene usata globalmente ma solo qui. Se avessi usato tale bean in piu controller, allora si che mi
+    //serviva singleton
+    //NOTA: non è che si registrano come observer tutte le istanze di beanObserver, sempre una è! Ho un observer
+    private static final AccountBeanObserver beanObserver = new AccountBeanObserver();
 
     /*questa classe la uso per implementare la logica dei button comuni a tutte le schermate, in particolare questa
      * classe svolge il ruolo di controller grafico per la HomeView.fxml, la quale è la prima schermata che viene
@@ -137,5 +143,6 @@ public class NoAccessGraphicController implements Initializable {
         }
        else  sceneController.displayScene("/com/example/progettoispw/viewsfxml/ReportProblemView.fxml");
     }
+
 
 }

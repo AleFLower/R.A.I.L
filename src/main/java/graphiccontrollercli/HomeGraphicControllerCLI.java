@@ -19,7 +19,7 @@ public class HomeGraphicControllerCLI {
     private final HomePageViewCLI homePage;
     //uso la bean per recuperare informazioni dall account, visto che le view non devono essere accoppiate con model
     //la bean si registra come observer: non appena avviene cambia stato l'account, notifica la bean
-    private AccountBeanObserver beanObserver= AccountBeanObserver.getObserver();
+    private AccountBeanObserver beanObserver= new AccountBeanObserver();
     private static final String STATE = "OFFLINE";
 
     public HomeGraphicControllerCLI() {
@@ -76,7 +76,10 @@ public class HomeGraphicControllerCLI {
             ActiveReportsViewCLI view = new ActiveReportsViewCLI();
             view.displayActiveReports(bean);
 
-        } catch (SQLException | IOException | NoReportsFoundException | PasswordReadException e) {
+        }catch (NoReportsFoundException e){
+            Printer.error("No active reports found");
+        }
+        catch (SQLException | IOException | PasswordReadException e) {
             Printer.error("Failed to retrieve active reports: " + e.getMessage());
 
         }

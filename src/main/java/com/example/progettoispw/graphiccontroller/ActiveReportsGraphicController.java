@@ -90,6 +90,7 @@ public class ActiveReportsGraphicController implements Initializable {
             }
         }catch(SQLException | NoReportsFoundException | PasswordReadException | IOException e){
            if(e instanceof NoReportsFoundException) errorLabel.setText("No active reports found");
+
            else errorLabel.setText(e.getMessage());
            errorLabel.setVisible(true);
         }

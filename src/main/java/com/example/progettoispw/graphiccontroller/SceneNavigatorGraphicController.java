@@ -1,5 +1,6 @@
 package com.example.progettoispw.graphiccontroller;
 
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class SceneNavigatorGraphicController {
         //this method load the main view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneString));
         Scene scene = new Scene(fxmlLoader.load());
+
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
@@ -39,4 +41,6 @@ public class SceneNavigatorGraphicController {
             System.exit(-1);
         }
     }
+
+
 }

@@ -12,6 +12,6 @@ public abstract class AbstractState {
 
     //preparazione per estensioni future del pattern, per ora non prevedo una azione da effettuare nella entry
     //state o nella exit state, le metto qui per un futuro uso
-    public void entry(StateMachineImpl contextSM){}
-    public void exit(StateMachineImpl contextSM){}
+    protected void entry(StateMachineImpl contextSM){}
+    protected void exit(StateMachineImpl contextSM){}
 }

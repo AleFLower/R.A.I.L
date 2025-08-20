@@ -9,7 +9,7 @@ public class AccountController {
     private Account account;
 
     public AccountController(){
-        this.account = Account.getInitialAccount();
+        this.account = Account.getInstance();
     }
     public Account getAccount(){
         return this.account;
@@ -22,5 +22,4 @@ public class AccountController {
     public void goOffline(){
         this.account.goOffline();
     }
-
 }

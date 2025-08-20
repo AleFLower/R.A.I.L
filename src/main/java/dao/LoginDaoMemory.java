@@ -11,7 +11,7 @@ public class LoginDaoMemory implements LoginDao {
 
     public LoginDaoMemory(UserRepository userRepository) {
         this.userRepository = userRepository;
-        account = Account.getInitialAccount();
+        account = Account.getInstance();
     }
 
     @Override

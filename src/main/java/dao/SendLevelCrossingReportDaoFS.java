@@ -22,8 +22,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
         // Controllo duplicato tra tutti gli utenti
         for (List<RailwayAsset> reports : allReports.values()) {
             for (RailwayAsset r : reports) {
-                if (r.getAssetInfo().equalsIgnoreCase(instance.getAssetInfo()) &&
-                        r.getLocation().equalsIgnoreCase(instance.getLocation())) {
+                if (r.getAssetInfo().equalsIgnoreCase(instance.getAssetInfo())) {
                     throw new ReportAlreadyExistsException(
                             "The level crossing has been already reported by another user.");
                 }

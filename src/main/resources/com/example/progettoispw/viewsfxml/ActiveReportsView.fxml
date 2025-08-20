@@ -14,9 +14,9 @@
             fx:controller="com.example.progettoispw.graphiccontroller.ActiveReportsGraphicController">
 
    <children>
-      <ScrollPane layoutY="42.0" prefHeight="358.0" prefWidth="700.0">
+      <ScrollPane layoutY="42.0" prefHeight="358.0" prefWidth="700.0" fitToWidth="true" fitToHeight="true" pannable="true">
          <content>
-            <ListView fx:id="listViewName" prefHeight="354.0" prefWidth="691.0" />
+            <ListView fx:id="listViewName"/>
          </content>
       </ScrollPane>
 

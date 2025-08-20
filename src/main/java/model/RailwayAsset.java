@@ -35,9 +35,6 @@ public abstract class RailwayAsset implements Serializable {
         return assetType;
     }
 
-    public void setAssetType(AssetType assetType) {
-        this.assetType = assetType;
-    }
 
     public abstract String getAssetInfo(); // info specifica della sottoclasse
 }

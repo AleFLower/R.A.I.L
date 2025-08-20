@@ -1,5 +1,4 @@
 package com.example.progettoispw.graphiccontroller;
-import applicationcontroller.AccountController;
 import graphiccontrollercli.HomeGraphicControllerCLI;
 import factory.TypeOfPersistence;
 import javafx.application.Application;
@@ -26,6 +25,8 @@ public class StartApplication extends Application {
 
     public static void main(String[] args) throws IOException {
         //l'app viene lanciata, creiamo quindi un utente di default che possiede come stato di default offline
+
+
 
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");

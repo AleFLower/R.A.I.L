@@ -7,6 +7,9 @@ import state.StateMachineImpl;
 
 import java.util.ArrayList;
 
+//Account lo lascio singleton, perché è usato in tanti punti e non in uno, quindi voglio che sia impedita fortemente
+//la new dell account in tutto il codice, ma venga usato solo una istanza
+
 public class Account extends Subject {
     //variabile stateMachine, rappresenta la composizione che il mio client ha con l'interfaccia
     private String username;
@@ -17,7 +20,7 @@ public class Account extends Subject {
     //nel momento della creazione di un account il suo stato corrente viene messo offline, quindi la variabile
     //current state associata a stateMachineImpl sarà offline State kind of AbstractState
 
-    public static Account getInitialAccount(){   //forse meglio renderla synchronized?
+    public static Account getInstance(){   //forse meglio renderla synchronized?
         if(account==null){
            account=new Account();
         }

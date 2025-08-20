@@ -22,7 +22,7 @@ public class LoginDaoJDBC implements LoginDao{
     private Account account;
     public LoginDaoJDBC() throws SQLException, PasswordReadException {
         connection= DbConnection.getInstance();
-        account=Account.getInitialAccount();
+        account=Account.getInstance();
     }
 
     public boolean verifyAccount(String email, String password) throws SQLException {

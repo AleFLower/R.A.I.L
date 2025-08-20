@@ -3,28 +3,25 @@ package bean;
 import model.Account;
 import observer.Observer;
 
+
+//l ho fatta singleton per il fatto che i controller grafici se voglio ripassare ogni volta da una schermata all altra,
+//vengono ricaricati con new, quindi condividirebbero valori diversi della bean, che registrandosi come nuovi osservatori le bean
+// non ricevono l'update precedente e quindi non si aggiornano. Potrei fare che nel subject appena si iscrive un osservatore
+//lancio un update per sincronizzarli?
+
 public class AccountBeanObserver implements Observer {
     //ha un riferimento a subject, e' colui che implementa l'observer, nel diagramma uml e' come se fosse il
     //concrete observer che riceve gli update e che ha un riferimento a concrete subject, , inoltre la costruisco come singleton questa classe
-   //utilizzerò per implementare observer un riferimento a subject e non ad Account, perché altrimenti violerei il principio delle bean,
+    //utilizzerò per implementare observer un riferimento a subject e non ad Account, perché altrimenti violerei il principio delle bean,
     //anche se non violeresti nulla perché non è che esporti all esterno Account, non lo vede proprio l'esterno grazie all incapsulamento e a singleton
     //quindi sostanzialmente rendere beanSegnalaEntity factory di se stessa
     private String username;
     private String actualState;
     private Account subject;  //riferimento al concreteSubject
-    private static AccountBeanObserver beanObserver;
 
-    public static AccountBeanObserver getObserver(){
-        if(beanObserver==null){
-            //registro questo bean Observer ( concrete observer) ad un subject ( in questo caso type of subject)
-            beanObserver=new AccountBeanObserver(Account.getInitialAccount());
-        }
-        return beanObserver;
-    }
-
-    private AccountBeanObserver(Account subject){
+    public AccountBeanObserver(){
         //assegno alla variabile locale il type of Subject
-        this.subject=subject;
+        this.subject=Account.getInstance();
         this.actualState = "OFFLINE";  //DI DEFAULT
         //registro questo concrete observer alla lista di observer presente in subject e questa lista e' conosciuta
         //anche dal concrete subject il quale la usa per inviare gli update ai concrete observer

@@ -11,7 +11,7 @@ public class HomePageViewCLI {
 
     public int displayHomeMenu() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        Clear.clear();
+        //Clear.clear();
         String accessState = (AccessUtility.getUserCode() == null) ? "Login" : "Logout";
 
         Printer.print("""

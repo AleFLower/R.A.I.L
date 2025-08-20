@@ -16,7 +16,7 @@ public class LoginDaoFS implements LoginDao {
     private static final String PATH_FILE_UTENTI = "users.ser";
 
     public LoginDaoFS() {
-        account = Account.getInitialAccount();
+        account = Account.getInstance();
     }
 
     @Override
