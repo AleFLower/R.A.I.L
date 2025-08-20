@@ -24,6 +24,7 @@ class TrackDaoImplJDBCTest {
             RailwayAsset newTrack = new Track("1", "Milano centrale", "rotaie usurate");
             trackDaoImpl.sendRailwayAssetReport(newTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
+            //do nothing in test
         } finally {
             assertEquals(0, trackDaoImpl.getOutcome());
         }
@@ -38,6 +39,7 @@ class TrackDaoImplJDBCTest {
             RailwayAsset duplicateTrack = new Track("2", "stazione termini", "corpo estraneo");
             trackDaoImpl.sendRailwayAssetReport(duplicateTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
+            //do nothing in test
         } finally {
             assertEquals(-1, trackDaoImpl.getOutcome());  //mi aspetto che esito ritorni 1
         }
