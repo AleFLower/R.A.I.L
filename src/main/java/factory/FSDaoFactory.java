@@ -21,9 +21,8 @@ public class FSDaoFactory extends DaoFactory {
     }
 
 
-    public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType)  {
+    public SendReportDao getSendAssetDao(AssetType assetType)  {
 
-        if (typeOfPersistence == TypeOfPersistence.FILESYSTEM) {
             switch (assetType) {
                 case TRACK:
                     return new SendTrackReportDaoFS();
@@ -32,7 +31,6 @@ public class FSDaoFactory extends DaoFactory {
                 default:
                     throw new IllegalArgumentException("Asset type not supported: " + assetType);
             }
-        }
-        throw new IllegalArgumentException("Persistence type not supported: " + typeOfPersistence);
+
     }
 }

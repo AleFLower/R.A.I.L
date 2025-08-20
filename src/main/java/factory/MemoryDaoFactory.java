@@ -8,7 +8,7 @@ public class MemoryDaoFactory extends DaoFactory {
     private static final ReportRepository reportRepository = new ReportRepository();
 
     @Override
-    public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) {
+    public SendReportDao getSendAssetDao(AssetType assetType) {
             switch (assetType) {
                 case TRACK:
                     return new SendTrackReportDaoMemory(reportRepository);

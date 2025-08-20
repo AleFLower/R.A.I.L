@@ -55,7 +55,7 @@ public class ReportController {
 
         DaoFactory factoryDao = DaoFactory.getFactory(typeOfPersistence);
 
-        SendReportDao sendreportDao = factoryDao.getSendAssetDao(typeOfPersistence, railwayAsset.getAssetType());
+        SendReportDao sendreportDao = factoryDao.getSendAssetDao(railwayAsset.getAssetType());
         sendreportDao.sendRailwayAssetReport(railwayAsset);
     }
 }

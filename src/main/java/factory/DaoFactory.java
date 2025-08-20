@@ -10,7 +10,7 @@ public abstract class DaoFactory {
     public abstract LoginDao getLoginDao() throws SQLException, PasswordReadException;
     public abstract RegistrationDao getRegistrationDao() throws SQLException, PasswordReadException;
     public abstract ActiveResolvedReportsDao getActiveResolvedDao() throws SQLException, PasswordReadException;
-    public abstract SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType typeEntita) throws SQLException, PasswordReadException;
+    public abstract SendReportDao getSendAssetDao(AssetType typeEntita) throws SQLException, PasswordReadException;
 
     public static DaoFactory getFactory(TypeOfPersistence typeOfPersistence) {
         switch (typeOfPersistence) {

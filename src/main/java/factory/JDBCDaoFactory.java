@@ -10,9 +10,8 @@ public class JDBCDaoFactory extends DaoFactory {
     //forse un po ridondante? Mi devo fermare prima a controllare typeOfPersistence? Qui è ovvio che livello di persistenza
     //è jdbc
     @Override
-    public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) throws SQLException, PasswordReadException {
+    public SendReportDao getSendAssetDao(AssetType assetType) throws SQLException, PasswordReadException {
 
-        if (typeOfPersistence == TypeOfPersistence.JDBC) {
             switch (assetType) {
                 case TRACK:
                     return new SendTrackReportDaoJDBC();
@@ -21,8 +20,6 @@ public class JDBCDaoFactory extends DaoFactory {
                 default:
                     throw new IllegalArgumentException("Asset type not supported: " + assetType);
             }
-        }
-        throw new IllegalArgumentException("Persistence type not supported: " + typeOfPersistence);
     }
 
 
