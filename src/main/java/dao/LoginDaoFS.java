@@ -26,9 +26,9 @@ public class LoginDaoFS implements LoginDao {
         if (!file.exists()) return false;
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            List<String[]> utenti = (List<String[]>) ois.readObject();
+            List<String[]> users = (List<String[]>) ois.readObject();
 
-            for (String[] fields : utenti) {
+            for (String[] fields : users) {
                 if (fields.length != 5) continue;
 
                 String emailFile = fields[0].trim();

@@ -1,14 +1,7 @@
 package queries;
 
 
-/*
-Ipotesi livello db(e non solo ) per passaggio a livello: molto semplicemente, suppongo che vi sia un univoco
-codicePL in tutta la nazione, quindi non ci sono problemi di ambiguità. Inoltre, si suppone per la memory che nello
-stesso istante di uso dell'app, è molto improbabile che venga segnalato un ulteriore problema per quel passaggio a livello
-mentre per db, una volta risolto, si presuppone che l'admin cancelli dal db delle segnalate la entry per quella segnalazione
-e dunque in futuro un altro utente possa segnalarla. Stessa cosa per i binari.
 
-*/
 public class ReportLevelCrossingQueries {
 
     // this class will act as a utility class, it will have only static methods that return strings
@@ -24,12 +17,10 @@ public class ReportLevelCrossingQueries {
     static final String QUERY_SEARCH_LEVELCROSSING = "SELECT * FROM LEVELCROSSING WHERE (codicePL=?);";
     static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'segnalato');";
     static final String QUERY_SHOW_ALL_LEVELCROSSING_REPORTS = "SELECT * FROM LEVELCROSSING;";
-    // try this one for completed first
+
     static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'risolto');";
 
-    private ReportLevelCrossingQueries() {
-        // DOES NOTHING BECAUSE THE CLASS MUST PROVIDE ONLY STATIC AND PUBLIC METHODS
-    }
+    private ReportLevelCrossingQueries() {}
 
     public static String queryGetLevelCrossing() {
         return QUERY_GET_LEVELCROSSING;

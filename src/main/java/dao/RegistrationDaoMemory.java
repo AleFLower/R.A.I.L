@@ -23,7 +23,6 @@ public class RegistrationDaoMemory implements RegistrationDao {
 
     @Override
     public boolean verifyUserExistance(String username, String email) {
-        // ritorna true se username o email ESISTONO già -> non posso registrare
         return userRepository.userExistsByUsername(username) || userRepository.userExistsByEmail(email);
     }
 }

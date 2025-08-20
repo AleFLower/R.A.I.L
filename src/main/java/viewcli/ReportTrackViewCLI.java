@@ -30,7 +30,7 @@ public class ReportTrackViewCLI {
         Printer.print("Save the report? (y/n)");
         String answer = reader.readLine();
         if (answer == null) {
-            return false; // or you can choose a different behavior
+            return false;
         }
 
         answer = answer.trim().toLowerCase();

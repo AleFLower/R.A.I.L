@@ -23,11 +23,11 @@ public class RegistrationGraphicControllerCLI {
 
     public void registrateUser() {
         try {
-            // Creo il bean con i dati forniti
+
             RegistrationBean bean = new RegistrationBean(email,password,username);
 
 
-            // Chiamo il controller applicativo
+
             RegistrationController registrationController = new RegistrationController(bean);
             registrationController.registrateUser(AccessUtility.getPersistence());
 

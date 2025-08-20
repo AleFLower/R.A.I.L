@@ -35,10 +35,8 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
 
         List<RailwayAsset> list = new ArrayList<>();
 
-        // Leggi LevelCrossing
         list.addAll(readLevelCrossingReports(type));
 
-        // Leggi Track
         list.addAll(readTrackReports(type));
 
         return list;
@@ -54,9 +52,7 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, AccessUtility.getUserCode());
             try (ResultSet rs = ps.executeQuery()) {
-                // Il meccanismo di scelta polimorfica qui è:
-                // sto interrogando la tabella/entità LevelCrossing,
-                // quindi creo oggetti LevelCrossing
+
                 while (rs.next()) {
                     RailwayAsset lc = new LevelCrossing(
                             rs.getString("codicePL"),
@@ -81,7 +77,7 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, AccessUtility.getUserCode());
             try (ResultSet rs = ps.executeQuery()) {
-                // Qui invece la query è per Track, quindi creo oggetti Track
+
                 while (rs.next()) {
                     RailwayAsset track = new Track(
                             rs.getString("numeroBinario"),

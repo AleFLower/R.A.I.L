@@ -19,7 +19,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
         String userCode = AccessUtility.getUserCode();
         Map<String, List<RailwayAsset>> allReports = readReports();
 
-        // Controllo duplicato tra tutti gli utenti
+
         for (List<RailwayAsset> reports : allReports.values()) {
             for (RailwayAsset r : reports) {
                 if (r.getAssetInfo().equalsIgnoreCase(instance.getAssetInfo())) {
@@ -29,7 +29,7 @@ public class SendLevelCrossingReportDaoFS implements SendReportDao {
             }
         }
 
-        // Aggiungi report dell’utente
+
         allReports.computeIfAbsent(userCode, k -> new ArrayList<>()).add(instance);
 
         writeReports(allReports);

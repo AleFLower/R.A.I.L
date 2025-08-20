@@ -13,7 +13,6 @@ public class ReportLevelCrossingBean {
         this.state = state;
     }
 
-    // Getter e Setter
     public String getLcCode() { return lcCode; }
     public String getLocation() { return location; }
     public String getIssue() { return issue; }

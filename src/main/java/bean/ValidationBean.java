@@ -5,8 +5,7 @@ import exception.DuplicateCommaException;
 import exception.EmailTerminatorException;
 
 public class ValidationBean {
-    //questo bean è un utility per gli altri bean, sarà qui che metterò i metodi per gestire la
-    //sintassi degli input passati
+
     private ValidationBean(){}
     public static void verifyEmailSyntax(String email) throws DoubleAtSymbolException, DuplicateCommaException, EmailTerminatorException {
         int counter = 0;
@@ -14,7 +13,7 @@ public class ValidationBean {
         counter = email.indexOf('@');
         counter2 = email.indexOf('@', counter + 1);
         if (counter2 != -1) {
-            //bisogna lanciare un eccezione
+
             throw new DoubleAtSymbolException("The email must\n must contain only one '@' ");
         }
         if (email.indexOf(',') != -1) {

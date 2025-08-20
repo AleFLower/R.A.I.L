@@ -17,8 +17,7 @@ import java.sql.SQLException;
 
 public class HomeGraphicControllerCLI {
     private final HomePageViewCLI homePage;
-    //uso la bean per recuperare informazioni dall account, visto che le view non devono essere accoppiate con model
-    //la bean si registra come observer: non appena avviene cambia stato l'account, notifica la bean
+
     private AccountBeanObserver beanObserver= new AccountBeanObserver();
     private static final String STATE = "OFFLINE";
 
@@ -66,13 +65,13 @@ public class HomeGraphicControllerCLI {
                 Printer.error("You must log in to view active reports.");
                 return;
             }
-            // Creo il bean specificando il tipo di segnalazioni da visualizzare
+
             ReportListBean bean = new ReportListBean(ReportType.ACTIVE);
 
-            // Passo il bean al controller applicativo per riempirlo
+
             new ReportTypeController(bean, AccessUtility.getPersistence());
 
-            // Passo il bean popolato alla view per la sola visualizzazione
+
             ActiveReportsViewCLI view = new ActiveReportsViewCLI();
             view.displayActiveReports(bean);
 
@@ -92,13 +91,11 @@ public class HomeGraphicControllerCLI {
                 Printer.error("You must log in to view resolved reports.");
                 return;
             }
-            // Creo il bean specificando il tipo di segnalazioni da visualizzare
+
             ReportListBean bean = new ReportListBean(ReportType.RESOLVED);
 
-            // Passo il bean al controller applicativo per riempirlo
             new ReportTypeController(bean, AccessUtility.getPersistence());
 
-            // Passo il bean popolato alla view per la sola visualizzazione
             ActiveReportsViewCLI view = new ActiveReportsViewCLI();
             view.displayActiveReports(bean);
 

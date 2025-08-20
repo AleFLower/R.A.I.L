@@ -30,14 +30,13 @@ public class ReportTrackGraphicController extends GeneralGraphicController {
     private Label errorLabel;
     private final SceneNavigatorGraphicController sceneController= SceneNavigatorGraphicController.getInstance(null);
 
-    //se sono in questo controller grafico vuol dire che l'utente sta segnalando una binario , quindi la
-    //mia entita stradale sara' di tipo type_binario_stradale
+
     private AssetType assetType = AssetType.TRACK;
     private TypeOfPersistence typeOfPersistence;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //se l'utente vuole inviare la segnalazione al db
+
         sendReportBtn1.setOnMouseClicked(event-> {
             if(checkInput()){
                 try {
@@ -49,11 +48,11 @@ public class ReportTrackGraphicController extends GeneralGraphicController {
                             assetType,
                             typeOfPersistence
                     );
-                    //questi dati devono essere mandati al controller applicativo
+
                    new ReportController(reportBean);
                     showSuccessAlert("Report sent successfully.\nBack to home =)");
                     disableBtn();
-                    //qui catturo tutte le eccezioni che rilancio dal controller applicativo segnala entita
+
                 } catch(SQLException | PasswordReadException | ReportAlreadyExistsException |
                         NoLoginPerformedException | ReportTypeException |
                         IOException e){
@@ -62,7 +61,7 @@ public class ReportTrackGraphicController extends GeneralGraphicController {
             }
         });
 
-        // Popola la ComboBox con i numeri da 1 a 20
+
         for (int i = 1; i <= 20; i++) {
             trackNumberComboBox.getItems().add(i);
         }

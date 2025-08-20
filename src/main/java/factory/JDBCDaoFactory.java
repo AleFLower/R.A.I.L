@@ -7,9 +7,11 @@ import java.sql.SQLException;
 
 public class JDBCDaoFactory extends DaoFactory {
 
+    //forse un po ridondante? Mi devo fermare prima a controllare typeOfPersistence? Qui è ovvio che livello di persistenza
+    //è jdbc
     @Override
     public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) throws SQLException, PasswordReadException {
-        // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
+
         if (typeOfPersistence == TypeOfPersistence.JDBC) {
             switch (assetType) {
                 case TRACK:

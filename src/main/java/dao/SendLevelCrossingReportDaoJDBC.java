@@ -16,24 +16,19 @@ public class SendLevelCrossingReportDaoJDBC implements SendReportDao {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    //variabile che viene impostata a 0 o a 1 in base all'esito del salvataggio del passaggio a livello
-    //nel database, utile in fase di test
+
     private int outcome;
     public SendLevelCrossingReportDaoJDBC() throws SQLException, PasswordReadException {
         connection= DbConnection.getInstance();
     }
     @Override
     public void sendRailwayAssetReport(RailwayAsset instance) throws SQLException, ReportAlreadyExistsException, PasswordReadException {
-        //qui so che ho a che fare con un passaggio a livello alla fine e lo devo mandare al db , allora rendo l'entita ferroviaria un passaggio a livello
-        //e poi lo invio
-        //quindi è come se avessi il meccanismo di scelta implicito
+
         LevelCrossing levelCrossing=new LevelCrossing(instance.getAssetInfo(),instance.getLocation(),instance.getIssue());
-        //ora lo invio
-        //questa operazione può essere fatta da tutti, sia loggati che non
-        //vedo se il passaggio a livello e' già presente o no nel db, se lo e' comunico che gi esiste nel db, altrimenti lo salvo nel db
+
         if(!searchLevelCrossing(levelCrossing)) {
             if (AccessUtility.getUserCode() != null) {
-                //l'utente è loggato nel sistema, la sua segnalazione deve essere salvata nel db
+
                 preparedStatement = connection.prepareStatement(ReportLevelCrossingQueries.querySaveLevelCrossingForSystemUser());
                 preparedStatement.setString(1, levelCrossing.getAssetInfo());
                 preparedStatement.setString(2, levelCrossing.getLocation());
@@ -55,7 +50,7 @@ public class SendLevelCrossingReportDaoJDBC implements SendReportDao {
         }
     }
     private boolean searchLevelCrossing(LevelCrossing levelCrossing) throws SQLException, PasswordReadException {
-        //verifichiamo che la connessione sia aperta prima
+
         verifyConnection();
         preparedStatement=connection.prepareStatement(ReportLevelCrossingQueries.getQuerySearchLevelCrossing());
         preparedStatement.setString(1,levelCrossing.getAssetInfo());

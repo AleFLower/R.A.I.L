@@ -26,23 +26,21 @@ public class ResolvedReportsGraphicController implements Initializable{
     @FXML
     private Label errorLabel;
     SceneNavigatorGraphicController sceneController= SceneNavigatorGraphicController.getInstance(null);
-    //se sono in questo controller grafico vuol dire che sono interessato a ricevere le segnalazioni risolte
+
 
     private static final ReportType reportType = ReportType.RESOLVED;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
-            //se l'utente e' entrato nella schermata vuol dire che possiede un account, gli mostro le sue
-            //segnalazioni che sono state risolte
-            //chiamo il controller applicativo che si preoccupa di restituire tutto cio che l'utente ha segnalato e che e' stato risolto
+
             ReportListBean reportListBean=new ReportListBean(reportType);
             new ReportTypeController(reportListBean, AccessUtility.getPersistence());
-            //in questo punto tutte le segnalazioni risolte sono state aggiunte nella lista dentro il bean, le riprendo allora e le mostro in output
+
             int lcCounter=reportListBean.getLevelCrossingReports().size();
             int trackCounter=reportListBean.getTrackReports().size();
             resolvedReportsList.setFixedCellSize(90);
-            //se ci sono dei levelCrossing li mostro
+
             if(lcCounter!=0) {
                 Label label1 = new Label();
                 label1.setText("REPORTED LEVEL CROSSINGS\n");
@@ -80,7 +78,7 @@ public class ResolvedReportsGraphicController implements Initializable{
             else errorLabel.setText(e.getMessage());
             errorLabel.setVisible(true);
         }
-        //se l'utente clicca sul pulsante che ritorna alla home viene attivato questo metodo
+
         backHomeBtn.setOnMouseClicked(event->{
             try {
                 sceneController.displayScene("/com/example/progettoispw/viewsfxml/HomeView.fxml");

@@ -17,17 +17,17 @@ public class ReportListBean {
         this.reportType = typeOfSegnalazione;
     }
 
-    // Gestisci segnalazioni levelCrossing
+
     public void addLevelCrossingReports(ReportLevelCrossingBean bean) {
         levelcrossingReportsList.add(bean);
     }
 
-    // Gestisci segnalazioni binario stradale
+
     public void addTrackReports(ReportTrackBean bean) {
         trackReportsList.add(bean);
     }
 
-    // Getter per le segnalazioni
+
     public List<ReportLevelCrossingBean> getLevelCrossingReports() {
         return levelcrossingReportsList;
     }

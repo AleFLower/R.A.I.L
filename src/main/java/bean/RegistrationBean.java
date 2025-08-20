@@ -5,7 +5,7 @@ import exception.DuplicateCommaException;
 import exception.EmailTerminatorException;
 
 public class RegistrationBean {
-    //bean utilizzato per la registrazione dell'utente nel sistema
+
     private String email;
     private String password;
     private String username;

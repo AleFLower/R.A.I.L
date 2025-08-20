@@ -1,12 +1,12 @@
 package queries;
 
 public class AccessQueries {
-    /*questa e' una utility class che contiene solo metodi pubblici e statici i quali ritornano tutti una stringa
-     * cioè la query che un metodo chiede di voler usare  */
+   /* This is a utility class that contains only public static methods,
+ * each of which returns a string representing the query
+ * requested by a given method. */
 
-    private AccessQueries(){
-        //NON FA NULLA PERCHE LA CLASSE DEVE FORNIRE SOLO METODI STATICI E PUBBLICI.
-    }
+    private AccessQueries(){}
+
     static final String QUERY_CHECK_EMAIL_AND_PASSWORD = "SELECT * FROM account WHERE (email=? AND password=?);";
     static final String QUERY_CHECK_IF_USERNAME_EXISTS = "SELECT * FROM account WHERE username=?;";
     static final String QUERY_CHECK_IF_EMAIL_EXISTS = "SELECT * FROM account WHERE email=?;";

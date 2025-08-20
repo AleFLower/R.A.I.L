@@ -7,8 +7,7 @@ import exception.EmailTerminatorException;
 
 public class LoginBean {
 
-    /*questo bean riceve i dati quali email e password dall'utente e li invia al controller applicativo che gestisce
-    l'accesso degli utenti al sistema*/
+
     private String email;
     private String password;
     public LoginBean(String email, String password) {

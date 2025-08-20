@@ -38,22 +38,14 @@ public class NoAccessGraphicController implements Initializable {
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     private static final  String STATE ="ONLINE";
 
-    //la uso static perchè in javafx ogni volta che faccio load() mi carica una nuova istanza di tale controller grafico
-    //dunque avrò diverse istanze di beanObserver e di conseguenza le altre non verranno notificate dal model perché si registrano
-    //dopo l'avvenuta notifica. Inoltre, non uso singleton in quanto solo tale classe usa AccountBeanObserver, le altre non faranno la new
-    //quindi non mi serve singleton, non ho che viene usata globalmente ma solo qui. Se avessi usato tale bean in piu controller, allora si che mi
-    //serviva singleton
-    //NOTA: non è che si registrano come observer tutte le istanze di beanObserver, sempre una è! Ho un observer
     private static final AccountBeanObserver beanObserver = new AccountBeanObserver();
 
-    /*questa classe la uso per implementare la logica dei button comuni a tutte le schermate, in particolare questa
-     * classe svolge il ruolo di controller grafico per la HomeView.fxml, la quale è la prima schermata che viene
-     * quando start l'app*/
+    /* This class is used to implement the logic of the buttons common to all screens.
+     * In particular, it acts as the graphic controller for HomeView.fxml,
+     * which is the first screen displayed when the application starts. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //vedo ogni volta se lo stato del mio concrete observer( rappresentato da beanObserver) è cambiato, perche e' vero che devo
-        //notificare il concrete observer, ma in realtà a me interessa che in cambiamenti nel concrete observer vengano riportati al
-        //controller grafico
+
         if(beanObserver.getUsername()!=null){
             loginButton.setText(beanObserver.getUsername());
         }
@@ -87,41 +79,32 @@ public class NoAccessGraphicController implements Initializable {
             });
         });
         try {
-            //fixedReportsBtn se l'utente e' loggato deve reindirizzarlo alla pagina che mostra le sue segnalazioni
-            //risolte
+
             fixedReportsBtn.setOnMouseClicked(event -> {
-                //devo vedere se l'utente e' loggato prima di accedere alla pagina
-                //getStatoAttuale ritorna ONLINE se l'utente ha effettuato l'accesso, OFFLINE altrimenti
-                //verifico quindi che l'utente abbbia effettuato l'accesso per fargli vedere le segnalazioni
-                //associate al suo account
+
                 if(beanObserver.getActualState()== STATE) {
                     sceneController.displayScene("/com/example/progettoispw/viewsfxml/ResolvedReportsView.fxml");
                 }else {
                     sceneController.displayScene("/com/example/progettoispw/viewsfxml/RegistrationWarning.fxml");
                 }
             });
-            //activeReportsBtn se l'utent e' registrato deve reindirizzare l'utente alla pagina che mostra le sue
-            //segnalazioni che ancora non sono state risolte
+
             activeReportsBtn.setOnMouseClicked(event -> {
-                //GetStatoAttuale ritorna ONLINE se l'utente ha effettuato l'accesso, OFFLINE altrimenti
-                //verifico quindi che l'utente abbbia effettuato l'accesso per fargli vedere le segnalazioni
-                //associate al suo account
+
                 if(beanObserver.getActualState()== STATE){
-                    //posso accedere
+
                     sceneController.displayScene("/com/example/progettoispw/viewsfxml/ActiveReportsView.fxml");
                 }else{
                     sceneController.displayScene("/com/example/progettoispw/viewsfxml/RegistrationWarning.fxml");
                 }
             });
             loginButton.setOnMouseClicked(event -> {
-                //se l'utente e' online allora non posso fagli rivedere la pagina per riinserire le credenziali
-                //gli mostro la pagina per fare il logout
+
                 if(beanObserver.getActualState()== STATE){
-                        //l'utente si e' loggato, voglio quindi caricare la schermata che mi permette di fare il logout
+
                         sceneController.displayScene("/com/example/progettoispw/viewsfxml/LogoutView.fxml");
                     } else {
-                        //l'utente non è loggato, carico la schermata normale di login
-                        //ricorda se l'utente fa il logout le variabili di utility accesso vengono settate a null
+
                         sceneController.displayScene("/com/example/progettoispw/viewsfxml/LoginRegistrationView.fxml");
                     }
             });
@@ -130,8 +113,7 @@ public class NoAccessGraphicController implements Initializable {
             System.exit(-1);
         }
     }
-    //verifico che solamente lo user puo segnalare problemi, l'admin l'ho messo solo per far vedere la conclusione
-    //del caso d'uso con la notifica all'admin.
+
     @FXML
     void reportAccessProblem() throws Exception {
         if(AccessUtility.getRole()==Role.ADMIN){

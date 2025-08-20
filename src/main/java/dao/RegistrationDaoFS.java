@@ -15,22 +15,21 @@ public class RegistrationDaoFS implements RegistrationDao {
             throws IOException {
 
         if (verifyUserExistance(username, email)) {
-            List<String[]> utenti = new ArrayList<>();
+            List<String[]> users = new ArrayList<>();
             File file = new File(PATH_FILE_UTENTI);
 
-            // Carica lista se esiste
+
             if (file.exists()) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                    utenti = (List<String[]>) ois.readObject();
+                    users = (List<String[]>) ois.readObject();
                 } catch (ClassNotFoundException e) {
                     throw new IOException("Error while reading file", e);
                 }
             }
 
-            String userCode = String.valueOf(generateUserCode(utenti));
+            String userCode = String.valueOf(generateUserCode(users));
 
-            // Aggiunge il nuovo utente
-            utenti.add(new String[]{
+            users.add(new String[]{
                     email,
                     password,
                     username,
@@ -40,7 +39,7 @@ public class RegistrationDaoFS implements RegistrationDao {
 
             // Riscrive la lista su file
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_FILE_UTENTI))) {
-                oos.writeObject(utenti);
+                oos.writeObject(users);
             }
 
             return true;

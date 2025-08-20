@@ -20,9 +20,7 @@ import java.util.ResourceBundle;
 
 public class ReportLevelCrossingGraphicController extends GeneralGraphicController {
 
-    /*questo controller è associato alla PaginaSegnalaProblema la quale possiede:
-     * i DUE textField in cui l'utente inserisce i campi
-     * il pulsante invia che consente d' inviare la segnalazione che l'utente ha richiesto  */
+
     
     private ReportBean reportBean;
     @FXML
@@ -35,25 +33,22 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
     private JFXButton sendReportBtn;
     @FXML
     private Label errorLabel;
-    //se sono in questo controller grafico vuol dire che l'utente sta segnalando un levelCrossing dell', quindi la
-    //mia entita stradale sara' di tipo type_levelCrossing_
+
     private AssetType assetType = AssetType.LEVELCROSSING;
     private TypeOfPersistence typeOfPersistence;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //questo avrà i seton mouse click dei suoi pulsanti e alla fine chiama super.initialize() di quelli in comune
+
         sendReportBtn.setOnMouseClicked(event -> {
             if (checkInput()) {
-                //sara' proprio qui che avverrà l'invio al bean dei dati che ha inserito l'utente in input
+
                 try {
                     typeOfPersistence = AccessUtility.getPersistence();
                     reportBean = verifyBean(lcCodeTextfield.getText(), locationTextfield.getText(),issueTextfield.getText(), assetType, typeOfPersistence);
-                    //la lunghezza seriale del levelCrossing inserita dall'utente è corretta, invio il bean al controller applicativo
+
                     new ReportController(reportBean);
-                    //se non c'e' stata nessuna eccezione vuol dire che la segnalazione e' avvenuta con successo
-                    //lo comunico all'utente e blocco i pulsanti per non far inviare la stessa segnalazione
-                    //in caso dovesse premere per sbaglio di nuovo il pulsante invia
+
                     showSuccessAlert("Report sent successfully.\nBack to home =)");
                     disableButton();
                 } catch (InvalidInputLengthException | SQLException | PasswordReadException |
@@ -63,12 +58,8 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
                 }
             }
         });
-        // codice che si attiva se l'utente clicca il button per salvare il problema segnalato in locale e non su un database
 
 
-        //questo viene chiamato per implementare le azioni ai button che sono in comune tra le schermate, essendo questa
-        //classe figlia di ControllerGraficoLoginPage, questo metodo super chiamerà initialize di ControllerGraficoLoginPage
-        //che a sua volta chiamerà initialize di ControllerGraficoSenzaAccesso
         super.initialize(url, resourceBundle);
     }
 
@@ -113,8 +104,6 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
         showErrorAlert(e.getMessage());
 
         if (e.getClass() == ReportAlreadyExistsException.class) {
-            /*se l'eccezione è di tipo segnalazione già avvenuta l'utente ha portato a termine quello che
-             * voleva fare quindi posso disabilitare i pulsanti */
             disableButton();
         }
     }

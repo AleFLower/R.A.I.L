@@ -22,11 +22,11 @@ public class LogoutGraphicController extends GeneralGraphicController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     userLabel.setText("THANK YOU FOR BEING OUR USER : " + AccessUtility.getUsername());
     logoutButton.setOnMouseClicked(event->{
-        //porto a null i valori globali di utilityAccesso
+
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
         accountController.goOffline();
-        //poi carico la pagina del login
+
         try {
             sceneController.displayScene("/com/example/progettoispw/viewsfxml/LoginRegistrationView.fxml");
         } catch (Exception e) {

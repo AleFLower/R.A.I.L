@@ -9,7 +9,7 @@ public class LogoutGraphicControllerCLI {
     private AccountController accountController = new AccountController();
 
     public void logout() {
-        // Pulisce i dati di sessione
+
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
         accountController.goOffline();

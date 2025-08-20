@@ -4,24 +4,18 @@ public class OfflineState extends AbstractState{
 
     @Override
     public void login(StateMachineImpl s) {
-        //devo cambiare stato e passare da offline a online
-        //creo un nuovo stato OnlineState
         AbstractState newState= new OnlineState();
-        //chiamo il metodo changeToState di StateMachineImpl per assegnare alla variabile che tiene lo stato
-        //corrente, il nuovo stato che ho creato
         s.changeToState(newState);
 
     }
     @Override
     public void logout(StateMachineImpl s){
-        //non fa nulla come metodo sono solo costretto a implementarlo da contratto con il padre
-        //sarebbe una ignore dello stato, ovvero se l'evento è login rimango nello stesso stato della SM
+        // This method does nothing, it's only implemented due to the parent contract.
+        // It simply ignores the state change (e.g., on login event, the state machine remains unchanged).
     }
-
 
     @Override
     public String toString(){
         return "OFFLINE";
     }
-
 }

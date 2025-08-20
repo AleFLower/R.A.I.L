@@ -20,8 +20,7 @@ public class GeneralGraphicController extends NoAccessGraphicController {
                 System.exit(-1);
             }
         });
-        //questo avrà i suoi pulsanti e alla fine chiamerà il super di quelli in comune, per non darli al figlio
-        //quelli che non sono in comune dovrei farli private
+
         super.initialize(url,resourceBundle);
     }
 }

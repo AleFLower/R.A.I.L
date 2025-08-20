@@ -23,7 +23,7 @@ public class SceneNavigatorGraphicController {
 
 
     public void showMainScene(String sceneString) throws Exception {
-        //this method load the main view
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneString));
         Scene scene = new Scene(fxmlLoader.load());
 

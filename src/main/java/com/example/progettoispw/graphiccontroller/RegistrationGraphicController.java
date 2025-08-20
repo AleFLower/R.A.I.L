@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class RegistrationGraphicController extends GeneralGraphicController {
-    //controller grafico che gestisce la pagina di registrazione al sistema
+
 
     private final SceneNavigatorGraphicController sceneController= SceneNavigatorGraphicController.getInstance(null);
 
@@ -35,16 +35,16 @@ public class RegistrationGraphicController extends GeneralGraphicController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         signupBtn.setOnMouseClicked(event->{
-            //prima controllo che i campi siano stati tutti compilati
+
             if(textFieldUsername.getText().equals("")||textFieldEmail.getText().equals("")||passwordFieldPassword.getText().equals("")){
                 messageLabel.setText("Please enter all required fields");
             }else{
-                //tutti i campi sono stati passati, creo un bean che prendi questi parametri in input
+
                 RegistrationBean registrationBean=new RegistrationBean(textFieldEmail.getText(),passwordFieldPassword.getText(),textFieldUsername.getText());
-                // faccio fare al bean i controlli sintattici
+
                 String emailValidation=registrationBean.validate();
                 if (emailValidation == null) {
-                    //la sintassi dell'email e' corretta, invio il bean al controller applicativo che gestisce la registrazione
+
                     try{
                         RegistrationController registrationController = new RegistrationController(registrationBean);
                         registrationController.registrateUser(AccessUtility.getPersistence());

@@ -11,7 +11,7 @@ public abstract class DaoFactory {
     public abstract RegistrationDao getRegistrationDao() throws SQLException, PasswordReadException;
     public abstract ActiveResolvedReportsDao getActiveResolvedDao() throws SQLException, PasswordReadException;
     public abstract SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType typeEntita) throws SQLException, PasswordReadException;
-    // Factory method per ottenere la giusta implementazione di DAO in base al tipo di persistenza
+
     public static DaoFactory getFactory(TypeOfPersistence typeOfPersistence) {
         switch (typeOfPersistence) {
             case JDBC:

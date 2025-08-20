@@ -3,7 +3,6 @@ package viewcli;
 import utility.Printer;
 
 public class Clear {
-    //classe temp
 
     private Clear(){}
     public static void clear(){ 

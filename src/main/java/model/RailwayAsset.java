@@ -5,10 +5,10 @@ import factory.AssetType;
 import java.io.Serializable;
 
 public abstract class RailwayAsset implements Serializable {
-    protected final String location;          // Es. "Binario 5", "localizzazione Centrale"
-    protected final String issue; // Es. "display spento", "ascensore bloccato"
-    protected String state = "reported";        // Stato della segnalazione
-    protected AssetType assetType;  // Enum specifico per entità ferroviarie
+    protected final String location;
+    protected final String issue;
+    protected String state = "reported";
+    protected AssetType assetType;
 
     protected RailwayAsset(String location, String issue) {
         this.location = location;
@@ -27,8 +27,8 @@ public abstract class RailwayAsset implements Serializable {
         return state;
     }
 
-    public void setState(String stato) {
-        this.state = stato;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public AssetType getAssetType() {
@@ -36,5 +36,5 @@ public abstract class RailwayAsset implements Serializable {
     }
 
 
-    public abstract String getAssetInfo(); // info specifica della sottoclasse
+    public abstract String getAssetInfo();
 }

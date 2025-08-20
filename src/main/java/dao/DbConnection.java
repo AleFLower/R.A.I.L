@@ -18,12 +18,12 @@ public class DbConnection {
 
     private static void connectToDb() throws IOException, SQLException {
         Properties properties = new Properties();
-        // usa try-with-resources per chiudere automaticamente l'InputStream
+
         try (InputStream is = new FileInputStream("db.properties")) {
             properties.load(is);
         }
 
-        // Legge URL, username e password dal file properties
+
         String url = properties.getProperty("db.url");
         String username = properties.getProperty("db.username");
         String password = properties.getProperty("db.password");
@@ -53,8 +53,6 @@ public class DbConnection {
             try {
                 connection.close();
             }catch (SQLException e){
-                //ho provato tutti i casi possibili e non viene mai lanciata un eccezione del tipo sql exception
-                //da questo metodo
                 System.exit(-2);
             }
         }

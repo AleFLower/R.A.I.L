@@ -9,7 +9,6 @@ public class MemoryDaoFactory extends DaoFactory {
 
     @Override
     public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType) {
-        // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
             switch (assetType) {
                 case TRACK:
                     return new SendTrackReportDaoMemory(reportRepository);

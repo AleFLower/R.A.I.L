@@ -27,7 +27,7 @@ public class ReportTypeController {
     public ReportTypeController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
         userCode = Integer.parseInt(AccessUtility.getUserCode());
         reportType =bean.getReportType();
-        //devo aggiungere elementi alla lista che si trova nel bean ce che verrà usata da controller grafico per prendere le info
+
         addElements(bean,persistence);
     }
     private void addElements(ReportListBean bean, TypeOfPersistence persistence)
@@ -38,7 +38,6 @@ public class ReportTypeController {
 
        List<RailwayAsset> reports = dao.getActiveResolvedDao().getReports(reportType);
 
-        //la lancio qui l'eccezione, non nei dao, perché devo controllare entrambe le liste
         if(reports.isEmpty()) throw new NoReportsFoundException("You have not filed any reports");
 
 

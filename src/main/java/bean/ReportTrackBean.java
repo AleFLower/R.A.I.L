@@ -1,10 +1,10 @@
 package bean;
 
 public class ReportTrackBean {
-    private final String trackNumber;  // Es: "Binario 2"
-    private final String location;    // Es: "localizzazione Milano Centrale"
-    private final String issue;  // Es: "Binario fuori servizio"
-    private String state;  // Stato della segnalazione, es. "In attesa", "Risolto"
+    private final String trackNumber;
+    private final String location;
+    private final String issue;
+    private String state;
 
     public ReportTrackBean(String trackNumber, String location, String issue, String state) {
         this.trackNumber = trackNumber;
@@ -13,7 +13,7 @@ public class ReportTrackBean {
         this.state = state;
     }
 
-    // Getter e Setter
+
     public String getTrackNumber() {
         return trackNumber;
     }

@@ -3,7 +3,7 @@ package model;
 import factory.AssetType;
 
 public class Track extends RailwayAsset {
-    private final String trackNumber; // ad esempio "Binario 2"
+    private final String trackNumber;
 
     public Track(String trackNumber, String location, String issue) {
         super(location, issue);

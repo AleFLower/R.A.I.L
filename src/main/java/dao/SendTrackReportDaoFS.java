@@ -28,7 +28,7 @@ public class SendTrackReportDaoFS implements SendReportDao {
         Map<String, List<RailwayAsset>> allReports = new HashMap<>();
         File file = new File(FILE_NAME);
 
-        // Leggi file esistente
+
         if (file.exists() && file.length() > 0) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                 allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
@@ -39,7 +39,7 @@ public class SendTrackReportDaoFS implements SendReportDao {
             }
         }
 
-        // Controllo duplicato tra tutti gli utenti
+
         for (List<RailwayAsset> reports : allReports.values()) {
             for (RailwayAsset r : reports) {
                 if (r.getAssetInfo().equalsIgnoreCase(track.getAssetInfo()) &&
@@ -50,7 +50,7 @@ public class SendTrackReportDaoFS implements SendReportDao {
             }
         }
 
-        // Aggiungi report dell’utente
+
         allReports.computeIfAbsent(userCode, k -> new ArrayList<>()).add(track);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {

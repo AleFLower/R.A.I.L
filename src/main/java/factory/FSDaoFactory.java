@@ -4,7 +4,7 @@ import dao.*;
 
 public class FSDaoFactory extends DaoFactory {
 
-    //for future implementations
+
     @Override
     public LoginDao getLoginDao()  {
         return new LoginDaoFS();
@@ -22,7 +22,7 @@ public class FSDaoFactory extends DaoFactory {
 
 
     public SendReportDao getSendAssetDao(TypeOfPersistence typeOfPersistence, AssetType assetType)  {
-        // Restituisci il DAO corretto in base al tipo di entità e tipo di persistenza
+
         if (typeOfPersistence == TypeOfPersistence.FILESYSTEM) {
             switch (assetType) {
                 case TRACK:

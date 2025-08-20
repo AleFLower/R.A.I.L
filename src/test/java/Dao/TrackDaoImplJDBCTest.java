@@ -18,29 +18,26 @@ class TrackDaoImplJDBCTest {
 
     @Test
     void saveTrackNotInDB() {
-        // Test per salvare un binario che non è ancora nel DB
         try {
-            AccessUtility.setUserCode("2"); // imposta codice utente valido
+            AccessUtility.setUserCode("2");
             trackDaoImpl = new SendTrackReportDaoJDBC();
             RailwayAsset newTrack = new Track("1", "Milano centrale", "rotaie usurate");
             trackDaoImpl.sendRailwayAssetReport(newTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
-            // nessuna eccezione prevista qui
         } finally {
-            assertEquals(0, trackDaoImpl.getOutcome()); //mi aspetto che esito ritorni 0
+            assertEquals(0, trackDaoImpl.getOutcome());
         }
     }
 
     @Test
     void saveTrackAlreadyInDB() {
-        // Test che verifica che il sistema rifiuti l'inserimento duplicato
+
         try {
             AccessUtility.setUserCode("999");
             trackDaoImpl = new SendTrackReportDaoJDBC();
             RailwayAsset duplicateTrack = new Track("2", "stazione termini", "corpo estraneo");
             trackDaoImpl.sendRailwayAssetReport(duplicateTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
-            // l'eccezione è prevista in questo caso
         } finally {
             assertEquals(-1, trackDaoImpl.getOutcome());  //mi aspetto che esito ritorni 1
         }

@@ -16,10 +16,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//non la implemento come observer per il fatto che con load ogni volta ricarico il controller grafico, quindi istanze diverse di controller grafico
+
 public class LoginGraphicController extends GeneralGraphicController{
 
-    //aggiunta ora con il singleton
+
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     @FXML
     private JFXButton signupBtn;
@@ -34,10 +34,7 @@ public class LoginGraphicController extends GeneralGraphicController{
 
     private LoginBean loginBean;
 
-    /*questa classe gestisce la login page, avendo piu' button e non avendoli in comune con le altre page, ho creato
-    * questo controller grafico apposta per essa, questa classe è il controller grafico della page LoginRegistrationView.fxml,
-    * usa anche la classe ControllerGraficoSenzaAccesso nel caso in cui si dovessero premere altri pulsanti, lo faccio
-    * per non dover duplicare codice inutilmente*/
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,7 +62,7 @@ public class LoginGraphicController extends GeneralGraphicController{
         String email = emailTextField.getText();
         String password = passwordPasswordField.getText();
 
-        // Check if email or password are empty
+
         if (isFieldEmpty(email, password)) {
             messageLabel.setText("Please enter all required fields");
         } else {
@@ -80,7 +77,6 @@ public class LoginGraphicController extends GeneralGraphicController{
     private void processLogin(String email, String password) {
         loginBean = new LoginBean(email, password);
 
-        // Validate email syntax
         String emailValidation = loginBean.validate();
 
         if (emailValidation == null) {
@@ -92,10 +88,10 @@ public class LoginGraphicController extends GeneralGraphicController{
 
     private void attemptLogin() {
         try {
-            // Directly invoke the controller's constructor without storing the instance
+
            LoginController loginController = new LoginController(loginBean);
            loginController.login(AccessUtility.getPersistence());
-            // If no exceptions, login was successful
+
             handleSuccessfulLogin();
         } catch (SQLException | UserNotFoundException | PasswordReadException e) {
             messageLabel.setText(e.getMessage());

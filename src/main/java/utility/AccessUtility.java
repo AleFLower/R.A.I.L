@@ -5,19 +5,13 @@ import model.Role;
 import factory.TypeOfPersistence;
 
 public class AccessUtility {
-    /*questa classe contiene 2 attributi statici che sono settati inizialmente a null
-    * se l'utente effettua l' accesso con successo gli attributi di questa classe vengono settati
-    * con i giusti valori presenti nel database per quell'utente, e tutte le altre classi potranno vedere queste
-    * informazioni contenute nella seguente classe, e le useranno per capire se l'utete ha i permessi per entrare
-    * in alcune schermate  */
+    /* Utility class that stores user access details and configuration info. */
+
     private static String username =null;
     private static String userCode =null;
     private static Role role = null;
     private static TypeOfPersistence persistence;
-    private AccessUtility(){
-        //NON FA NULLA PERCHE E' UNA CLASSE UTILITY E FORNISCE METODI STATICI PER SETTARE IL VALORE DELLE
-        //VARIABILI PRIVATE
-    }
+    private AccessUtility(){}
 
     public static String getUsername() {
         return username;

@@ -12,7 +12,7 @@ public class UserRepository {
     private final Map<String, Role> userRoles = new HashMap<>();
 
     public UserRepository() {
-        // Utenti di default
+       //default users
         addUser("MarioRossi", "mario@esempio.com", "1234", Role.ADMIN);
         addUser("AnnaVerdi", "anna@esempio.com", "abcd", Role.USER);
     }

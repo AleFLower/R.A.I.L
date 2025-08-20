@@ -4,8 +4,6 @@ import model.Account;
 
 public class AccountController {
 
-    //classe che gestisce le interazioni con l account, visto che metterla nell utility accesso tale responsabilità
-    //non era tanto corretto
     private Account account;
 
     public AccountController(){
