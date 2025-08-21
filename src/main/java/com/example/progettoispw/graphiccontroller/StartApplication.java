@@ -17,7 +17,7 @@ public class StartApplication extends Application {
 
         SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(stage);
         sceneController.showMainScene(mainPage);
-        stage.setOnCloseRequest(windowEvent->{  //se schiaccio la x nello stage, faccio il logout
+        stage.setOnCloseRequest(windowEvent->{
             windowEvent.consume();
             logout(stage);
         });

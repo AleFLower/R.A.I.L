@@ -3,24 +3,27 @@ package bean;
 import model.Account;
 import observer.Observer;
 
-
 public class AccountBeanObserver implements Observer {
 
     private String username;
     private String actualState;
     private Account subject;  //riferimento al concreteSubject
+    private static AccountBeanObserver beanObserver;
 
-    public AccountBeanObserver(){
-
-        this.subject=Account.getInstance();
-        this.actualState = "OFFLINE";  //DI DEFAULT
-
-        this.subject.attach(this);
+    public static AccountBeanObserver getObserver(){
+        if(beanObserver==null){
+            beanObserver=new AccountBeanObserver(Account.getInstance());
+        }
+        return beanObserver;
     }
 
+    private AccountBeanObserver(Account subject){
+        this.subject=subject;
+        this.actualState = "OFFLINE";
+        this.subject.attach(this);
+    }
     @Override
     public void update() {
-
         this.actualState = subject.getActualState();
         this.username =subject.getUsername();
     }

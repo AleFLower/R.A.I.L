@@ -13,10 +13,10 @@ public class Account extends Subject {
     private String username;
     private String userCode;
     private static Account account;
-    private Role role;  //di default è admin
+    private Role role;
     private StateMachine stateMachine;
 
-    public static Account getInstance(){   //forse meglio renderla synchronized?
+    public static Account getInstance(){
         if(account==null){
            account=new Account();
         }

@@ -26,8 +26,6 @@ public class RegistrationGraphicControllerCLI {
 
             RegistrationBean bean = new RegistrationBean(email,password,username);
 
-
-
             RegistrationController registrationController = new RegistrationController(bean);
             registrationController.registrateUser(AccessUtility.getPersistence());
 

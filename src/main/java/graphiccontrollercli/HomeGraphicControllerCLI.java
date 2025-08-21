@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class HomeGraphicControllerCLI {
     private final HomePageViewCLI homePage;
 
-    private AccountBeanObserver beanObserver= new AccountBeanObserver();
+    private AccountBeanObserver beanObserver= AccountBeanObserver.getObserver();
     private static final String STATE = "OFFLINE";
 
     public HomeGraphicControllerCLI() {

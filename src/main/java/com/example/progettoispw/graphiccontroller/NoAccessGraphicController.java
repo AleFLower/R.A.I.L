@@ -38,7 +38,7 @@ public class NoAccessGraphicController implements Initializable {
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     private static final  String STATE ="ONLINE";
 
-    private static final AccountBeanObserver beanObserver = new AccountBeanObserver();
+    private AccountBeanObserver beanObserver = AccountBeanObserver.getObserver();
 
     /* This class is used to implement the logic of the buttons common to all screens.
      * In particular, it acts as the graphic controller for HomeView.fxml,
