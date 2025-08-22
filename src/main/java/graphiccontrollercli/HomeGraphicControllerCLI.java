@@ -5,7 +5,7 @@ import bean.AccountBeanObserver;
 import viewcli.HomePageViewCLI;
 import viewcli.ActiveReportsViewCLI;
 import com.example.progettoispw.graphiccontroller.ReportType;
-import applicationcontroller.ReportTypeController;
+import applicationcontroller.HandleReportsController;
 import exception.PasswordReadException;
 import exception.NoReportsFoundException;
 import model.Role;
@@ -69,7 +69,7 @@ public class HomeGraphicControllerCLI {
             ReportListBean bean = new ReportListBean(ReportType.ACTIVE);
 
 
-            new ReportTypeController(bean, AccessUtility.getPersistence());
+            new HandleReportsController(bean, AccessUtility.getPersistence());
 
 
             ActiveReportsViewCLI view = new ActiveReportsViewCLI();
@@ -94,7 +94,7 @@ public class HomeGraphicControllerCLI {
 
             ReportListBean bean = new ReportListBean(ReportType.FIXED);
 
-            new ReportTypeController(bean, AccessUtility.getPersistence());
+            new HandleReportsController(bean, AccessUtility.getPersistence());
 
             ActiveReportsViewCLI view = new ActiveReportsViewCLI();
             view.displayActiveReports(bean);

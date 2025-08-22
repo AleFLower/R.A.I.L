@@ -18,13 +18,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ReportTypeController {
+public class HandleReportsController {
     private int userCode;
     private ReportType reportType;
     private ActivefixedReportsDao activefixedReportsDao;
 
 
-    public ReportTypeController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
+    public HandleReportsController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
         userCode = Integer.parseInt(AccessUtility.getUserCode());
         reportType =bean.getReportType();
 

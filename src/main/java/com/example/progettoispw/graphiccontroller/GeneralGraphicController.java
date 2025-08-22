@@ -17,7 +17,6 @@ public class GeneralGraphicController extends NoAccessGraphicController {
             try {
                 sceneController.displayScene("/com/example/progettoispw/viewsfxml/HomeView.fxml");
             }catch(Exception e){
-
                 System.exit(-1);
             }
         });

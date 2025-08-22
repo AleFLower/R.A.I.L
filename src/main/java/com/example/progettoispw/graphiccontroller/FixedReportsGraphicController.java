@@ -4,7 +4,7 @@ import bean.ReportListBean;
 import bean.ReportTrackBean;
 import bean.ReportLevelCrossingBean;
 import com.jfoenix.controls.JFXButton;
-import applicationcontroller.ReportTypeController;
+import applicationcontroller.HandleReportsController;
 import exception.PasswordReadException;
 import exception.NoReportsFoundException;
 import javafx.fxml.FXML;
@@ -35,7 +35,7 @@ public class FixedReportsGraphicController implements Initializable{
         try{
 
             ReportListBean reportListBean=new ReportListBean(reportType);
-            new ReportTypeController(reportListBean, AccessUtility.getPersistence());
+            new HandleReportsController(reportListBean, AccessUtility.getPersistence());
 
             int lcCounter=reportListBean.getLevelCrossingReports().size();
             int trackCounter=reportListBean.getTrackReports().size();
