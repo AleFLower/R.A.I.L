@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class UserRepository {
 
-    private final Map<String, String> users = new HashMap<>();
-    private final Map<String, String> usernames = new HashMap<>();
-    private final Map<String, Role> userRoles = new HashMap<>();
+    private final Map<String, String> users = new HashMap<>();//key = email,value = pass
+    private final Map<String, String> usernames = new HashMap<>();//key = email, value = username
+    private final Map<String, Role> userRoles = new HashMap<>();//key = email, value = role
 
     public UserRepository() {
        //default users

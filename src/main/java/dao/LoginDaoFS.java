@@ -1,14 +1,15 @@
 package dao;
 
 import model.Account;
-import model.Role;
+import model.AccountData;
 import utility.Printer;
 import utility.AccessUtility;
 
 import java.io.IOException;
 
 import java.io.*;
-import java.util.*;
+
+import java.util.List;
 
 public class LoginDaoFS implements LoginDao {
 
@@ -23,27 +24,18 @@ public class LoginDaoFS implements LoginDao {
     @SuppressWarnings("unchecked")
     public boolean verifyAccount(String email, String password) {
         File file = new File(PATH_FILE_UTENTI);
-        if (!file.exists()) return false;
+        if (!file.exists() || file.length() == 0) return false;
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            List<String[]> users = (List<String[]>) ois.readObject();
+            List<AccountData> users = (List<AccountData>) ois.readObject();
 
-            for (String[] fields : users) {
-                if (fields.length != 5) continue;
-
-                String emailFile = fields[0].trim();
-                String passwordFile = fields[1].trim();
-                String username = fields[2].trim();
-                String userCode = fields[3].trim();
-                String role = fields[4].trim();
-                Role userRole = Role.valueOf(role.toUpperCase());
-
-                if (emailFile.equals(email) && passwordFile.equals(password)) {
-                    account.registerAccount(username, userCode, userRole);
+            for (AccountData u : users) {
+                if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
+                    account.registerAccount(u.getUsername(), u.getUserCode(), u.getRole());
                     account.goOnline();
-                    AccessUtility.setUsername(username);
-                    AccessUtility.setUserCode(userCode);
-                    AccessUtility.setRole(userRole);
+                    AccessUtility.setUsername(u.getUsername());
+                    AccessUtility.setUserCode(u.getUserCode());
+                    AccessUtility.setRole(u.getRole());
                     return true;
                 }
             }
@@ -53,4 +45,3 @@ public class LoginDaoFS implements LoginDao {
         return false;
     }
 }
-

@@ -1,43 +1,38 @@
 package dao;
 
 import model.Role;
+import model.AccountData;
 
 import java.io.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationDaoFS implements RegistrationDao {
 
-    private static final String PATH_FILE_UTENTI = "users.ser"; // file serializzato
+    private static final String PATH_FILE_UTENTI = "users.ser";
+
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean registrateUser(String username, String email, String password)
-            throws IOException {
-
+    public boolean registrateUser(String username, String email, String password) throws IOException {
         if (verifyUserExistance(username, email)) {
-            List<String[]> users = new ArrayList<>();
+            List<AccountData> users = new ArrayList<>();
             File file = new File(PATH_FILE_UTENTI);
 
-
-            if (file.exists()) {
+            if (!file.exists() && file.length() > 0) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                    users = (List<String[]>) ois.readObject();
+                    users = (List<AccountData>) ois.readObject();
                 } catch (ClassNotFoundException e) {
+
                     throw new IOException("Error while reading file", e);
                 }
             }
 
             String userCode = String.valueOf(generateUserCode(users));
 
-            users.add(new String[]{
-                    email,
-                    password,
-                    username,
-                    userCode,
-                    Role.USER.name()
-            });
+            users.add(new AccountData(email, username, password, userCode, Role.USER));
 
-            // Riscrive la lista su file
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_FILE_UTENTI))) {
                 oos.writeObject(users);
             }
@@ -52,19 +47,16 @@ public class RegistrationDaoFS implements RegistrationDao {
     @SuppressWarnings("unchecked")
     public boolean verifyUserExistance(String username, String email) throws IOException {
         File file = new File(PATH_FILE_UTENTI);
-        if (!file.exists()) {
-            return true; // Se il file non esiste, non c'è nessun utente
+
+        if (!file.exists() || file.length() == 0) {
+            return true; // se il file non esiste o è vuoto, nessun utente
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            List<String[]> users = (List<String[]>) ois.readObject();
+            List<AccountData> users = (List<AccountData>) ois.readObject();
 
-            for (String[] fields : users) {
-                if (fields.length < 3) continue;
-                String emailFile = fields[0].trim();
-                String usernameFile = fields[2].trim();
-
-                if (emailFile.equalsIgnoreCase(email) && usernameFile.equalsIgnoreCase(username)) {
+            for (AccountData u : users) {
+                if (u.getEmail().equalsIgnoreCase(email) && u.getUsername().equalsIgnoreCase(username)) {
                     return false;
                 }
             }
@@ -75,18 +67,13 @@ public class RegistrationDaoFS implements RegistrationDao {
         return true;
     }
 
-    private int generateUserCode(List<String[]> users) {
+    private int generateUserCode(List<AccountData> users) {
         int maxCode = 0;
-        for (String[] fields : users) {
-            if (fields.length < 4) continue;
+        for (AccountData u : users) {
             try {
-                int code = Integer.parseInt(fields[3].trim());
-                if (code > maxCode) {
-                    maxCode = code;
-                }
-            } catch (NumberFormatException ignored) {
-                // ignora righe con codice non numerico
-            }
+                int code = Integer.parseInt(u.getUserCode());
+                if (code > maxCode) maxCode = code;
+            } catch (NumberFormatException ignored) {}
         }
         return maxCode + 1;
     }

@@ -90,6 +90,7 @@ public class RegistrationGraphicController extends GeneralGraphicController {
 
         } catch (SQLException | UserAlreadyExistsException | PasswordReadException | IOException e) {
             showAlert("Registration Error", "Failed to create account", e.getMessage());
+            e.printStackTrace();
         }
     }
 
