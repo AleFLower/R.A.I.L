@@ -46,7 +46,7 @@ public class RegistrationGraphicController extends GeneralGraphicController {
         if (textFieldEmail.getText().isEmpty()) missingFields.append("- Email\n");
         if (passwordFieldPassword.getText().isEmpty()) missingFields.append("- Password\n");
 
-        if (missingFields.length() > 0) {
+        if (!missingFields.isEmpty()) {
             showAlert("Incomplete Registration", "Required fields missing!", missingFields.toString());
             return;
         }
