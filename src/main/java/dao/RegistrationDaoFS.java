@@ -24,7 +24,6 @@ public class RegistrationDaoFS implements RegistrationDao {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                     users = (List<AccountData>) ois.readObject();
                 } catch (ClassNotFoundException e) {
-
                     throw new IOException("Error while reading file", e);
                 }
             }
@@ -73,7 +72,9 @@ public class RegistrationDaoFS implements RegistrationDao {
             try {
                 int code = Integer.parseInt(u.getUserCode());
                 if (code > maxCode) maxCode = code;
-            } catch (NumberFormatException ignored) {}
+            } catch (NumberFormatException ignored) {
+                // Ignore non-numeric userCode values because some entries may have invalid codes
+            }
         }
         return maxCode + 1;
     }
