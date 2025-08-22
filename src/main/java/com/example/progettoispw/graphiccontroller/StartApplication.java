@@ -25,58 +25,51 @@ public class StartApplication extends Application {
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");
 
         TypeOfPersistence typeOfPersistence = null;
 
-
-        while(true){
-
-
-            while (typeOfPersistence == null) {
-                Printer.print("Choose app start mode: \n1 -> Full version DBMS\n2 -> Full version file system\n3 -> Demo version");
-                String type = bufferedReader.readLine();
-                if ("1".equals(type)) {
-                    typeOfPersistence = TypeOfPersistence.JDBC;
-                } else if ("2".equals(type)) {
-                    typeOfPersistence = TypeOfPersistence.FILESYSTEM;
-                } else if("3".equals(type)){
-                    typeOfPersistence = TypeOfPersistence.MEMORY;
-                }
-                else Printer.print("Invalid choice, please try again");
+        // Scelta persistenza
+        while (typeOfPersistence == null) {
+            Printer.print("Choose app start mode: \n1 -> Full version DBMS\n2 -> Full version file system\n3 -> Demo version");
+            String type = bufferedReader.readLine();
+            switch (type) {
+                case "1" -> typeOfPersistence = TypeOfPersistence.JDBC;
+                case "2" -> typeOfPersistence = TypeOfPersistence.FILESYSTEM;
+                case "3" -> typeOfPersistence = TypeOfPersistence.MEMORY;
+                default -> Printer.print("Invalid choice, please try again");
             }
-
-
-            AccessUtility.setPersistence(typeOfPersistence);
-
-            Printer.print("Type:\n1 to launch the app with GUI\n2 to launch the app in command line");
-            String choice=bufferedReader.readLine();
-            try {
-                Integer.parseInt(choice);
-            } catch (NumberFormatException e) {
-                //default=GUI
-                launch();
-                break;
-            }
-            int choiceNumber = Integer.parseInt(choice);
-            if(choiceNumber==1) {
-                launch();
-                System.exit(0);
-
-            }
-
-            else if(choiceNumber==2) {
-
-                HomeGraphicControllerCLI homeGraphicControllerCLI = new HomeGraphicControllerCLI();
-                homeGraphicControllerCLI.displayHomePage();
-                System.exit(0);
-            }
-            Printer.print("Sorry, please type 1 or 2");
-            Printer.print("---------------------------------------------------------------------");
         }
 
+        AccessUtility.setPersistence(typeOfPersistence);
+
+        // Scelta interfaccia
+        Printer.print("Type:\n1 to launch the app with GUI\n2 to launch the app in command line");
+        String choice = bufferedReader.readLine();
+        int choiceNumber;
+        try {
+            choiceNumber = Integer.parseInt(choice);
+        } catch (NumberFormatException e) {
+            choiceNumber = 1; // default GUI
+        }
+
+        switch (choiceNumber) {
+            case 1 -> { // GUI
+                launch();
+                System.exit(0);
+            }
+            case 2 -> { // CLI
+                HomeGraphicControllerCLI homeCLI = new HomeGraphicControllerCLI();
+                homeCLI.displayHomePage();
+                System.exit(0);
+            }
+            default -> Printer.print("Sorry, please type 1 or 2");
+        }
+
+        Printer.print("---------------------------------------------------------------------");
     }
+
     public void logout(Stage stage){
 
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);

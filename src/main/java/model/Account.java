@@ -60,7 +60,7 @@ public class Account extends Subject {
             o.update();
         }
     }
-    public void setCredentials(String userName, String userCode, Role role){
+    public void registerAccount(String userName, String userCode, Role role){
 
         this.username =userName;
         this.userCode =userCode;

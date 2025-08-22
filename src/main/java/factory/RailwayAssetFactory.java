@@ -16,7 +16,6 @@ public class RailwayAssetFactory {
             case LEVELCROSSING:
                 return new LevelCrossing(bean.getAssetInfo(), bean.getLocation(), bean.getIssue());
             default:
-
                 throw new ReportTypeException("You can report track and level crossing");
         }
     }

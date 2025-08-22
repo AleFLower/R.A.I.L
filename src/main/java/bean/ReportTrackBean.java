@@ -13,7 +13,6 @@ public class ReportTrackBean {
         this.state = state;
     }
 
-
     public String getTrackNumber() {
         return trackNumber;
     }

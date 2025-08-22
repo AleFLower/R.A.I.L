@@ -3,6 +3,7 @@ package dao;
 
 import exception.ReportAlreadyExistsException;
 
+import factory.AssetType;
 import model.Track;
 import model.RailwayAsset;
 import model.LevelCrossing;
@@ -11,30 +12,26 @@ import java.util.*;
 
 public class ReportRepository {
 
-    private final List<LevelCrossing> reportedLevelCrossing = new ArrayList<>();
-    private final List<Track> reportedTracks = new ArrayList<>();
     private final Map<String, List<RailwayAsset>> reportsForUser = new HashMap<>();
+    private final List<RailwayAsset> reports = new ArrayList<>();
 
-    public void sendLevelCrossingReport(LevelCrossing newLcCode, String userCode) throws ReportAlreadyExistsException {
-        for (LevelCrossing pl : reportedLevelCrossing) {
-            if (pl.getAssetInfo().equals(newLcCode.getAssetInfo())) {
-                throw new ReportAlreadyExistsException("Level Crossing already reported ");
+
+    public void sendReport(RailwayAsset asset,String usercode)throws ReportAlreadyExistsException{
+        for(RailwayAsset reportAsset:reports){
+            if(asset.getAssetType().equals(AssetType.TRACK)){
+                if(reportAsset.getAssetInfo().equals(asset.getAssetInfo()) && reportAsset.getLocation().equals(asset.getLocation())){
+                    throw new ReportAlreadyExistsException("Track with same number and location already reported.");
+                }
+            }
+            if(asset.getAssetType().equals(AssetType.LEVELCROSSING)){
+                if(reportAsset.getAssetInfo().equals(asset.getAssetInfo())){
+                    throw new ReportAlreadyExistsException("Level crossing with same code already reported.");
+                }
             }
         }
-        reportedLevelCrossing.add(newLcCode);
-        registerReport(userCode, newLcCode);
+        registerReport(usercode,asset);
     }
 
-    public void sendTrackReport(Track newTrack, String userCode) throws ReportAlreadyExistsException {
-        for (Track b : reportedTracks) {
-            if (b.getAssetInfo().equals(newTrack.getAssetInfo())
-                    && b.getLocation().equals(newTrack.getLocation())) {
-                throw new ReportAlreadyExistsException("Track with same number and location already reported.");
-            }
-        }
-        reportedTracks.add(newTrack);
-        registerReport(userCode, newTrack);
-    }
 
     private void registerReport(String userCode, RailwayAsset railwayAsset) {
         reportsForUser.computeIfAbsent(userCode, k -> new ArrayList<>()).add(railwayAsset);

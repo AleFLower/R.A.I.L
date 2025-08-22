@@ -31,7 +31,7 @@ public class LoginDaoJDBC implements LoginDao{
         if(resultSet.isBeforeFirst()){
             resultSet.next();
 
-            account.setCredentials(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")), Role.valueOf(resultSet.getString("role")));
+            account.registerAccount(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")), Role.valueOf(resultSet.getString("role")));
             account.goOnline();
 
             AccessUtility.setUsername(resultSet.getString("username"));

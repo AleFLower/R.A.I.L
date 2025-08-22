@@ -21,7 +21,7 @@ public class LoginDaoMemory implements LoginDao {
             Role userRole = userRepository.getUserRole(email);
             String userCode = Integer.toString(email.hashCode());
 
-            account.setCredentials(username, userCode, userRole);
+            account.registerAccount(username, userCode, userRole);
             account.goOnline();
 
             AccessUtility.setUsername(username);

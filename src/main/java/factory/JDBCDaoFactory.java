@@ -11,18 +11,8 @@ public class JDBCDaoFactory extends DaoFactory {
     //è jdbc
     @Override
     public SendReportDao getSendAssetDao(AssetType assetType) throws SQLException, PasswordReadException {
-
-            switch (assetType) {
-                case TRACK:
-                    return new SendTrackReportDaoJDBC();
-                case LEVELCROSSING:
-                    return new SendLevelCrossingReportDaoJDBC();
-                default:
-                    throw new IllegalArgumentException("Asset type not supported: " + assetType);
-            }
+        return new SendReportDaoJDBC();
     }
-
-
 
     @Override
     public LoginDao getLoginDao() throws SQLException, PasswordReadException {

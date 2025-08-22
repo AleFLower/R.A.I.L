@@ -6,6 +6,7 @@ import exception.PasswordReadException;
 import exception.NoLoginPerformedException;
 import exception.ReportAlreadyExistsException;
 import exception.ReportTypeException;
+import model.LevelCrossing;
 import model.RailwayAsset;
 import factory.DaoFactory;
 import factory.RailwayAssetFactory;
@@ -53,7 +54,7 @@ public class ReportController {
 
         NotificationController notificationController = new NotificationController();
         notificationController.addNotification(username + " has reported: " + reportSummary
-                + (railwayAsset.requiresImmediateAttention() ? " [URGENT]" : ""));
+                + (railwayAsset.needsImmediateAction() ? " [URGENT]" : ""));
     }
 
 

@@ -11,7 +11,7 @@ public abstract class RailwayAsset implements Serializable {
     protected final String location;
     protected final String issue;
     protected AssetType assetType;
-    private AssetState state;
+    protected AssetState state;
     private final LocalDateTime reportTime;
 
     // --- COSTRUTTORE ---
@@ -85,7 +85,7 @@ public abstract class RailwayAsset implements Serializable {
         return priority;
     }
 
-    public boolean requiresImmediateAttention() {
+    public boolean needsImmediateAction() {
         return calculatePriority() >= 10;
     }
 

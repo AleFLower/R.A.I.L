@@ -22,15 +22,6 @@ public class FSDaoFactory extends DaoFactory {
 
 
     public SendReportDao getSendAssetDao(AssetType assetType)  {
-
-            switch (assetType) {
-                case TRACK:
-                    return new SendTrackReportDaoFS();
-                case LEVELCROSSING:
-                    return new SendLevelCrossingReportDaoFS();
-                default:
-                    throw new IllegalArgumentException("Asset type not supported: " + assetType);
-            }
-
+           return new SendReportDaoFS();
     }
 }

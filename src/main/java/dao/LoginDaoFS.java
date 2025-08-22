@@ -39,7 +39,7 @@ public class LoginDaoFS implements LoginDao {
                 Role userRole = Role.valueOf(role.toUpperCase());
 
                 if (emailFile.equals(email) && passwordFile.equals(password)) {
-                    account.setCredentials(username, userCode, userRole);
+                    account.registerAccount(username, userCode, userRole);
                     account.goOnline();
                     AccessUtility.setUsername(username);
                     AccessUtility.setUserCode(userCode);

@@ -9,14 +9,7 @@ public class MemoryDaoFactory extends DaoFactory {
 
     @Override
     public SendReportDao getSendAssetDao(AssetType assetType) {
-            switch (assetType) {
-                case TRACK:
-                    return new SendTrackReportDaoMemory(reportRepository);
-                case LEVELCROSSING:
-                    return new SendLevelCrossingReportDaoMemory(reportRepository);
-                default:
-                    throw new IllegalArgumentException("Asset type not supported: " + assetType);
-            }
+            return new SendReportDaoMemory(reportRepository);
     }
 
 
