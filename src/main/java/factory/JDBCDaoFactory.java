@@ -35,8 +35,8 @@ public class JDBCDaoFactory extends DaoFactory {
     }
 
     @Override
-    public ActiveResolvedReportsDao getActiveResolvedDao() throws SQLException, PasswordReadException {
-        return new ActiveResolvedReportsDaoJDBC();
+    public ActivefixedReportsDao getActivefixedDao() throws SQLException, PasswordReadException {
+        return new ActivefixedReportsDaoJDBC();
     }
 
 }

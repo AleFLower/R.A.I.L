@@ -38,7 +38,7 @@ public class HomeGraphicControllerCLI {
                 case 3 -> homePage.showFunctionNotAvailable("feature suggestion");
                 case 4 -> handleAccess();
                 case 5 -> displayActiveReports();
-                case 6 -> displayResolvedReports();
+                case 6 -> displayfixedReports();
                 case 7 -> exit();
                 default -> homePage.showInputError();
             }
@@ -84,15 +84,15 @@ public class HomeGraphicControllerCLI {
         }
     }
 
-    private void displayResolvedReports(){
+    private void displayfixedReports(){
         try {
 
             if (beanObserver.getActualState().equals(STATE)) {
-                Printer.error("You must log in to view resolved reports.");
+                Printer.error("You must log in to view fixed reports.");
                 return;
             }
 
-            ReportListBean bean = new ReportListBean(ReportType.RESOLVED);
+            ReportListBean bean = new ReportListBean(ReportType.FIXED);
 
             new ReportTypeController(bean, AccessUtility.getPersistence());
 
@@ -100,9 +100,9 @@ public class HomeGraphicControllerCLI {
             view.displayActiveReports(bean);
 
         } catch (NoReportsFoundException e) {
-            Printer.error("No resolved reports found");
+            Printer.error("No fixed reports found");
         } catch (SQLException | IOException | PasswordReadException e) {
-            Printer.error("Failed to retrieve resolved reports: " + e.getMessage());
+            Printer.error("Failed to retrieve fixed reports: " + e.getMessage());
         }
     }
 

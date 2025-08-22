@@ -21,7 +21,7 @@ import java.util.List;
 public class ReportTypeController {
     private int userCode;
     private ReportType reportType;
-    private ActiveResolvedReportsDao activeResolvedReportsDao;
+    private ActivefixedReportsDao activefixedReportsDao;
 
 
     public ReportTypeController(ReportListBean bean, TypeOfPersistence persistence) throws NoReportsFoundException, SQLException, PasswordReadException, IOException {
@@ -34,18 +34,18 @@ public class ReportTypeController {
             throws SQLException, NoReportsFoundException, PasswordReadException, IOException {
 
         DaoFactory dao = DaoFactory.getFactory(persistence);
-        activeResolvedReportsDao = dao.getActiveResolvedDao();
+        activefixedReportsDao = dao.getActivefixedDao();
 
-       List<RailwayAsset> reports = dao.getActiveResolvedDao().getReports(reportType);
+       List<RailwayAsset> reports = dao.getActivefixedDao().getReports(reportType);
 
         if(reports.isEmpty()) throw new NoReportsFoundException("You have not filed any reports");
 
 
         for(RailwayAsset asset: reports){
             if(asset.getAssetType().equals(AssetType.LEVELCROSSING)){
-                bean.addLevelCrossingReports(new ReportLevelCrossingBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState()));
+                bean.addLevelCrossingReports(new ReportLevelCrossingBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState().toString()));
             }
-            else bean.addTrackReports(new ReportTrackBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState()));
+            else bean.addTrackReports(new ReportTrackBean(asset.getAssetInfo(), asset.getLocation(), asset.getIssue(), asset.getState().toString()));
         }
     }
 }

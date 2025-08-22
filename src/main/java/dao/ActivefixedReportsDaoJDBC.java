@@ -2,6 +2,7 @@ package dao;
 
 import com.example.progettoispw.graphiccontroller.ReportType;
 import exception.PasswordReadException;
+import model.AssetState;
 import model.LevelCrossing;
 import model.RailwayAsset;
 import model.Track;
@@ -16,10 +17,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
+public class ActivefixedReportsDaoJDBC implements ActivefixedReportsDao {
     private Connection connection;
 
-    public ActiveResolvedReportsDaoJDBC() throws SQLException, PasswordReadException {
+    public ActivefixedReportsDaoJDBC() throws SQLException, PasswordReadException {
         connection = DbConnection.getInstance();
     }
 
@@ -59,7 +60,9 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
                             rs.getString("localizzazione"),
                             rs.getString("problematica")
                     );
-                    lc.setState(rs.getString("stato"));
+                    String state = rs.getString("stato");
+                    lc.setState(AssetState.fromValue(state));
+
                     list.add(lc);
                 }
             }
@@ -84,7 +87,8 @@ public class ActiveResolvedReportsDaoJDBC implements ActiveResolvedReportsDao {
                             rs.getString("localizzazione"),
                             rs.getString("problematica")
                     );
-                    track.setState(rs.getString("stato"));
+                    String state = rs.getString("stato");
+                    track.setState(AssetState.fromValue(state));
                     list.add(track);
                 }
             }

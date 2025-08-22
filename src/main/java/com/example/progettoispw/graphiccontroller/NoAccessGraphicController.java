@@ -43,6 +43,7 @@ public class NoAccessGraphicController implements Initializable {
     /* This class is used to implement the logic of the buttons common to all screens.
      * In particular, it acts as the graphic controller for HomeView.fxml,
      * which is the first screen displayed when the application starts. */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -83,7 +84,7 @@ public class NoAccessGraphicController implements Initializable {
             fixedReportsBtn.setOnMouseClicked(event -> {
 
                 if(beanObserver.getActualState()== STATE) {
-                    sceneController.displayScene("/com/example/progettoispw/viewsfxml/ResolvedReportsView.fxml");
+                    sceneController.displayScene("/com/example/progettoispw/viewsfxml/FixedReportsView.fxml");
                 }else {
                     sceneController.displayScene("/com/example/progettoispw/viewsfxml/RegistrationWarning.fxml");
                 }

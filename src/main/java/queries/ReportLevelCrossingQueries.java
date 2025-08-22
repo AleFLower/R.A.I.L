@@ -15,10 +15,10 @@ public class ReportLevelCrossingQueries {
     static final String QUERY_GET_ALL_LEVELCROSSING = "SELECT * FROM LEVELCROSSING";
     static final String QUERY_CHANGE_LEVELCROSSING_STATUS = "UPDATE LEVELCROSSING SET stato = ? WHERE (codicePL=? AND localizzazione=?);";
     static final String QUERY_SEARCH_LEVELCROSSING = "SELECT * FROM LEVELCROSSING WHERE (codicePL=?);";
-    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'segnalato');";
+    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'reported');";
     static final String QUERY_SHOW_ALL_LEVELCROSSING_REPORTS = "SELECT * FROM LEVELCROSSING;";
 
-    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'risolto');";
+    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'fixed');";
 
     private ReportLevelCrossingQueries() {}
 

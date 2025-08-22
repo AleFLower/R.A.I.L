@@ -13,8 +13,8 @@ public class ReportTrackQueries {
     static final String QUERY_REMOVE_TRACK = "DELETE FROM BINARIO where (localizzazione=? AND codice_utente=?);";
     static final String QUERY_CHANGE_TRACK_STATUS = "UPDATE BINARIO SET stato = ? WHERE (codiceUtente = ? AND localizzazione=?);";
 
-    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT localizzazione,stato,problematica,numeroBINARIO FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'segnalato');";
-    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT numeroBINARIO,localizzazione,problematica,stato FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'risolto');";
+    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT localizzazione,stato,problematica,numeroBINARIO FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'reported');";
+    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT numeroBINARIO,localizzazione,problematica,stato FROM BINARIO,account WHERE (BINARIO.codiceUtente=? AND stato = 'fixed');";
     static final String QUERY_SHOW_ALL_TRACK_REPORTS = "SELECT * FROM BINARIO;";
 
     static final String QUERY_CHECK_IF_TRACK_AT_LOCATION_REPORTED = "SELECT DISTINCT numeroBINARIO,localizzazione FROM BINARIO WHERE (BINARIO.numeroBINARIO = ? AND BINARIO.localizzazione=?);";

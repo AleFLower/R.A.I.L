@@ -31,7 +31,7 @@ public class MemoryDaoFactory extends DaoFactory {
     }
 
     @Override
-    public ActiveResolvedReportsDao getActiveResolvedDao() {
-        return new ActiveResolvedReportsDaoMemory(reportRepository);
+    public ActivefixedReportsDao getActivefixedDao() {
+        return new ActivefixedReportsDaoMemory(reportRepository);
     }
 }

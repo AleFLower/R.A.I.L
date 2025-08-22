@@ -16,8 +16,8 @@ public class FSDaoFactory extends DaoFactory {
     }
 
     @Override
-    public ActiveResolvedReportsDao getActiveResolvedDao() {
-        return new ActiveResolvedReportsDaoFS();
+    public ActivefixedReportsDao getActivefixedDao() {
+        return new ActivefixedReportsDaoFS();
     }
 
 

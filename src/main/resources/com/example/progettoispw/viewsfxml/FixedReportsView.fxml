@@ -11,14 +11,14 @@
 <AnchorPane prefHeight="400.0" prefWidth="696.0"
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.progettoispw.graphiccontroller.ResolvedReportsGraphicController">
+            fx:controller="com.example.progettoispw.graphiccontroller.FixedReportsGraphicController">
 
     <children>
 
         <!-- ScrollPane contenente la ListView -->
         <ScrollPane layoutY="42.0" prefHeight="358.0" prefWidth="700.0">
             <content>
-                <ListView fx:id="resolvedReportsList" prefHeight="354.0" prefWidth="691.0" />
+                <ListView fx:id="fixedReportsList" prefHeight="354.0" prefWidth="691.0" />
             </content>
         </ScrollPane>
 
@@ -31,7 +31,7 @@
         <!-- Label centrato per messaggi di errore -->
         <StackPane layoutX="0" layoutY="42.0" prefHeight="358.0" prefWidth="700.0">
             <Label fx:id="errorLabel"
-                   text="No resolved report found"
+                   text="No fixed report found"
                    visible="false" opacity="0.85"
                    style="-fx-background-color: rgba(255,255,255,0.95);
                           -fx-text-fill: #d32f2f;

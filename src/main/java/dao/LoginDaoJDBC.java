@@ -31,13 +31,13 @@ public class LoginDaoJDBC implements LoginDao{
         if(resultSet.isBeforeFirst()){
             resultSet.next();
 
-            account.setCredentials(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")), Role.valueOf(resultSet.getString("Ruolo")));
+            account.setCredentials(resultSet.getString("username"),Integer.toString(resultSet.getInt("codiceUtente")), Role.valueOf(resultSet.getString("role")));
             account.goOnline();
 
             AccessUtility.setUsername(resultSet.getString("username"));
 
             AccessUtility.setUserCode(Integer.toString(resultSet.getInt("codiceUtente")));
-            AccessUtility.setRole(Role.valueOf(resultSet.getString("Ruolo")));  //prendo il ruolo dal db
+            AccessUtility.setRole(Role.valueOf(resultSet.getString("role")));  //prendo il role dal db
 
             return true;
         }

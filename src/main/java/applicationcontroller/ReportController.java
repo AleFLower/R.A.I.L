@@ -35,6 +35,7 @@ public class ReportController {
         sendReport(railwayAsset, reportBean.getTypeOfPersistence());
 
         notifyAdmin();
+
     }
 
     private void verifyAccountState() throws NoLoginPerformedException {
@@ -47,9 +48,14 @@ public class ReportController {
     private void notifyAdmin() {
         String username = AccessUtility.getUsername();
         username = (username != null) ? username : "Unknown user";
+
+        String reportSummary = railwayAsset.generateReportSummary();
+
         NotificationController notificationController = new NotificationController();
-        notificationController.addNotification(username + " has reported a " + assetType);
+        notificationController.addNotification(username + " has reported: " + reportSummary
+                + (railwayAsset.requiresImmediateAttention() ? " [URGENT]" : ""));
     }
+
 
     private void sendReport(RailwayAsset railwayAsset, TypeOfPersistence typeOfPersistence) throws SQLException, PasswordReadException, ReportAlreadyExistsException, IOException {
 

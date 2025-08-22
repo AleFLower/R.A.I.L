@@ -9,11 +9,11 @@ import utility.AccessUtility;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveResolvedReportsDaoMemory implements ActiveResolvedReportsDao {
+public class ActivefixedReportsDaoMemory implements ActivefixedReportsDao {
 
     private final ReportRepository reportRepository;
 
-    public ActiveResolvedReportsDaoMemory(ReportRepository reportRepository) {
+    public ActivefixedReportsDaoMemory(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
 
@@ -24,10 +24,10 @@ public class ActiveResolvedReportsDaoMemory implements ActiveResolvedReportsDao 
         List<RailwayAsset> userReports = reportRepository.getReportsForUser(userCode);
 
         for (RailwayAsset asset : userReports) {
-            String state = asset.getState().toLowerCase();
-            boolean isResolved = state.equals("resolved");
+            String state = asset.getState().toString().toLowerCase();
+            boolean isfixed = state.equals("fixed");
 
-            if ((type == ReportType.RESOLVED && isResolved) || (type == ReportType.ACTIVE && !isResolved)) {
+            if ((type == ReportType.FIXED && isfixed) || (type == ReportType.ACTIVE && !isfixed)) {
                 list.add(asset);
             }
         }

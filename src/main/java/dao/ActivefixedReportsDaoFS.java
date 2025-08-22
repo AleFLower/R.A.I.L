@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
+public class ActivefixedReportsDaoFS implements ActivefixedReportsDao {
 
     private static final String TRACK_FILE = "ReportedTracks.ser";
     private static final String LC_FILE = "ReportedLevelCrossing.ser";
@@ -41,7 +41,7 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
             List<RailwayAsset> filtered = new ArrayList<>();
 
             for (RailwayAsset asset : userReports) {
-                if (typeMatch(type, asset.getState())) {
+                if (typeMatch(type, asset.getState().toString())) {
                     filtered.add(asset);
                 }
             }
@@ -55,8 +55,8 @@ public class ActiveResolvedReportsDaoFS implements ActiveResolvedReportsDao {
     }
 
     private boolean typeMatch(ReportType type, String readState) {
-        if (type == ReportType.RESOLVED)
-            return "resolved".equalsIgnoreCase(readState);
+        if (type == ReportType.FIXED)
+            return "fixed".equalsIgnoreCase(readState);
         else
             return "reported".equalsIgnoreCase(readState) || readState.toLowerCase().contains("yet");
     }

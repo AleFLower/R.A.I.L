@@ -7,7 +7,7 @@ public class AccountBeanObserver implements Observer {
 
     private String username;
     private String actualState;
-    private Account subject;  //riferimento al concreteSubject
+    private Account subject;
     private static AccountBeanObserver beanObserver;
 
     public static AccountBeanObserver getObserver(){

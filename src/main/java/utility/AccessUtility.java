@@ -23,8 +23,7 @@ public class AccessUtility {
 
 
     public static Role getRole(){return role;}
-    public static void setRole(Role ruolo){
-        role = ruolo;
+    public static void setRole(Role userRole){role = userRole;
     }
 
     public static String getUserCode() {

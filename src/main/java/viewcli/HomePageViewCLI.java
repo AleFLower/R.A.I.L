@@ -21,7 +21,7 @@ public class HomePageViewCLI {
                 3 to suggest new features
                 4 to %s
                 5 to view active reports
-                6 to view resolved reports
+                6 to view fixed reports
                 7 to exit the application
                 """.formatted(accessState));
 
