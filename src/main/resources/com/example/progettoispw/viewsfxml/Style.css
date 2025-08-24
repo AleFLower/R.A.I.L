@@ -13,7 +13,7 @@
     -fx-background-color: #2E2E2E;
 }
 
-.list-cell:selected {
+.list-cell:selected {/* NOSONAR */
     -fx-background-color: #2E2E2E;
 }
 
@@ -30,6 +30,6 @@
     -fx-background-color: #3A3A3A;   /* leggermente più chiaro quando passaggio mouse */
 }
 
-.buttonItem:armed {
+.buttonItem:selected { /* NOSONAR */
     -fx-background-color: #D35400;   /* arancione scuro quando cliccato */
 }
