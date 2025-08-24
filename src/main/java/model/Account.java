@@ -61,7 +61,6 @@ public class Account extends Subject {
         }
     }
     public void registerAccount(String userName, String userCode, Role role){
-
         this.username =userName;
         this.userCode =userCode;
         this.role = role;

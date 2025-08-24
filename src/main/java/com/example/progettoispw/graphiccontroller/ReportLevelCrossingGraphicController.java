@@ -85,8 +85,8 @@ public class ReportLevelCrossingGraphicController extends GeneralGraphicControll
     }
 
     public boolean checkInput() {
-        if (locationTextfield.getText().equals("") || lcCodeTextfield.getText().equals("")) {
-            errorLabel.setText("Please enter all required fields");
+        if (locationTextfield.getText().isEmpty() || lcCodeTextfield.getText().isEmpty() || issueTextfield.getText().isEmpty()) {
+            showErrorAlert("Please enter all required fields");
             return false;
         }
         return true;

@@ -29,7 +29,6 @@ public class SendReportDaoFS implements SendReportDao {
         }
     }
 
-    // --- gestione Track ---
     private void handleTrack(RailwayAsset track) throws IOException, ReportAlreadyExistsException {
         Map<String, List<RailwayAsset>> allReports = readReports(TRACK_FILE);
         String userCode = AccessUtility.getUserCode();
@@ -49,7 +48,6 @@ public class SendReportDaoFS implements SendReportDao {
         outcome = 0;
     }
 
-    // --- gestione Level Crossing ---
     private void handleLevelCrossing(RailwayAsset lc) throws IOException, ReportAlreadyExistsException {
         Map<String, List<RailwayAsset>> allReports = readReports(LEVELCROSSING_FILE);
         String userCode = AccessUtility.getUserCode();
@@ -68,7 +66,6 @@ public class SendReportDaoFS implements SendReportDao {
         outcome = 0;
     }
 
-    // --- utils ---
     @SuppressWarnings("unchecked")
     private Map<String, List<RailwayAsset>> readReports(String fileName) throws IOException {
         File file = new File(fileName);

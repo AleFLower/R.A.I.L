@@ -7,8 +7,7 @@ import java.sql.SQLException;
 
 public class JDBCDaoFactory extends DaoFactory {
 
-    //forse un po ridondante? Mi devo fermare prima a controllare typeOfPersistence? Qui è ovvio che livello di persistenza
-    //è jdbc
+
     @Override
     public SendReportDao getSendAssetDao(AssetType assetType) throws SQLException, PasswordReadException {
         return new SendReportDaoJDBC();

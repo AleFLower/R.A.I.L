@@ -56,11 +56,11 @@ public class ActivefixedReportsDaoJDBC implements ActivefixedReportsDao {
 
                 while (rs.next()) {
                     RailwayAsset lc = new LevelCrossing(
-                            rs.getString("codicePL"),
-                            rs.getString("localizzazione"),
-                            rs.getString("problematica")
+                            rs.getString("lc_code"),
+                            rs.getString("location"),
+                            rs.getString("issue")
                     );
-                    String state = rs.getString("stato");
+                    String state = rs.getString("status");
                     lc.setState(AssetState.fromValue(state));
 
                     list.add(lc);
@@ -83,11 +83,11 @@ public class ActivefixedReportsDaoJDBC implements ActivefixedReportsDao {
 
                 while (rs.next()) {
                     RailwayAsset track = new Track(
-                            rs.getString("numeroBinario"),
-                            rs.getString("localizzazione"),
-                            rs.getString("problematica")
+                            rs.getString("track_number"),
+                            rs.getString("location"),
+                            rs.getString("issue")
                     );
-                    String state = rs.getString("stato");
+                    String state = rs.getString("status");
                     track.setState(AssetState.fromValue(state));
                     list.add(track);
                 }

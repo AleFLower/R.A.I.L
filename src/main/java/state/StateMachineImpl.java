@@ -4,7 +4,6 @@ public class StateMachineImpl implements StateMachine{
 
     private AbstractState currentState;
     public StateMachineImpl(){
-
         this.currentState=AbstractState.getInitialState();
     }
     @Override
@@ -21,8 +20,10 @@ public class StateMachineImpl implements StateMachine{
                 break;
         }
     }
-    public void changeToState(AbstractState s){
-        this.currentState=s;
+    public void changeToState(AbstractState state){
+        this.currentState.exit();
+        this.currentState=state;
+        this.currentState.entry();
     }
     public AbstractState getState(){
         return this.currentState;

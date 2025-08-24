@@ -4,7 +4,6 @@ public enum AssetState {
     REPORTED,
     FIXED;
 
-    // mapping sicuro da stringa
     public static AssetState fromValue(String value) {
         if (value == null) return REPORTED; // default
         switch (value.trim().toLowerCase()) {

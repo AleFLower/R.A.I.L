@@ -125,8 +125,8 @@ public class ReportTrackGraphicController extends GeneralGraphicController {
     }
 
     public boolean checkInput() {
-        if (locationTextfield.getText().isEmpty() || trackNumberComboBox.getValue() == null) {
-            errorLabel.setText("Please enter location and truck number");
+        if (locationTextfield.getText().isEmpty() || trackNumberComboBox.getValue() == null || issueTextfield.getText().isEmpty()) {
+            showErrorAlert("Please enter all required fields");
             return false;
         }
         return true;

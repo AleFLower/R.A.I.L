@@ -7,14 +7,12 @@ import java.time.LocalDateTime;
 
 public abstract class RailwayAsset implements Serializable {
 
-    // --- ATTRIBUTI ---
     protected final String location;
     protected final String issue;
     protected AssetType assetType;
     protected AssetState state;
     private final LocalDateTime reportTime;
 
-    // --- COSTRUTTORE ---
     protected RailwayAsset(String location, String issue) {
         this.location = location;
         this.issue = issue;
@@ -22,7 +20,6 @@ public abstract class RailwayAsset implements Serializable {
         this.reportTime = LocalDateTime.now();
     }
 
-    // --- GETTER / SETTER CLASSICI ---
     public String getLocation() {
         return location;
     }
@@ -43,12 +40,11 @@ public abstract class RailwayAsset implements Serializable {
         this.state = state;
     }
 
-
-    // --- OPERAZIONI DI STATO ---
     public void markAsReported() {
         this.state = AssetState.REPORTED;
     }
 
+    public abstract String getAssetInfo();
 
     //called by admin, not implemented
     public void markAsFixed() {
@@ -66,11 +62,6 @@ public abstract class RailwayAsset implements Serializable {
         return state == AssetState.FIXED;
     }
 
-    // --- PRIORITÀ DI INTERVENTO ---
-    /**
-     * Calcola la priorità del guasto in base all'issue e al tempo trascorso
-     * Valori più alti indicano maggiore urgenza.
-     */
     public int calculatePriority() {
         int priority = 5; // base
         if (issue != null) {
@@ -93,12 +84,10 @@ public abstract class RailwayAsset implements Serializable {
         return java.time.Duration.between(reportTime, LocalDateTime.now()).toHours();
     }
 
-    // --- RIASSUNTO PER REPORT ---
     public String generateReportSummary() {
         return String.format("[%s] Asset at %s | State: %s | Issue: %s | Priority: %d",
                 assetType, location, state, issue, calculatePriority());
     }
 
-    // --- INFO SPECIFICHE DELLA SOTTOCLASSE ---
-    public abstract String getAssetInfo();
+
 }

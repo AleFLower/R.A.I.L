@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.StackPane?>
-<AnchorPane prefHeight="400.0" prefWidth="696.0"
+<AnchorPane stylesheets="@Style.css" prefHeight="400.0" prefWidth="696.0"
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.progettoispw.graphiccontroller.ActiveReportsGraphicController">
@@ -20,7 +20,7 @@
          </content>
       </ScrollPane>
 
-      <JFXButton fx:id="backhomeBtn" layoutX="28.0" layoutY="14.0" prefHeight="26.0" prefWidth="52.0" text="home" />
+      <JFXButton fx:id="backhomeBtn" layoutX="28.0" layoutY="14.0" prefHeight="26.0" prefWidth="52.0" text="Home" styleClass="buttonItem"/>
 
       <!-- Messaggio di errore al centro -->
       <StackPane layoutX="0" layoutY="42.0" prefHeight="358.0" prefWidth="700.0">

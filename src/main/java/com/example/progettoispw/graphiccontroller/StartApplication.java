@@ -30,7 +30,6 @@ public class StartApplication extends Application {
 
         TypeOfPersistence typeOfPersistence = null;
 
-        // Scelta persistenza
         while (typeOfPersistence == null) {
             Printer.print("Choose app start mode: \n1 -> Full version DBMS\n2 -> Full version file system\n3 -> Demo version");
             String type = bufferedReader.readLine();
@@ -44,7 +43,6 @@ public class StartApplication extends Application {
 
         AccessUtility.setPersistence(typeOfPersistence);
 
-        // Scelta interfaccia
         Printer.print("Type:\n1 to launch the app with GUI\n2 to launch the app in command line");
         String choice = bufferedReader.readLine();
         int choiceNumber;

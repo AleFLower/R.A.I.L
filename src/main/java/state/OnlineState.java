@@ -2,21 +2,40 @@ package state;
 
 public class OnlineState extends AbstractState{
 
-    @Override
-    public void login(StateMachineImpl s) {
-        // This method does nothing, only required by the parent contract.
-        // It ignores the state change: e.g., on a login event, the state machine stays in the same state.
+    private long entryTime;
+    private long totalOnlineTime = 0;
 
+    @Override
+    public void login(StateMachineImpl contextSM) {
+        // This method does nothing, only required by the parent contract.
     }
     @Override
-    public void logout(StateMachineImpl s) {
+    public void logout(StateMachineImpl contextSM) {
         AbstractState newState= new OfflineState();
-        s.changeToState(newState);
+        contextSM.changeToState(newState);
+    }
 
+    @Override
+    public void entry() {
+        entryTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void exit() {
+        long durationMs = System.currentTimeMillis() - entryTime;
+        long durationSec = durationMs / 1000;
+        totalOnlineTime += durationSec;
     }
 
     @Override
     public String toString(){
         return "ONLINE";
     }
+
+
+    // Tracks the total time the user spends online, useful for future internal metrics, analytics, or session-related logic
+    public long getTotalOnlineTime() {
+        return totalOnlineTime;
+    }
+
 }

@@ -20,7 +20,7 @@ public class LogoutGraphicController extends GeneralGraphicController {
     private final SceneNavigatorGraphicController sceneController = SceneNavigatorGraphicController.getInstance(null);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    userLabel.setText("THANK YOU FOR BEING OUR USER : " + AccessUtility.getUsername());
+    userLabel.setText("THANK YOU FOR BEING OUR USER : " + AccessUtility.getUsername().toUpperCase());
     logoutButton.setOnMouseClicked(event->{
 
         AccessUtility.setUserCode(null);

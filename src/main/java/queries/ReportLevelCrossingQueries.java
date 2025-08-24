@@ -6,19 +6,17 @@ public class ReportLevelCrossingQueries {
 
     // this class will act as a utility class, it will have only static methods that return strings
     // which are nothing more than the queries I can execute on my LEVELCROSSING object
-    // note: in the queries, the term 'LEVELCROSSING' is the name of the relation present in the database "database-app-ispw"
-    // these are prepared statements, the values in the ? will be set in the class that wants to execute the query
-    static final String QUERY_GET_LEVELCROSSING = "SELECT * FROM LEVELCROSSING where codicePL=?";
-    static final String QUERY_SAVE_LEVELCROSSING = "INSERT INTO LEVELCROSSING(codicePL,localizzazione,problematica) VALUES(?,?,?);";
-    static final String QUERY_SAVE_LEVELCROSSING_FOR_USER = "INSERT INTO LEVELCROSSING(codicePL,localizzazione,problematica,codiceUtente) VALUES(?,?,?,?);";
-    static final String QUERY_REMOVE_LEVELCROSSING = "DELETE FROM LEVELCROSSING where (codicePL=? AND localizzazione=?);";
-    static final String QUERY_GET_ALL_LEVELCROSSING = "SELECT * FROM LEVELCROSSING";
-    static final String QUERY_CHANGE_LEVELCROSSING_STATUS = "UPDATE LEVELCROSSING SET stato = ? WHERE (codicePL=? AND localizzazione=?);";
-    static final String QUERY_SEARCH_LEVELCROSSING = "SELECT * FROM LEVELCROSSING WHERE (codicePL=?);";
-    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT codicePL,localizzazione,problematica, stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'reported');";
-    static final String QUERY_SHOW_ALL_LEVELCROSSING_REPORTS = "SELECT * FROM LEVELCROSSING;";
+    static final String QUERY_GET_LEVELCROSSING = "SELECT * FROM levelcrossing WHERE lc_code=?";
+    static final String QUERY_SAVE_LEVELCROSSING = "INSERT INTO levelcrossing(lc_code, location, issue) VALUES(?,?,?);";
+    static final String QUERY_SAVE_LEVELCROSSING_FOR_USER = "INSERT INTO levelcrossing(lc_code, location, issue, user_id) VALUES(?,?,?,?);";
+    static final String QUERY_REMOVE_LEVELCROSSING = "DELETE FROM levelcrossing WHERE lc_code=?;";
+    static final String QUERY_GET_ALL_LEVELCROSSING = "SELECT * FROM levelcrossing";
+    static final String QUERY_CHANGE_LEVELCROSSING_STATUS = "UPDATE levelcrossing SET status = ? WHERE lc_code=?;";
+    static final String QUERY_SEARCH_LEVELCROSSING = "SELECT * FROM levelcrossing WHERE lc_code=?;";
+    static final String QUERY_SHOW_REPORTED_SIGNALS = "SELECT DISTINCT lc_code, location, issue, status FROM levelcrossing, account WHERE (levelcrossing.user_id=? AND status = 'REPORTED');";
+    static final String QUERY_SHOW_ALL_LEVELCROSSING_REPORTS = "SELECT * FROM levelcrossing;";
 
-    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT codicePL,localizzazione,problematica,stato FROM LEVELCROSSING,account WHERE (LEVELCROSSING.codiceUtente=? AND stato = 'fixed');";
+    static final String QUERY_SHOW_COMPLETED_REPORTS = "SELECT DISTINCT lc_code, location, issue, status FROM levelcrossing, account WHERE (levelcrossing.user_id=? AND status = 'FIXED');";
 
     private ReportLevelCrossingQueries() {}
 

@@ -48,7 +48,7 @@ public class RegistrationDaoFS implements RegistrationDao {
         File file = new File(PATH_FILE_UTENTI);
 
         if (!file.exists() || file.length() == 0) {
-            return true; // se il file non esiste o è vuoto, nessun utente
+            return true;
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {

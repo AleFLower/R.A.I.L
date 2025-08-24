@@ -30,11 +30,11 @@ public class ActivefixedReportsDaoFS implements ActivefixedReportsDao {
     private List<RailwayAsset> readReportsFromFile(String fileName, ReportType type, String userCode) throws IOException {
         File file = new File(fileName);
         if (!file.exists() || file.length() == 0) {
-            return new ArrayList<>(); // file inesistente o vuoto
+            return new ArrayList<>();
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            // Legge la mappa <userCode, List<RailwayAsset>>
+
             Map<String, List<RailwayAsset>> allReports = (Map<String, List<RailwayAsset>>) ois.readObject();
 
             List<RailwayAsset> userReports = allReports.getOrDefault(userCode, new ArrayList<>());

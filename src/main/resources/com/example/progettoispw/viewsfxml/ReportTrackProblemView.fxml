@@ -173,6 +173,7 @@
                                   layoutY="220.0"
                                   prefHeight="43.0"
                                   prefWidth="363.0"
+                                  styleClass="combo-box"
                                   promptText="Select track number" />
 
                         <!-- BOTTONI -->

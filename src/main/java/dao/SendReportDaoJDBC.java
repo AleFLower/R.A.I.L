@@ -38,7 +38,7 @@ public class SendReportDaoJDBC implements SendReportDao {
         }
     }
 
-    // --- gestione Track ---
+
     private void handleTrack(RailwayAsset track) throws SQLException, ReportAlreadyExistsException {
         if (!searchTrack(track)) {
             preparedStatement = connection.prepareStatement(ReportTrackQueries.querySaveTrack());
@@ -62,7 +62,7 @@ public class SendReportDaoJDBC implements SendReportDao {
         return resultSet.isBeforeFirst();
     }
 
-    // --- gestione Level Crossing ---
+
     private void handleLevelCrossing(RailwayAsset lc) throws SQLException, ReportAlreadyExistsException {
         if (!searchLevelCrossing(lc)) {
             if (AccessUtility.getUserCode() != null) {
@@ -93,7 +93,7 @@ public class SendReportDaoJDBC implements SendReportDao {
         return resultSet.isBeforeFirst();
     }
 
-    // --- utils ---
+
     private void verifyConnection() throws SQLException, PasswordReadException {
         if (connection == null) {
             connection = DbConnection.getInstance();

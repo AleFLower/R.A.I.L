@@ -3,15 +3,14 @@ package state;
 public class OfflineState extends AbstractState{
 
     @Override
-    public void login(StateMachineImpl s) {
+    public void login(StateMachineImpl contextSM) {
         AbstractState newState= new OnlineState();
-        s.changeToState(newState);
+        contextSM.changeToState(newState);
 
     }
     @Override
-    public void logout(StateMachineImpl s){
+    public void logout(StateMachineImpl contextSM){
         // This method does nothing, it's only implemented due to the parent contract.
-        // It simply ignores the state change (e.g., on login event, the state machine remains unchanged).
     }
 
     @Override

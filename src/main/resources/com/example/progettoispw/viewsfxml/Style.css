@@ -5,7 +5,7 @@
 }
 
 .sidebarItem:hover {
-    -fx-background-color: #34495E;
+    -fx-background-color: #D35400;
     -fx-border-color: #00ADB5;
     -fx-border-width: 0 0 0 4px;
 }
@@ -18,8 +18,58 @@
     -fx-background-radius: 5;
 }
 
-.buttonItem:hover {
-    -fx-background-color: #6C5CE7;
-    -fx-border-color: #00ADB5;
-    -fx-border-width: 0 0 4px 0;
+.buttonItem:pressed {
+    -fx-background-color: #D35400;
 }
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-control-inner-background: white;
+    -fx-text-fill: black;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: white;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+
+.list-cell {
+    -fx-padding: 8px;
+}
+
+.list-cell:selected {
+    -fx-background-color: #2E2E2E;
+}
+
+.report-card {
+    -fx-background-color: transparent;
+    -fx-padding: 12px;
+    -fx-background-radius: 8;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 8;
+}
+
+.report-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 0 0 8 0;
+}
+
+.report-item {
+        -fx-font-size: 14px;
+}
+
+.list-cell:selected .report-title {
+    -fx-fill: white;
+}
+
+.list-cell:selected .report-item {
+    -fx-fill: white;
+}
+
