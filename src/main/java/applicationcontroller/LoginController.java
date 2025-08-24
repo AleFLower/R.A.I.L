@@ -27,7 +27,7 @@ public class LoginController {
             return;
         }
 
-        throw new UserNotFoundException("No user found with these credentials");
+        throw new UserNotFoundException("No user found with these credential");
 
     }
 
