@@ -9,27 +9,28 @@
     -fx-border-color:#F39C12 ;
     -fx-border-width: 0 0 0 4px;
 }
-.list-cell:hover {
-    -fx-background-color: #2E2E2E;
+.list-cell {
+    -fx-background-color: #2E2E2E; /* sfondo di base */
+    -fx-text-fill: white;            /* testo bianco */
+    -fx-padding: 12px;
+}
+.report-item {
+    -fx-text-fill: white;
 }
 
-.list-cell:selected {/* NOSONAR */
-    -fx-background-color: #2E2E2E;
+.list-cell:focused {
+    -fx-background-color: #D35400; /* arancione scuro */
+    -fx-text-fill: white;          /* testo bianco */
 }
-
-
 .buttonItem {
-    -fx-background-color: #2E2E2E;  /* sfondo grigio scuro */
-    -fx-text-fill: #ECF0F1;          /* testo chiaro */
+    -fx-background-color: #2E2E2E;
+    -fx-text-fill: #ECF0F1;
     -fx-font-weight: bold;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
 
 .buttonItem:hover {
-    -fx-background-color: #3A3A3A;   /* leggermente più chiaro quando passaggio mouse */
+    -fx-background-color: #3A3A3A;
 }
 
-.buttonItem:selected { /* NOSONAR */
-    -fx-background-color: #D35400;   /* arancione scuro quando cliccato */
-}
