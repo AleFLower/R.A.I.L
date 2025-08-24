@@ -43,13 +43,11 @@ public class FixedReportsGraphicController implements Initializable{
 
             if(lcCounter!=0) {
                 Label label1 = new Label();
-                label1.getStyleClass().add("report-item");
                 label1.setText("REPORTED LEVEL CROSSINGS\n");
                 fixedReportsList.getItems().add(label1);
                 for (int i = 0; i < lcCounter; i++) {
                     ReportLevelCrossingBean levelCrossing = reportListBean.getLevelCrossingReports().get(i);
                     label1 = new Label();
-                    label1.getStyleClass().add("report-item");
                     label1.setText(
                             (i + 1) +"°"+ " Reported level crossing\n" +
                                     "level crossing code: " + levelCrossing.getLcCode() + "\n" +
@@ -62,13 +60,11 @@ public class FixedReportsGraphicController implements Initializable{
             }
             if(trackCounter!=0) {
                 Label label1 = new Label();
-                label1.getStyleClass().add("report-item");
                 label1.setText("REPORTED TRACKS\n");
                 fixedReportsList.getItems().add(label1);
                 for (int i = 0; i < trackCounter; i++) {
                     ReportTrackBean reportTrackBean = reportListBean.getTrackReports().get(i);
                     label1 = new Label();
-                    label1.getStyleClass().add("report-item");
                     label1.setText(
                             (i + 1) +"°" +" Reported track\n" +
                                     "Track number: " + reportTrackBean.getTrackNumber() + "\n" +

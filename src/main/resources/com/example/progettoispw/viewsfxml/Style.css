@@ -9,19 +9,7 @@
     -fx-border-color:#F39C12 ;
     -fx-border-width: 0 0 0 4px;
 }
-.list-cell {
-    -fx-background-color: #2E2E2E; /* sfondo di base */
-    -fx-text-fill: white;            /* testo bianco */
-    -fx-padding: 12px;
-}
-.report-item {
-    -fx-text-fill: white;
-}
 
-.list-cell:focused {
-    -fx-background-color: #D35400; /* arancione scuro */
-    -fx-text-fill: white;          /* testo bianco */
-}
 .buttonItem {
     -fx-background-color: #2E2E2E;
     -fx-text-fill: #ECF0F1;
