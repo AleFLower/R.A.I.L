@@ -5,71 +5,31 @@
 }
 
 .sidebarItem:hover {
-    -fx-background-color: #D35400;
-    -fx-border-color: #00ADB5;
+    -fx-background-color: #2E2E2E;
+    -fx-border-color:#F39C12 ;
     -fx-border-width: 0 0 0 4px;
 }
-
-.buttonItem {
-    -fx-background-color: #2C3E50;
-    -fx-text-fill: #ECF0F1;
-    -fx-font-weight: bold;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-}
-
-.buttonItem:pressed {
-    -fx-background-color: #D35400;
-}
-
-.combo-box {
-    -fx-background-color: white;
-    -fx-control-inner-background: white;
-    -fx-text-fill: black;
-}
-
-.combo-box .arrow-button {
-    -fx-background-color: white;
-}
-
-.combo-box .list-cell {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-}
-
-
-.list-cell {
-    -fx-padding: 8px;
+.list-cell:hover {
+    -fx-background-color: #2E2E2E;
 }
 
 .list-cell:selected {
     -fx-background-color: #2E2E2E;
 }
 
-.report-card {
-    -fx-background-color: transparent;
-    -fx-padding: 12px;
-    -fx-background-radius: 8;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 8;
-}
 
-.report-title {
-    -fx-font-size: 16px;
+.buttonItem {
+    -fx-background-color: #2E2E2E;  /* sfondo grigio scuro */
+    -fx-text-fill: #ECF0F1;          /* testo chiaro */
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
-    -fx-padding: 0 0 8 0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
 }
 
-.report-item {
-        -fx-font-size: 14px;
+.buttonItem:hover {
+    -fx-background-color: #3A3A3A;   /* leggermente più chiaro quando passaggio mouse */
 }
 
-.list-cell:selected .report-title {
-    -fx-fill: white;
+.buttonItem:armed {
+    -fx-background-color: #D35400;   /* arancione scuro quando cliccato */
 }
-
-.list-cell:selected .report-item {
-    -fx-fill: white;
-}
-
