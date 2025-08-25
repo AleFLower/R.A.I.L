@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginDaoImplTest {
+class LoginDaoTest {
 
     @Test
     void verifyExistance() throws SQLException, PasswordReadException {
             LoginDaoJDBC loginDao = new LoginDaoJDBC();
-            assertEquals(true, loginDao.verifyAccount("admin@esempio.com", "adminpass"));
+            assertEquals(true, loginDao.verifyAccount("admin@example.com", "adminpassword"));
     }
     @Test
     void verifyNotExistInSystem() throws  SQLException, PasswordReadException {

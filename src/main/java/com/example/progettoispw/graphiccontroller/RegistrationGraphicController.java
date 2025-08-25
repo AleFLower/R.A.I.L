@@ -71,13 +71,12 @@ public class RegistrationGraphicController extends GeneralGraphicController {
             RegistrationController registrationController = new RegistrationController(registrationBean);
             registrationController.registrateUser(AccessUtility.getPersistence());
 
-            // Disabilita i campi e bottone
             textFieldEmail.setDisable(true);
             textFieldUsername.setDisable(true);
             passwordFieldPassword.setDisable(true);
             signupBtn.setDisable(true);
 
-            // Messaggio di conferma lungo e dettagliato
+
             StringBuilder successContent = new StringBuilder();
             successContent.append("Congratulations!\n\n");
             successContent.append("Your account has been successfully created.\n\n");

@@ -26,7 +26,7 @@
       <StackPane layoutX="0" layoutY="42.0" prefHeight="358.0" prefWidth="700.0">
          <Label fx:id="errorLabel" text="No reports found"
                 visible="false" opacity="0.85"
-                style="-fx-background-color: rgba(255,255,255,0.9); -fx-text-fill: #d32f2f; -fx-padding: 16px; -fx-background-radius: 8;">
+                style="-fx-background-color: rgba(255,255,255,0.9); -fx-text-fill: #D35400; -fx-padding: 16px; -fx-background-radius: 8;">
             <font>
                <Font name="System Bold" size="20.0" />
             </font>

@@ -26,15 +26,15 @@ public class SendReportDaoJDBC implements SendReportDao {
     }
 
     @Override
-    public void sendRailwayAssetReport(RailwayAsset asset)
+    public void sendRailwayAssetReport(RailwayAsset railwayAsset)
             throws SQLException, ReportAlreadyExistsException, PasswordReadException {
 
         verifyConnection();
 
-        switch (asset.getAssetType()) {
-            case TRACK -> handleTrack(asset);
-            case LEVELCROSSING -> handleLevelCrossing(asset);
-            default -> throw new IllegalArgumentException("Unsupported asset type: " + asset.getAssetType());
+        switch (railwayAsset.getAssetType()) {
+            case TRACK -> handleTrack(railwayAsset);
+            case LEVELCROSSING -> handleLevelCrossing(railwayAsset);
+            default -> throw new IllegalArgumentException("Unsupported asset type: " + railwayAsset.getAssetType());
         }
     }
 

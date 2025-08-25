@@ -37,7 +37,7 @@ public class LoginDaoJDBC implements LoginDao{
             AccessUtility.setUsername(resultSet.getString("username"));
 
             AccessUtility.setUserCode(Integer.toString(resultSet.getInt("user_id")));
-            AccessUtility.setRole(Role.valueOf(resultSet.getString("role")));  //prendo il role dal db
+            AccessUtility.setRole(Role.valueOf(resultSet.getString("role")));
 
             return true;
         }

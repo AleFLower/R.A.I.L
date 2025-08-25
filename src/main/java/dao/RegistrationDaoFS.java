@@ -16,11 +16,12 @@ public class RegistrationDaoFS implements RegistrationDao {
     @Override
     @SuppressWarnings("unchecked")
     public boolean registrateUser(String username, String email, String password) throws IOException {
+
         if (verifyUserExistance(username, email)) {
             List<AccountData> users = new ArrayList<>();
             File file = new File(PATH_FILE_UTENTI);
 
-            if (!file.exists() && file.length() > 0) {
+            if (file.exists() && file.length() > 0) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                     users = (List<AccountData>) ois.readObject();
                 } catch (ClassNotFoundException e) {

@@ -16,12 +16,12 @@ public class OnlineState extends AbstractState{
     }
 
     @Override
-    public void entry() {
+    protected void entry() {
         entryTime = System.currentTimeMillis();
     }
 
     @Override
-    public void exit() {
+    protected void exit() {
         long durationMs = System.currentTimeMillis() - entryTime;
         long durationSec = durationMs / 1000;
         totalOnlineTime += durationSec;

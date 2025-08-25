@@ -9,7 +9,7 @@ public class JDBCDaoFactory extends DaoFactory {
 
 
     @Override
-    public SendReportDao getSendAssetDao(AssetType assetType) throws SQLException, PasswordReadException {
+    public SendReportDao getSendReportDao(AssetType assetType) throws SQLException, PasswordReadException {
         return new SendReportDaoJDBC();
     }
 

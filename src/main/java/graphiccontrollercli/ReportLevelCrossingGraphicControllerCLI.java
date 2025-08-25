@@ -15,8 +15,8 @@ public class ReportLevelCrossingGraphicControllerCLI {
     private final ReportLevelCrossingViewCLI view;
     private final TypeOfPersistence typeOfPersistence;
 
-    public ReportLevelCrossingGraphicControllerCLI(TypeOfPersistence tipoPersistenza) {
-        this.typeOfPersistence = tipoPersistenza;
+    public ReportLevelCrossingGraphicControllerCLI(TypeOfPersistence typeOfPersistence) {
+        this.typeOfPersistence = typeOfPersistence;
         this.view = new ReportLevelCrossingViewCLI();
     }
 

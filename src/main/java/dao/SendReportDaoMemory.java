@@ -15,8 +15,8 @@ public class SendReportDaoMemory implements SendReportDao{
     }
 
     @Override
-    public void sendRailwayAssetReport(RailwayAsset instance) throws ReportAlreadyExistsException {
-       reportRepository.sendReport(instance,AccessUtility.getUserCode());
+    public void sendRailwayAssetReport(RailwayAsset railwayAsset) throws ReportAlreadyExistsException {
+       reportRepository.sendReport(railwayAsset,AccessUtility.getUserCode());
     }
 
     public int getOutcome() {

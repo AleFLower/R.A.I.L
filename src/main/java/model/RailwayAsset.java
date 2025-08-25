@@ -63,16 +63,16 @@ public abstract class RailwayAsset implements Serializable {
     }
 
     public int calculatePriority() {
-        int priority = 5; // base
+        int priority = 5;
         if (issue != null) {
             String lower = issue.toLowerCase();
             if (lower.contains("derailment") || lower.contains("collision")) {
-                priority += 10; // eventi critici
+                priority += 10;
             }
         }
 
         long hours = elapsedReportTime();
-        priority += hours / 2; // aumenta con il tempo
+        priority += hours / 2;
         return priority;
     }
 

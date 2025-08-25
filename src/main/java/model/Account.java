@@ -12,15 +12,15 @@ public class Account extends Subject {
 
     private String username;
     private String userCode;
-    private static Account account;
+    private static Account instance;
     private Role role;
     private StateMachine stateMachine;
 
     public static Account getInstance(){
-        if(account==null){
-           account=new Account();
+        if(instance ==null){
+           instance =new Account();
         }
-        return account;
+        return instance;
     }
     protected Account (){
         stateMachine=new StateMachineImpl();
@@ -42,18 +42,6 @@ public class Account extends Subject {
 
     public String getActualState(){return this.stateMachine.toString();}
 
-    @Override
-    public void attach(Observer o) {
-        this.observerList.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        int i=this.observerList.indexOf(o);
-        if(i>=0) {
-            this.observerList.remove(i);
-        }
-    }
     @Override
     public void notifyObservers() {
         for(Observer o:this.observerList){

@@ -110,7 +110,7 @@ public class LoginGraphicController extends GeneralGraphicController{
         }
     }
 
-    private void showAdminNotifications() {
+    public void showAdminNotifications() {
         NotificationController notificationController = new NotificationController();
 
         if (!notificationController.hasNotifications()) {
@@ -130,7 +130,7 @@ public class LoginGraphicController extends GeneralGraphicController{
         alert.showAndWait();
     }
 
-    private void getReportNotifications(List<NotificationItem> notifications) {
+    public void getReportNotifications(List<NotificationItem> notifications) {
         TextArea area = new TextArea();
         area.setEditable(false);
         area.setWrapText(true);

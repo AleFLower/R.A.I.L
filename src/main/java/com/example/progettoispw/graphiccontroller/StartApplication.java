@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
 import utility.Printer;
 import utility.AccessUtility;
 import java.io.*;
@@ -24,6 +25,7 @@ public class StartApplication extends Application {
     }
 
     public static void main(String[] args) throws IOException {
+
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("---------------------------------------------------------------------");

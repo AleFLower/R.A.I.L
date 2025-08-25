@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class UserRepository {
 
-    private final Map<String, String> users = new HashMap<>();//key = email,value = pass
-    private final Map<String, String> usernames = new HashMap<>();//key = email, value = username
-    private final Map<String, Role> userRoles = new HashMap<>();//key = email, value = role
+    private final Map<String, String> users = new HashMap<>();
+    private final Map<String, String> usernames = new HashMap<>();
+    private final Map<String, Role> userRoles = new HashMap<>();
 
     public UserRepository() {
        //default users
-        addUser("MarioRossi", "mario@esempio.com", "1234", Role.ADMIN);
-        addUser("AnnaVerdi", "anna@esempio.com", "abcd", Role.USER);
+        addUser("admin", "admin@example.com", "admin123", Role.ADMIN);
+        addUser("user", "user@example.com", "user123", Role.USER);
     }
 
     public boolean isValidUser(String email, String password) {

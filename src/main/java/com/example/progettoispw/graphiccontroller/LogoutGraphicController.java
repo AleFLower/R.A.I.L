@@ -25,6 +25,7 @@ public class LogoutGraphicController extends GeneralGraphicController {
 
         AccessUtility.setUserCode(null);
         AccessUtility.setUsername(null);
+        AccessUtility.setRole(null);
         accountController.goOffline();
 
         try {

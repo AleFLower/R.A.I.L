@@ -12,13 +12,14 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
-class TrackDaoImplJDBCTest {
+class SendTrackDaoTest {
 
     SendReportDaoJDBC trackDaoImpl;
 
     @Test
     void saveTrackNotInDB() {
         try {
+            trackDaoImpl = new SendReportDaoJDBC();
             AccessUtility.setUserCode("2");
             RailwayAsset newTrack = new Track("1", "Milano centrale", "rotaie usurate");
             trackDaoImpl.sendRailwayAssetReport(newTrack);
@@ -33,8 +34,9 @@ class TrackDaoImplJDBCTest {
     void saveTrackAlreadyInDB() {
 
         try {
+            trackDaoImpl = new SendReportDaoJDBC();
             AccessUtility.setUserCode("999");
-            RailwayAsset duplicateTrack = new Track("2", "stazione termini", "corpo estraneo");
+            RailwayAsset duplicateTrack = new Track("2", "roma termini", "corpo estraneo sui binari");
             trackDaoImpl.sendRailwayAssetReport(duplicateTrack);
         } catch (ReportAlreadyExistsException | SQLException | PasswordReadException e) {
             //do nothing in test

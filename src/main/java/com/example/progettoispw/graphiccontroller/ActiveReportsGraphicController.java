@@ -92,7 +92,6 @@ public class ActiveReportsGraphicController implements Initializable {
             try {
                 sceneController.displayScene("/com/example/progettoispw/viewsfxml/HomeView.fxml");
             }catch(Exception e){
-
                 System.exit(-1);
             }
         });

@@ -29,12 +29,12 @@ public class ActiveReportsViewCLI {
         if (trackCounter > 0) {
             Printer.print("\n>> REPORTED TRACKS:");
             for (int i = 0; i < trackCounter; i++) {
-                ReportTrackBean binario = reportList.getTrackReports().get(i);
+                ReportTrackBean track = reportList.getTrackReports().get(i);
                 Printer.print("\n" + (i + 1) + ") Track");
-                Printer.print("Track number: " + binario.getTrackNumber());
-                Printer.print("Location: " + binario.getLocation());
-                Printer.print("Issue: " + binario.getIssue());
-                Printer.print("Status: " + binario.getState());
+                Printer.print("Track number: " + track.getTrackNumber());
+                Printer.print("Location: " + track.getLocation());
+                Printer.print("Issue: " + track.getIssue());
+                Printer.print("Status: " + track.getState());
             }
         }
 

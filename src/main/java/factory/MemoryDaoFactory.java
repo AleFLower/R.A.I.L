@@ -8,7 +8,7 @@ public class MemoryDaoFactory extends DaoFactory {
     private static final ReportRepository reportRepository = new ReportRepository();
 
     @Override
-    public SendReportDao getSendAssetDao(AssetType assetType) {
+    public SendReportDao getSendReportDao(AssetType assetType) {
             return new SendReportDaoMemory(reportRepository);
     }
 

@@ -21,7 +21,7 @@ public class FSDaoFactory extends DaoFactory {
     }
 
 
-    public SendReportDao getSendAssetDao(AssetType assetType)  {
+    public SendReportDao getSendReportDao(AssetType assetType)  {
            return new SendReportDaoFS();
     }
 }

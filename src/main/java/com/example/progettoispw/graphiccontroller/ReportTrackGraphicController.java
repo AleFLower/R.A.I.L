@@ -91,18 +91,18 @@ public class ReportTrackGraphicController extends GeneralGraphicController {
         alert.setHeaderText("You are not logged in");
         alert.setContentText("Please log in or sign up to continue. What would you like to do?");
 
-        ButtonType buttonLogin = new ButtonType("Sign in");
-        ButtonType buttonRegister = new ButtonType("Sign up");
+        ButtonType alreadyHaveAccount = new ButtonType("Sign in");
+        ButtonType doNotHaveAccount = new ButtonType("Sign up");
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(buttonLogin, buttonRegister, buttonCancel);
+        alert.getButtonTypes().setAll(alreadyHaveAccount, doNotHaveAccount, buttonCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent()) {
-            if (result.get() == buttonLogin) {
+            if (result.get() == alreadyHaveAccount) {
                 sceneController.displayScene("/com/example/progettoispw/viewsfxml/LoginRegistrationView.fxml");
-            } else if (result.get() == buttonRegister) {
+            } else if (result.get() == doNotHaveAccount) {
                 sceneController.displayScene("/com/example/progettoispw/viewsfxml/RegistrationView.fxml");
             }
         }

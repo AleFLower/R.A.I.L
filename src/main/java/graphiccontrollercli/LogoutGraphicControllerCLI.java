@@ -11,6 +11,7 @@ public class LogoutGraphicControllerCLI {
     public void logout() {
 
         AccessUtility.setUserCode(null);
+        AccessUtility.setRole(null);
         AccessUtility.setUsername(null);
         accountController.goOffline();
 

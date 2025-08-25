@@ -7,5 +7,5 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface SendReportDao {
-    void sendRailwayAssetReport(RailwayAsset instance) throws SQLException, ReportAlreadyExistsException, PasswordReadException, IOException;
+    void sendRailwayAssetReport(RailwayAsset railwayAsset) throws SQLException, ReportAlreadyExistsException, PasswordReadException, IOException;
 }

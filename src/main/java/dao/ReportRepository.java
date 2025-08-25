@@ -33,6 +33,7 @@ public class ReportRepository {
 
     private void registerReport(String userCode, RailwayAsset railwayAsset) {
         reportsForUser.computeIfAbsent(userCode, k -> new ArrayList<>()).add(railwayAsset);
+        reports.add(railwayAsset);
     }
 
     public List<RailwayAsset> getReportsForUser(String userCode) {
